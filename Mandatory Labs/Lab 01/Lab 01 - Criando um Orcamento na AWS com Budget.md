@@ -1,71 +1,71 @@
 <div align="center">
 
-# 💰 AWS Budgets: Cost Control with Email Alerts
+# 💰 AWS Budgets: Controle de Custos com Alertas por E-mail
 
-**Hands-on lab: creating a cost budget and automatic alerts on AWS**
+**Laboratório prático: criando um orçamento de custos e alertas automáticos na AWS**
 
-![AWS](https://img.shields.io/badge/AWS-Budgets-FF9900?style=flat-square&logo=amazonaws&logoColor=white) ![Amazon SNS](https://img.shields.io/badge/Amazon-SNS-E7157B?style=flat-square&logo=amazonaws&logoColor=white) ![FinOps](https://img.shields.io/badge/Topic-Cost%20Management-2E7D32?style=flat-square) ![Status](https://img.shields.io/badge/Status-Completed-success?style=flat-square)
+![AWS](https://img.shields.io/badge/AWS-Budgets-FF9900?style=flat-square&logo=amazonaws&logoColor=white) ![Amazon SNS](https://img.shields.io/badge/Amazon-SNS-E7157B?style=flat-square&logo=amazonaws&logoColor=white) ![FinOps](https://img.shields.io/badge/Tema-Gest%C3%A3o%20de%20Custos-2E7D32?style=flat-square) ![Status](https://img.shields.io/badge/Status-Conclu%C3%ADdo-success?style=flat-square)
 
-![Certification](https://img.shields.io/badge/Goal-AWS%20Certified%20Solutions%20Architect%20Associate-232F3E?style=flat-square&logo=amazonaws&logoColor=white) ![Bootcamp](https://img.shields.io/badge/Escola%20da%20Nuvem-Class%20C10%20OUT%20--%20DPCN%2019-0A66C2?style=flat-square) ![Language](https://img.shields.io/badge/Lang-English-blue?style=flat-square)
+![Certificação](https://img.shields.io/badge/Objetivo-AWS%20Certified%20Solutions%20Architect%20Associate-232F3E?style=flat-square&logo=amazonaws&logoColor=white) ![Capacitação](https://img.shields.io/badge/Escola%20da%20Nuvem-Turma%20C10%20OUT%20--%20DPCN%2019-0A66C2?style=flat-square) ![Idioma](https://img.shields.io/badge/Idioma-Portugu%C3%AAs%20(BR)-green?style=flat-square)
 
 </div>
 
 ---
 
-## 📑 Table of Contents
+## 📑 Sumário
 
-- [📖 About the Project](#-about-the-project)
-- [🎯 Objectives](#-objectives)
-- [🧩 Scenario](#-scenario)
-- [🏗️ Architecture](#️-architecture)
-- [✅ Prerequisites](#-prerequisites)
-- [📊 Result](#-result)
-- [🔍 Validation](#-validation)
-- [💡 Key Takeaways](#-key-takeaways)
-- [🧹 Cleanup and Cost Notes](#-cleanup-and-cost-notes)
-- [☁️ AWS Services Covered](#️-aws-services-covered)
-- [👤 Author](#-author)
-
----
-
-## 📖 About the Project
-
-This project documents a hands-on lab completed during the **Escola da Nuvem** training program (**Class C10 OUT – DPCN 19**), part of my preparation for the **AWS Certified Solutions Architect – Associate** certification.
-
-The lab walks through setting up a spending budget with **AWS Budgets**, including an **email alert** triggered by a usage threshold, and then verifying the resulting configuration.
-
-> 💡 Cost visibility is a core part of well-architected workloads. A budget with alerts turns cost management from **reactive** (finding out at the end of the month) into **proactive** (acting while spending happens).
+- [📖 Sobre o Projeto](#-sobre-o-projeto)
+- [🎯 Objetivos](#-objetivos)
+- [🧩 Cenário](#-cenário)
+- [🏗️ Arquitetura](#️-arquitetura)
+- [✅ Pré-requisitos](#-pré-requisitos)
+- [📊 Resultado](#-resultado)
+- [🔍 Validação](#-validação)
+- [💡 Principais Aprendizados](#-principais-aprendizados)
+- [🧹 Limpeza e Observações de Custo](#-limpeza-e-observações-de-custo)
+- [☁️ Serviços Abordados](#️-serviços-abordados)
+- [👤 Autor](#-autor)
 
 ---
 
-## 🎯 Objectives
+## 📖 Sobre o Projeto
 
-- 🔎 Access **AWS Budgets** through the AWS Management Console
-- 🛠️ Create a budget with a custom limit
-- 📧 Configure email alerts based on usage percentage
-- ✅ Validate the budget creation and the notification setup
+Este projeto documenta um laboratório prático realizado durante a capacitação da **Escola da Nuvem** (**Turma C10 OUT – DPCN 19**), como parte da minha preparação para a certificação **AWS Certified Solutions Architect – Associate**.
+
+O laboratório mostra como configurar um orçamento de gastos com o **AWS Budgets**, incluindo um **alerta por e-mail** disparado por um limite de uso, e como verificar a configuração criada.
+
+> 💡 Visibilidade de custos é parte essencial de cargas de trabalho bem arquitetadas. Um orçamento com alertas transforma o gerenciamento de custos de **reativo** (descobrir no fim do mês) em **proativo** (agir enquanto o gasto acontece).
 
 ---
 
-## 🧩 Scenario
+## 🎯 Objetivos
 
-As a student using AWS for learning and experimentation, the goal is to avoid billing surprises and keep spending under control.
+- 🔎 Acessar o **AWS Budgets** pelo Console de Gerenciamento da AWS
+- 🛠️ Criar um orçamento com limite personalizado
+- 📧 Configurar alertas por e-mail com base em percentual de uso
+- ✅ Validar a criação do orçamento e a configuração das notificações
 
-| Parameter | Value |
+---
+
+## 🧩 Cenário
+
+Como estudante que utiliza a AWS para aprender e testar, o objetivo é evitar surpresas na fatura e manter os gastos sob controle.
+
+| Parâmetro | Valor |
 |---|---|
-| 💵 Budget amount | **US$ 10.00** |
-| 🔔 Alert threshold | **10%** of the budgeted amount (**US$ 1.00**) |
-| 📊 Trigger type | **Actual** cost |
-| 📬 Notification | Email |
+| 💵 Valor do orçamento | **US$ 10,00** |
+| 🔔 Limite do alerta | **10%** do valor orçado (**US$ 1,00**) |
+| 📊 Tipo de acionador | Custo **real** |
+| 📬 Notificação | E-mail |
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Arquitetura
 
 ```mermaid
 flowchart LR
-    A["📊 AWS Budgets"] -->|Notification| B["📣 Billing alert<br/>SNS topic"]
-    B -->|Email| C["👥 Users"]
+    A["📊 AWS Budgets"] -->|Notificação| B["📣 Tópico SNS<br/>de alerta de cobrança"]
+    B -->|E-mail| C["👥 Usuários"]
 
     subgraph AWS["☁️ AWS Cloud"]
         A
@@ -73,86 +73,90 @@ flowchart LR
     end
 ```
 
-When actual cost exceeds the configured threshold, AWS Budgets sends a notification through an SNS topic, which delivers the email to the registered recipient.
+Quando o custo real ultrapassa o limite configurado, o AWS Budgets envia uma notificação por meio de um tópico SNS, que entrega o e-mail ao destinatário cadastrado.
 
 ---
 
-## ✅ Prerequisites
+## ✅ Pré-requisitos
 
-- ☁️ AWS account provided by Escola da Nuvem, with first access already configured
-- 📧 A valid email address to receive alerts
-- 🔐 Console login with the correct account (always check the account shown at the top right of the console)
+- ☁️ Conta AWS fornecida pela Escola da Nuvem, com o primeiro acesso já configurado
+- 📧 Um endereço de e-mail válido para receber os alertas
+- 🔐 Login no console com a conta correta (sempre confira a conta exibida no canto superior direito)
 
-> ⚠️ In the training environment, permissions are limited to what each lab requires. Errors may appear when accessing services or resources that are not enabled for the account.
+> ⚠️ No ambiente da capacitação, as permissões são limitadas ao necessário para cada laboratório. Mensagens de erro podem aparecer ao acessar serviços ou recursos não liberados para a conta.
 
 ---
 
-## 📊 Result
+## 📊 Resultado
+
+### 💵 Orçamento criado
+
+Lista de orçamentos no console do **AWS Budgets**, exibindo o orçamento do laboratório, o valor definido e o status dos limites.
 
 <div align="center">
 
-![Output of aws sts get-caller-identity in CloudShell](docs/images/budget_created.png)
+![Orçamento criado no AWS Budgets](docs/images/budget_created.png)
 
-*Figure 1: Budget listed in the AWS Budgets console.*
+*Figura 1: orçamento listado no console do AWS Budgets, com limite de US$ 10,00.*
 
 </div>
 
 ---
 
-## 🔍 Validation
+## 🔍 Validação
 
-In the budgets list, check that:
+Na lista de orçamentos, verifique se:
 
-| ✔️ | Item | Expected |
+| ✔️ | Item | Esperado |
 |---|---|---|
-| ☑️ | **Name** | `my-budget-<first-name-last-name>` |
-| ☑️ | **Budget** | **US$ 10.00** |
-| ☑️ | **Amount used** | Matches current spend (typically close to US$ 0.00 in a fresh account) |
-| ☑️ | **Thresholds** | Status shown as **OK** while under the limit |
+| ☑️ | **Nome** | `meu-budget-<nome-sobrenome>` |
+| ☑️ | **Orçamento** | **US$ 10,00** |
+| ☑️ | **Valor usado** | Compatível com o gasto atual (geralmente próximo de US$ 0,00 em conta nova) |
+| ☑️ | **Limites** | Status **OK** enquanto estiver abaixo do limite |
 
 ---
 
-## 💡 Key Takeaways
+## 💡 Principais Aprendizados
 
-- 🔔 **Alerts before overruns:** thresholds give you time to react before costs exceed your limit.
-- 🕵️ **Investigate costs early:** a notification is the cue to find where spending comes from.
-- 🧯 **Corrective action:** shut down unused resources and optimize services in time.
-- 📉 **Avoid surprises:** monitor spending throughout the billing cycle, not only at its end.
-- 🧠 **Exam relevance:** cost management and monitoring tools such as AWS Budgets are part of designing cost-optimized architectures.
-
----
-
-## 🧹 Cleanup and Cost Notes
-
-- ✅ Creating a budget in this lab is part of the course setup, and **the budget is kept** to monitor resources throughout the training.
-- 🔌 When an alert arrives, check for **resources left running** to avoid unnecessary charges.
-- 💲 Always review current AWS pricing and Free Tier terms for your account.
+- 🔔 **Alertas antes do estouro:** limites dão tempo para reagir antes que os custos ultrapassem o planejado.
+- 🕵️ **Investigar cedo:** a notificação é o sinal para descobrir de onde vem o gasto.
+- 🧯 **Ação corretiva:** desligar recursos sem uso e otimizar serviços a tempo.
+- 📉 **Evitar surpresas:** acompanhar os gastos durante todo o ciclo de faturamento, e não só no final.
+- 🧠 **Relevância para a prova:** ferramentas de gestão e monitoramento de custos, como o AWS Budgets, fazem parte do projeto de arquiteturas com custo otimizado.
 
 ---
 
-## ☁️ AWS Services Covered
+## 🧹 Limpeza e Observações de Custo
+
+- ✅ A criação do orçamento neste laboratório faz parte da configuração do curso, e **o orçamento é mantido** para monitorar recursos durante a capacitação.
+- 🔌 Ao receber um alerta, verifique se há **recursos ligados** para evitar cobranças desnecessárias.
+- 💲 Consulte sempre os preços atuais da AWS e as condições do nível gratuito da sua conta.
+
+---
+
+## ☁️ Serviços Abordados
 
 ![AWS Budgets](https://img.shields.io/badge/AWS-Budgets-FF9900?style=flat-square&logo=amazonaws&logoColor=white) ![Amazon SNS](https://img.shields.io/badge/Amazon-SNS-E7157B?style=flat-square&logo=amazonaws&logoColor=white) ![AWS Management Console](https://img.shields.io/badge/AWS-Management%20Console-232F3E?style=flat-square&logo=amazonaws&logoColor=white)
 
-| Service | Role in the lab |
+| Serviço | Papel no laboratório |
 |---|---|
-| 📊 **AWS Budgets** | Creates the US$ 10.00 budget and sets the 10% alert threshold |
-| 📣 **Amazon SNS** | Billing alert topic that delivers the email notification |
-| 🖥️ **AWS Management Console** | Interface used to access and configure the services |
+| 📊 **AWS Budgets** | Criação do orçamento de US$ 10,00 e definição do limite de alerta em 10% |
+| 📣 **Amazon SNS** | Tópico de alerta de cobrança que entrega a notificação por e-mail |
+| 🖥️ **AWS Management Console** | Interface utilizada para acessar e configurar os serviços |
 
 ---
 
-## 👤 Author
+## 👤 Autor
 
 **Lucas Barretto**
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/lucaspimentabarretto)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/lbarretto)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Conectar-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/lucaspimentabarretto)
+[![GitHub](https://img.shields.io/badge/GitHub-Seguir-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/lbarretto)
 
 ---
 
 <div align="center">
 
-☁️ Lab completed as part of the **Escola da Nuvem** program, Class **C10 OUT – DPCN 19** 🚀
+☁️ Laboratório realizado como parte do programa **Escola da Nuvem**, Turma **C10 OUT – DPCN 19** 🚀
 
 </div>
