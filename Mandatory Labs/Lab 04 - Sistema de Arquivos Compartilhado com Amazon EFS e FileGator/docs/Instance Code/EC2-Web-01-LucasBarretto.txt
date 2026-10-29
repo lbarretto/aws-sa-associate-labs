@@ -1,0 +1,1508 @@
+sh-5.2$ df -h | grep efs
+127.0.0.1:/     8.0E     0  8.0E   0% /mnt/efs
+sh-5.2$ sudo mkdir -p /mnt/efs/arquivos
+sh-5.2$ sudo chmod 777 /mnt/efs/arquivos
+sh-5.2$     sudo dnf update -y
+Last metadata expiration check: 0:12:21 ago on Thu Oct 29 17:42:42 2026.
+Dependencies resolved.
+Nothing to do.
+Complete!
+sh-5.2$ sudo dnf install -y httpd php php-cli php-fpm php-mbstring php-xml php-json php-zip unzip wget
+Last metadata expiration check: 0:12:55 ago on Thu Oct 29 17:42:42 2026.
+Package unzip-6.0-68.amzn2023.0.2.x86_64 is already installed.
+Package wget-1.21.3-1.amzn2023.0.5.x86_64 is already installed.
+Dependencies resolved.
+=======================================================================================================================================================================================================================================
+ Package                                                     Architecture                                   Version                                                          Repository                                           Size
+=======================================================================================================================================================================================================================================
+Installing:
+ httpd                                                       x86_64                                         2.4.69-1.amzn2023.0.2                                            amazonlinux                                          45 k
+ php8.5                                                      x86_64                                         8.5.12-1.amzn2023.0.1                                            amazonlinux                                          13 k
+ php8.5-fpm                                                  x86_64                                         8.5.12-1.amzn2023.0.1                                            amazonlinux                                         3.1 M
+ php8.5-mbstring                                             x86_64                                         8.5.12-1.amzn2023.0.1                                            amazonlinux                                         538 k
+ php8.5-zip                                                  x86_64                                         8.5.12-1.amzn2023.0.1                                            amazonlinux                                          45 k
+Installing dependencies:
+ apr                                                         x86_64                                         1.7.5-1.amzn2023.0.4                                             amazonlinux                                         129 k
+ apr-util                                                    x86_64                                         1.6.5-1.amzn2023.0.1                                             amazonlinux                                         100 k
+ apr-util-lmdb                                               x86_64                                         1.6.5-1.amzn2023.0.1                                             amazonlinux                                          15 k
+ generic-logos-httpd                                         noarch                                         18.0.0-12.amzn2023.0.3                                           amazonlinux                                          19 k
+ httpd-core                                                  x86_64                                         2.4.69-1.amzn2023.0.2                                            amazonlinux                                         1.4 M
+ httpd-filesystem                                            noarch                                         2.4.69-1.amzn2023.0.2                                            amazonlinux                                          12 k
+ httpd-tools                                                 x86_64                                         2.4.69-1.amzn2023.0.2                                            amazonlinux                                          79 k
+ libbrotli                                                   x86_64                                         1.1.0-1.amzn2023.0.2                                             amazonlinux                                         333 k
+ libsodium                                                   x86_64                                         1.0.19-5.amzn2023                                                amazonlinux                                         174 k
+ libzip                                                      x86_64                                         1.7.3-4.amzn2023.0.3                                             amazonlinux                                          63 k
+ mailcap                                                     noarch                                         2.1.49-3.amzn2023.0.3                                            amazonlinux                                          33 k
+ nginx-filesystem                                            noarch                                         1:1.30.6-1.amzn2023.0.1                                          amazonlinux                                          10 k
+ php8.5-cli                                                  x86_64                                         8.5.12-1.amzn2023.0.1                                            amazonlinux                                         6.2 M
+ php8.5-common                                               x86_64                                         8.5.12-1.amzn2023.0.1                                            amazonlinux                                         870 k
+ php8.5-process                                              x86_64                                         8.5.12-1.amzn2023.0.1                                            amazonlinux                                          48 k
+ php8.5-xml                                                  x86_64                                         8.5.12-1.amzn2023.0.1                                            amazonlinux                                         249 k
+Installing weak dependencies:
+ apr-util-openssl                                            x86_64                                         1.6.5-1.amzn2023.0.1                                             amazonlinux                                          17 k
+ mod_http2                                                   x86_64                                         1:2.4.69-1.amzn2023.0.2                                          amazonlinux                                         130 k
+ mod_lua                                                     x86_64                                         2.4.69-1.amzn2023.0.2                                            amazonlinux                                          58 k
+ php8.5-pdo                                                  x86_64                                         8.5.12-1.amzn2023.0.1                                            amazonlinux                                         100 k
+ php8.5-sodium                                               x86_64                                         8.5.12-1.amzn2023.0.1                                            amazonlinux                                          44 k
+
+Transaction Summary
+=======================================================================================================================================================================================================================================
+Install  26 Packages
+
+Total download size: 14 M
+Installed size: 66 M
+Downloading Packages:
+(1/26): apr-1.7.5-1.amzn2023.0.4.x86_64.rpm                                                                                                                                                            4.9 MB/s | 129 kB     00:00    
+(2/26): apr-util-lmdb-1.6.5-1.amzn2023.0.1.x86_64.rpm                                                                                                                                                  535 kB/s |  15 kB     00:00    
+(3/26): apr-util-1.6.5-1.amzn2023.0.1.x86_64.rpm                                                                                                                                                       3.0 MB/s | 100 kB     00:00    
+(4/26): apr-util-openssl-1.6.5-1.amzn2023.0.1.x86_64.rpm                                                                                                                                               663 kB/s |  17 kB     00:00    
+(5/26): generic-logos-httpd-18.0.0-12.amzn2023.0.3.noarch.rpm                                                                                                                                          758 kB/s |  19 kB     00:00    
+(6/26): httpd-2.4.69-1.amzn2023.0.2.x86_64.rpm                                                                                                                                                         1.7 MB/s |  45 kB     00:00    
+(7/26): httpd-filesystem-2.4.69-1.amzn2023.0.2.noarch.rpm                                                                                                                                              383 kB/s |  12 kB     00:00    
+(8/26): httpd-tools-2.4.69-1.amzn2023.0.2.x86_64.rpm                                                                                                                                                   2.5 MB/s |  79 kB     00:00    
+(9/26): libsodium-1.0.19-5.amzn2023.x86_64.rpm                                                                                                                                                         6.5 MB/s | 174 kB     00:00    
+(10/26): libbrotli-1.1.0-1.amzn2023.0.2.x86_64.rpm                                                                                                                                                     8.9 MB/s | 333 kB     00:00    
+(11/26): libzip-1.7.3-4.amzn2023.0.3.x86_64.rpm                                                                                                                                                        2.1 MB/s |  63 kB     00:00    
+(12/26): mailcap-2.1.49-3.amzn2023.0.3.noarch.rpm                                                                                                                                                      1.2 MB/s |  33 kB     00:00    
+(13/26): mod_lua-2.4.69-1.amzn2023.0.2.x86_64.rpm                                                                                                                                                      2.4 MB/s |  58 kB     00:00    
+(14/26): mod_http2-2.4.69-1.amzn2023.0.2.x86_64.rpm                                                                                                                                                    4.5 MB/s | 130 kB     00:00    
+(15/26): nginx-filesystem-1.30.6-1.amzn2023.0.1.noarch.rpm                                                                                                                                             406 kB/s |  10 kB     00:00    
+(16/26): php8.5-8.5.12-1.amzn2023.0.1.x86_64.rpm                                                                                                                                                       514 kB/s |  13 kB     00:00    
+(17/26): php8.5-common-8.5.12-1.amzn2023.0.1.x86_64.rpm                                                                                                                                                 19 MB/s | 870 kB     00:00    
+(18/26): httpd-core-2.4.69-1.amzn2023.0.2.x86_64.rpm                                                                                                                                                   5.4 MB/s | 1.4 MB     00:00    
+(19/26): php8.5-cli-8.5.12-1.amzn2023.0.1.x86_64.rpm                                                                                                                                                    47 MB/s | 6.2 MB     00:00    
+(20/26): php8.5-mbstring-8.5.12-1.amzn2023.0.1.x86_64.rpm                                                                                                                                               14 MB/s | 538 kB     00:00    
+(21/26): php8.5-fpm-8.5.12-1.amzn2023.0.1.x86_64.rpm                                                                                                                                                    25 MB/s | 3.1 MB     00:00    
+(22/26): php8.5-process-8.5.12-1.amzn2023.0.1.x86_64.rpm                                                                                                                                               1.7 MB/s |  48 kB     00:00    
+(23/26): php8.5-pdo-8.5.12-1.amzn2023.0.1.x86_64.rpm                                                                                                                                                   2.3 MB/s | 100 kB     00:00    
+(24/26): php8.5-sodium-8.5.12-1.amzn2023.0.1.x86_64.rpm                                                                                                                                                1.7 MB/s |  44 kB     00:00    
+(25/26): php8.5-xml-8.5.12-1.amzn2023.0.1.x86_64.rpm                                                                                                                                                   8.5 MB/s | 249 kB     00:00    
+(26/26): php8.5-zip-8.5.12-1.amzn2023.0.1.x86_64.rpm                                                                                                                                                   1.0 MB/s |  45 kB     00:00    
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                                                                   29 MB/s |  14 MB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                                                                                                                                               1/1 
+  Installing       : php8.5-common-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                   1/26 
+  Running scriptlet: httpd-filesystem-2.4.69-1.amzn2023.0.2.noarch                                                                                                                                                                2/26 
+  Installing       : httpd-filesystem-2.4.69-1.amzn2023.0.2.noarch                                                                                                                                                                2/26 
+  Installing       : apr-1.7.5-1.amzn2023.0.4.x86_64                                                                                                                                                                              3/26 
+  Installing       : apr-util-lmdb-1.6.5-1.amzn2023.0.1.x86_64                                                                                                                                                                    4/26 
+  Installing       : apr-util-openssl-1.6.5-1.amzn2023.0.1.x86_64                                                                                                                                                                 5/26 
+  Installing       : apr-util-1.6.5-1.amzn2023.0.1.x86_64                                                                                                                                                                         6/26 
+  Installing       : mailcap-2.1.49-3.amzn2023.0.3.noarch                                                                                                                                                                         7/26 
+  Installing       : httpd-tools-2.4.69-1.amzn2023.0.2.x86_64                                                                                                                                                                     8/26 
+  Installing       : httpd-core-2.4.69-1.amzn2023.0.2.x86_64                                                                                                                                                                      9/26 
+  Installing       : mod_http2-1:2.4.69-1.amzn2023.0.2.x86_64                                                                                                                                                                    10/26 
+  Installing       : mod_lua-2.4.69-1.amzn2023.0.2.x86_64                                                                                                                                                                        11/26 
+  Installing       : php8.5-cli-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                     12/26 
+  Installing       : php8.5-mbstring-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                13/26 
+  Installing       : php8.5-pdo-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                     14/26 
+  Installing       : php8.5-process-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                 15/26 
+  Installing       : php8.5-xml-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                     16/26 
+  Running scriptlet: nginx-filesystem-1:1.30.6-1.amzn2023.0.1.noarch                                                                                                                                                             17/26 
+  Installing       : nginx-filesystem-1:1.30.6-1.amzn2023.0.1.noarch                                                                                                                                                             17/26 
+  Installing       : php8.5-fpm-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                     18/26 
+  Running scriptlet: php8.5-fpm-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                     18/26 
+  Installing       : libzip-1.7.3-4.amzn2023.0.3.x86_64                                                                                                                                                                          19/26 
+  Installing       : libsodium-1.0.19-5.amzn2023.x86_64                                                                                                                                                                          20/26 
+  Installing       : php8.5-sodium-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                  21/26 
+  Installing       : libbrotli-1.1.0-1.amzn2023.0.2.x86_64                                                                                                                                                                       22/26 
+  Installing       : generic-logos-httpd-18.0.0-12.amzn2023.0.3.noarch                                                                                                                                                           23/26 
+  Installing       : httpd-2.4.69-1.amzn2023.0.2.x86_64                                                                                                                                                                          24/26 
+  Running scriptlet: httpd-2.4.69-1.amzn2023.0.2.x86_64                                                                                                                                                                          24/26 
+  Installing       : php8.5-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                         25/26 
+  Installing       : php8.5-zip-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                     26/26 
+  Running scriptlet: httpd-2.4.69-1.amzn2023.0.2.x86_64                                                                                                                                                                          26/26 
+  Running scriptlet: php8.5-zip-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                     26/26 
+  Verifying        : apr-1.7.5-1.amzn2023.0.4.x86_64                                                                                                                                                                              1/26 
+  Verifying        : apr-util-1.6.5-1.amzn2023.0.1.x86_64                                                                                                                                                                         2/26 
+  Verifying        : apr-util-lmdb-1.6.5-1.amzn2023.0.1.x86_64                                                                                                                                                                    3/26 
+  Verifying        : apr-util-openssl-1.6.5-1.amzn2023.0.1.x86_64                                                                                                                                                                 4/26 
+  Verifying        : generic-logos-httpd-18.0.0-12.amzn2023.0.3.noarch                                                                                                                                                            5/26 
+  Verifying        : httpd-2.4.69-1.amzn2023.0.2.x86_64                                                                                                                                                                           6/26 
+  Verifying        : httpd-core-2.4.69-1.amzn2023.0.2.x86_64                                                                                                                                                                      7/26 
+  Verifying        : httpd-filesystem-2.4.69-1.amzn2023.0.2.noarch                                                                                                                                                                8/26 
+  Verifying        : httpd-tools-2.4.69-1.amzn2023.0.2.x86_64                                                                                                                                                                     9/26 
+  Verifying        : libbrotli-1.1.0-1.amzn2023.0.2.x86_64                                                                                                                                                                       10/26 
+  Verifying        : libsodium-1.0.19-5.amzn2023.x86_64                                                                                                                                                                          11/26 
+  Verifying        : libzip-1.7.3-4.amzn2023.0.3.x86_64                                                                                                                                                                          12/26 
+  Verifying        : mailcap-2.1.49-3.amzn2023.0.3.noarch                                                                                                                                                                        13/26 
+  Verifying        : mod_http2-1:2.4.69-1.amzn2023.0.2.x86_64                                                                                                                                                                    14/26 
+  Verifying        : mod_lua-2.4.69-1.amzn2023.0.2.x86_64                                                                                                                                                                        15/26 
+  Verifying        : nginx-filesystem-1:1.30.6-1.amzn2023.0.1.noarch                                                                                                                                                             16/26 
+  Verifying        : php8.5-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                         17/26 
+  Verifying        : php8.5-cli-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                     18/26 
+  Verifying        : php8.5-common-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                  19/26 
+  Verifying        : php8.5-fpm-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                     20/26 
+  Verifying        : php8.5-mbstring-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                21/26 
+  Verifying        : php8.5-pdo-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                     22/26 
+  Verifying        : php8.5-process-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                 23/26 
+  Verifying        : php8.5-sodium-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                  24/26 
+  Verifying        : php8.5-xml-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                     25/26 
+  Verifying        : php8.5-zip-8.5.12-1.amzn2023.0.1.x86_64                                                                                                                                                                     26/26 
+
+Installed:
+  apr-1.7.5-1.amzn2023.0.4.x86_64                 apr-util-1.6.5-1.amzn2023.0.1.x86_64    apr-util-lmdb-1.6.5-1.amzn2023.0.1.x86_64     apr-util-openssl-1.6.5-1.amzn2023.0.1.x86_64 generic-logos-httpd-18.0.0-12.amzn2023.0.3.noarch
+  httpd-2.4.69-1.amzn2023.0.2.x86_64              httpd-core-2.4.69-1.amzn2023.0.2.x86_64 httpd-filesystem-2.4.69-1.amzn2023.0.2.noarch httpd-tools-2.4.69-1.amzn2023.0.2.x86_64     libbrotli-1.1.0-1.amzn2023.0.2.x86_64            
+  libsodium-1.0.19-5.amzn2023.x86_64              libzip-1.7.3-4.amzn2023.0.3.x86_64      mailcap-2.1.49-3.amzn2023.0.3.noarch          mod_http2-1:2.4.69-1.amzn2023.0.2.x86_64     mod_lua-2.4.69-1.amzn2023.0.2.x86_64             
+  nginx-filesystem-1:1.30.6-1.amzn2023.0.1.noarch php8.5-8.5.12-1.amzn2023.0.1.x86_64     php8.5-cli-8.5.12-1.amzn2023.0.1.x86_64       php8.5-common-8.5.12-1.amzn2023.0.1.x86_64   php8.5-fpm-8.5.12-1.amzn2023.0.1.x86_64          
+  php8.5-mbstring-8.5.12-1.amzn2023.0.1.x86_64    php8.5-pdo-8.5.12-1.amzn2023.0.1.x86_64 php8.5-process-8.5.12-1.amzn2023.0.1.x86_64   php8.5-sodium-8.5.12-1.amzn2023.0.1.x86_64   php8.5-xml-8.5.12-1.amzn2023.0.1.x86_64          
+  php8.5-zip-8.5.12-1.amzn2023.0.1.x86_64        
+
+Complete!
+sh-5.2$ sudo systemctl enable --now httpd
+Created symlink /etc/systemd/system/multi-user.target.wants/httpd.service → /usr/lib/systemd/system/httpd.service.
+sh-5.2$ sudo systemctl status httpd
+● httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disabled)
+    Drop-In: /usr/lib/systemd/system/httpd.service.d
+             └─php-fpm.conf
+     Active: active (running) since Thu 2026-10-29 17:55:53 UTC; 6s ago
+       Docs: man:httpd.service(8)
+   Main PID: 28846 (httpd)
+     Status: "Started, listening on: port 80"
+      Tasks: 177 (limit: 1113)
+     Memory: 13.5M
+        CPU: 55ms
+     CGroup: /system.slice/httpd.service
+             ├─28846 /usr/sbin/httpd -DFOREGROUND
+             ├─28848 /usr/sbin/httpd -DFOREGROUND
+             ├─28849 /usr/sbin/httpd -DFOREGROUND
+             ├─28850 /usr/sbin/httpd -DFOREGROUND
+             └─28916 /usr/sbin/httpd -DFOREGROUND
+
+Oct 29 17:55:53 ip-172-31-5-150.ec2.internal systemd[1]: Starting httpd.service - The Apache HTTP Server...
+Oct 29 17:55:53 ip-172-31-5-150.ec2.internal systemd[1]: Started httpd.service - The Apache HTTP Server.
+Oct 29 17:55:53 ip-172-31-5-150.ec2.internal httpd[28846]: Server configured, listening on: port 80
+sh-5.2$ cd /var/www
+sh-5.2$ sudo wget https://github.com/filegator/static/raw/master/builds/filegator_latest.zip
+--2026-10-29 17:56:16--  https://github.com/filegator/static/raw/master/builds/filegator_latest.zip
+Resolving github.com (github.com)... 140.82.114.3
+Connecting to github.com (github.com)|140.82.114.3|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://raw.githubusercontent.com/filegator/static/master/builds/filegator_latest.zip [following]
+--2026-10-29 17:56:17--  https://raw.githubusercontent.com/filegator/static/master/builds/filegator_latest.zip
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.110.133, 185.199.111.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4136655 (3.9M) [application/zip]
+Saving to: ‘filegator_latest.zip’
+
+filegator_latest.zip                                      100%[====================================================================================================================================>]   3.94M  --.-KB/s    in 0.03s   
+
+2026-10-29 17:56:17 (115 MB/s) - ‘filegator_latest.zip’ saved [4136655/4136655]
+
+sh-5.2$ sudo unzip filegator_latest.zip
+Archive:  filegator_latest.zip
+   creating: filegator/
+  inflating: filegator/docker-compose.yml  
+  inflating: filegator/package-lock.json  
+   creating: filegator/dist/
+  inflating: filegator/dist/manifest.json  
+   creating: filegator/dist/js/
+  inflating: filegator/dist/js/app.js.map  
+  inflating: filegator/dist/js/chunk-vendors.js  
+  inflating: filegator/dist/js/chunk-vendors.js.map  
+  inflating: filegator/dist/js/app.js  
+  inflating: filegator/dist/service-worker.js  
+   creating: filegator/dist/css/
+  inflating: filegator/dist/css/chunk-vendors.css  
+  inflating: filegator/dist/css/app.css  
+  inflating: filegator/dist/main.html  
+  inflating: filegator/dist/index.php  
+  inflating: filegator/dist/favicon.ico  
+   creating: filegator/dist/img/
+  inflating: filegator/dist/img/logo.gif  
+  inflating: filegator/dist/img/logo.png  
+  inflating: filegator/dist/img/logo.svg  
+  inflating: filegator/dist/img/fa-brands-400.svg  
+  inflating: filegator/dist/img/fa-solid-900.svg  
+  inflating: filegator/dist/img/fa-regular-400.svg  
+  inflating: filegator/dist/robots.txt  
+   creating: filegator/dist/fonts/
+  inflating: filegator/dist/fonts/fa-brands-400.eot  
+  inflating: filegator/dist/fonts/fa-regular-400.woff  
+  inflating: filegator/dist/fonts/fa-solid-900.ttf  
+ extracting: filegator/dist/fonts/fa-regular-400.woff2  
+  inflating: filegator/dist/fonts/fa-brands-400.woff2  
+  inflating: filegator/dist/fonts/fa-brands-400.ttf  
+  inflating: filegator/dist/fonts/fa-solid-900.eot  
+  inflating: filegator/dist/fonts/fa-brands-400.woff  
+  inflating: filegator/dist/fonts/fa-solid-900.woff2  
+  inflating: filegator/dist/fonts/fa-regular-400.ttf  
+  inflating: filegator/dist/fonts/fa-solid-900.woff  
+  inflating: filegator/dist/fonts/fa-regular-400.eot  
+  inflating: filegator/CHANGELOG.md  
+   creating: filegator/backend/
+   creating: filegator/backend/Kernel/
+  inflating: filegator/backend/Kernel/StreamedResponse.php  
+  inflating: filegator/backend/Kernel/Request.php  
+  inflating: filegator/backend/Kernel/Response.php  
+   creating: filegator/backend/Utils/
+  inflating: filegator/backend/Utils/PasswordHash.php  
+  inflating: filegator/backend/Utils/Collection.php  
+  inflating: filegator/backend/App.php  
+   creating: filegator/backend/Config/
+  inflating: filegator/backend/Config/Config.php  
+   creating: filegator/backend/Services/
+   creating: filegator/backend/Services/Storage/
+  inflating: filegator/backend/Services/Storage/DirectoryCollection.php  
+   creating: filegator/backend/Services/Storage/Adapters/
+  inflating: filegator/backend/Services/Storage/Adapters/FilegatorFtp.php  
+  inflating: filegator/backend/Services/Storage/Filesystem.php  
+   creating: filegator/backend/Services/View/
+  inflating: filegator/backend/Services/View/ViewInterface.php  
+   creating: filegator/backend/Services/View/Adapters/
+  inflating: filegator/backend/Services/View/Adapters/Vuejs.php  
+   creating: filegator/backend/Services/Tmpfs/
+  inflating: filegator/backend/Services/Tmpfs/TmpfsInterface.php  
+   creating: filegator/backend/Services/Tmpfs/Adapters/
+  inflating: filegator/backend/Services/Tmpfs/Adapters/Tmpfs.php  
+   creating: filegator/backend/Services/Router/
+  inflating: filegator/backend/Services/Router/Router.php  
+   creating: filegator/backend/Services/Auth/
+  inflating: filegator/backend/Services/Auth/AuthInterface.php  
+  inflating: filegator/backend/Services/Auth/UsersCollection.php  
+  inflating: filegator/backend/Services/Auth/User.php  
+   creating: filegator/backend/Services/Auth/Adapters/
+  inflating: filegator/backend/Services/Auth/Adapters/WPAuth.php  
+  inflating: filegator/backend/Services/Auth/Adapters/JsonFile.php  
+  inflating: filegator/backend/Services/Auth/Adapters/Database.php  
+  inflating: filegator/backend/Services/Auth/Adapters/LDAP.php  
+   creating: filegator/backend/Services/Logger/
+  inflating: filegator/backend/Services/Logger/LoggerInterface.php  
+   creating: filegator/backend/Services/Logger/Adapters/
+  inflating: filegator/backend/Services/Logger/Adapters/MonoLogger.php  
+   creating: filegator/backend/Services/Cors/
+  inflating: filegator/backend/Services/Cors/Cors.php  
+   creating: filegator/backend/Services/Session/
+  inflating: filegator/backend/Services/Session/Session.php  
+  inflating: filegator/backend/Services/Session/SessionStorageInterface.php  
+   creating: filegator/backend/Services/Session/Adapters/
+  inflating: filegator/backend/Services/Session/Adapters/SessionStorage.php  
+   creating: filegator/backend/Services/Archiver/
+  inflating: filegator/backend/Services/Archiver/ArchiverInterface.php  
+   creating: filegator/backend/Services/Archiver/Adapters/
+  inflating: filegator/backend/Services/Archiver/Adapters/ZipArchiver.php  
+   creating: filegator/backend/Services/Security/
+  inflating: filegator/backend/Services/Security/Security.php  
+  inflating: filegator/backend/Services/Service.php  
+   creating: filegator/backend/Container/
+  inflating: filegator/backend/Container/ContainerInterface.php  
+  inflating: filegator/backend/Container/Container.php  
+   creating: filegator/backend/Controllers/
+  inflating: filegator/backend/Controllers/AuthController.php  
+  inflating: filegator/backend/Controllers/ViewController.php  
+  inflating: filegator/backend/Controllers/AdminController.php  
+  inflating: filegator/backend/Controllers/routes.php  
+  inflating: filegator/backend/Controllers/UploadController.php  
+  inflating: filegator/backend/Controllers/DownloadController.php  
+  inflating: filegator/backend/Controllers/ErrorController.php  
+  inflating: filegator/backend/Controllers/FileController.php  
+  inflating: filegator/Dockerfile.dev  
+   creating: filegator/vendor/
+   creating: filegator/vendor/nikic/
+   creating: filegator/vendor/nikic/fast-route/
+ extracting: filegator/vendor/nikic/fast-route/.hhconfig  
+  inflating: filegator/vendor/nikic/fast-route/LICENSE  
+  inflating: filegator/vendor/nikic/fast-route/FastRoute.hhi  
+   creating: filegator/vendor/nikic/fast-route/src/
+  inflating: filegator/vendor/nikic/fast-route/src/bootstrap.php  
+  inflating: filegator/vendor/nikic/fast-route/src/BadRouteException.php  
+   creating: filegator/vendor/nikic/fast-route/src/Dispatcher/
+  inflating: filegator/vendor/nikic/fast-route/src/Dispatcher/MarkBased.php  
+  inflating: filegator/vendor/nikic/fast-route/src/Dispatcher/GroupCountBased.php  
+  inflating: filegator/vendor/nikic/fast-route/src/Dispatcher/RegexBasedAbstract.php  
+  inflating: filegator/vendor/nikic/fast-route/src/Dispatcher/CharCountBased.php  
+  inflating: filegator/vendor/nikic/fast-route/src/Dispatcher/GroupPosBased.php  
+  inflating: filegator/vendor/nikic/fast-route/src/Route.php  
+   creating: filegator/vendor/nikic/fast-route/src/RouteParser/
+  inflating: filegator/vendor/nikic/fast-route/src/RouteParser/Std.php  
+  inflating: filegator/vendor/nikic/fast-route/src/RouteCollector.php  
+   creating: filegator/vendor/nikic/fast-route/src/DataGenerator/
+  inflating: filegator/vendor/nikic/fast-route/src/DataGenerator/MarkBased.php  
+  inflating: filegator/vendor/nikic/fast-route/src/DataGenerator/GroupCountBased.php  
+  inflating: filegator/vendor/nikic/fast-route/src/DataGenerator/RegexBasedAbstract.php  
+  inflating: filegator/vendor/nikic/fast-route/src/DataGenerator/CharCountBased.php  
+  inflating: filegator/vendor/nikic/fast-route/src/DataGenerator/GroupPosBased.php  
+  inflating: filegator/vendor/nikic/fast-route/src/RouteParser.php  
+  inflating: filegator/vendor/nikic/fast-route/src/Dispatcher.php  
+  inflating: filegator/vendor/nikic/fast-route/src/DataGenerator.php  
+  inflating: filegator/vendor/nikic/fast-route/src/functions.php  
+  inflating: filegator/vendor/nikic/fast-route/README.md  
+  inflating: filegator/vendor/nikic/fast-route/composer.json  
+   creating: filegator/vendor/monolog/
+   creating: filegator/vendor/monolog/monolog/
+  inflating: filegator/vendor/monolog/monolog/phpstan.neon.dist  
+  inflating: filegator/vendor/monolog/monolog/CHANGELOG.md  
+  inflating: filegator/vendor/monolog/monolog/LICENSE  
+   creating: filegator/vendor/monolog/monolog/src/
+   creating: filegator/vendor/monolog/monolog/src/Monolog/
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/ResettableInterface.php  
+   creating: filegator/vendor/monolog/monolog/src/Monolog/Handler/
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/MailHandler.php  
+   creating: filegator/vendor/monolog/monolog/src/Monolog/Handler/Curl/
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/Curl/Util.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/MandrillHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/SwiftMailerHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/DeduplicationHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/SyslogUdpHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/LogEntriesHandler.php  
+   creating: filegator/vendor/monolog/monolog/src/Monolog/Handler/SyslogUdp/
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/SyslogUdp/UdpSocket.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/NullHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/GelfHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/BufferHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/IFTTTHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/RedisHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerTrait.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/FingersCrossedHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/PsrHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/MissingExtensionException.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/SyslogHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/PushoverHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/FleepHookHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/HipChatHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/InsightOpsHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/LogglyHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/NativeMailerHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/SlackbotHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/SamplingHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/CouchDBHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerInterface.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/MongoDBHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/ZendMonitorHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/ErrorLogHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/TestHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/AmqpHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/FlowdockHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/DoctrineCouchDBHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/BrowserConsoleHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/FilterHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/ChromePHPHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerTrait.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/SlackWebhookHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/SlackHandler.php  
+   creating: filegator/vendor/monolog/monolog/src/Monolog/Handler/FingersCrossed/
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/FingersCrossed/ActivationStrategyInterface.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/FingersCrossed/ErrorLevelActivationStrategy.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/FingersCrossed/ChannelLevelActivationStrategy.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerInterface.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/RotatingFileHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/SocketHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/PHPConsoleHandler.php  
+   creating: filegator/vendor/monolog/monolog/src/Monolog/Handler/Slack/
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/Slack/SlackRecord.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/NewRelicHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/CubeHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/DynamoDbHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/RavenHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/FirePHPHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/AbstractHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/ElasticSearchHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/RollbarHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/HandlerInterface.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/GroupHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/WhatFailureGroupHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/HandlerWrapper.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/AbstractSyslogHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Utils.php  
+   creating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/LogstashFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/NormalizerFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/WildfireFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/FluentdFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/ScalarFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/LogglyFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/FormatterInterface.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/GelfMessageFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/HtmlFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/ElasticaFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/JsonFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/ChromePHPFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/MongoDBFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Formatter/FlowdockFormatter.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/SignalHandler.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Registry.php  
+   creating: filegator/vendor/monolog/monolog/src/Monolog/Processor/
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Processor/MemoryUsageProcessor.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Processor/IntrospectionProcessor.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Processor/MercurialProcessor.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Processor/MemoryProcessor.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Processor/UidProcessor.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Processor/GitProcessor.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Processor/WebProcessor.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Processor/ProcessIdProcessor.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Processor/PsrLogMessageProcessor.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Processor/TagProcessor.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Processor/MemoryPeakUsageProcessor.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Processor/ProcessorInterface.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/Logger.php  
+  inflating: filegator/vendor/monolog/monolog/src/Monolog/ErrorHandler.php  
+  inflating: filegator/vendor/monolog/monolog/README.md  
+  inflating: filegator/vendor/monolog/monolog/composer.json  
+   creating: filegator/vendor/laravel/
+   creating: filegator/vendor/laravel/serializable-closure/
+  inflating: filegator/vendor/laravel/serializable-closure/LICENSE.md  
+   creating: filegator/vendor/laravel/serializable-closure/src/
+   creating: filegator/vendor/laravel/serializable-closure/src/Signers/
+  inflating: filegator/vendor/laravel/serializable-closure/src/Signers/Hmac.php  
+  inflating: filegator/vendor/laravel/serializable-closure/src/UnsignedSerializableClosure.php  
+   creating: filegator/vendor/laravel/serializable-closure/src/Support/
+  inflating: filegator/vendor/laravel/serializable-closure/src/Support/ReflectionClosure.php  
+  inflating: filegator/vendor/laravel/serializable-closure/src/Support/SelfReference.php  
+  inflating: filegator/vendor/laravel/serializable-closure/src/Support/ClosureScope.php  
+  inflating: filegator/vendor/laravel/serializable-closure/src/Support/ClosureStream.php  
+   creating: filegator/vendor/laravel/serializable-closure/src/Contracts/
+  inflating: filegator/vendor/laravel/serializable-closure/src/Contracts/Signer.php  
+  inflating: filegator/vendor/laravel/serializable-closure/src/Contracts/Serializable.php  
+   creating: filegator/vendor/laravel/serializable-closure/src/Serializers/
+  inflating: filegator/vendor/laravel/serializable-closure/src/Serializers/Native.php  
+  inflating: filegator/vendor/laravel/serializable-closure/src/Serializers/Signed.php  
+   creating: filegator/vendor/laravel/serializable-closure/src/Exceptions/
+  inflating: filegator/vendor/laravel/serializable-closure/src/Exceptions/MissingSecretKeyException.php  
+  inflating: filegator/vendor/laravel/serializable-closure/src/Exceptions/InvalidSignatureException.php  
+  inflating: filegator/vendor/laravel/serializable-closure/src/Exceptions/PhpVersionNotSupportedException.php  
+  inflating: filegator/vendor/laravel/serializable-closure/src/SerializableClosure.php  
+  inflating: filegator/vendor/laravel/serializable-closure/README.md  
+  inflating: filegator/vendor/laravel/serializable-closure/composer.json  
+   creating: filegator/vendor/league/
+   creating: filegator/vendor/league/flysystem/
+  inflating: filegator/vendor/league/flysystem/CODE_OF_CONDUCT.md  
+  inflating: filegator/vendor/league/flysystem/LICENSE  
+  inflating: filegator/vendor/league/flysystem/SECURITY.md  
+   creating: filegator/vendor/league/flysystem/src/
+  inflating: filegator/vendor/league/flysystem/src/FilesystemException.php  
+  inflating: filegator/vendor/league/flysystem/src/ConfigAwareTrait.php  
+  inflating: filegator/vendor/league/flysystem/src/AdapterInterface.php  
+  inflating: filegator/vendor/league/flysystem/src/NotSupportedException.php  
+  inflating: filegator/vendor/league/flysystem/src/CorruptedPathDetected.php  
+  inflating: filegator/vendor/league/flysystem/src/Util.php  
+  inflating: filegator/vendor/league/flysystem/src/FileExistsException.php  
+  inflating: filegator/vendor/league/flysystem/src/Directory.php  
+  inflating: filegator/vendor/league/flysystem/src/ConnectionRuntimeException.php  
+  inflating: filegator/vendor/league/flysystem/src/PluginInterface.php  
+  inflating: filegator/vendor/league/flysystem/src/ConnectionErrorException.php  
+  inflating: filegator/vendor/league/flysystem/src/InvalidRootException.php  
+  inflating: filegator/vendor/league/flysystem/src/SafeStorage.php  
+   creating: filegator/vendor/league/flysystem/src/Adapter/
+  inflating: filegator/vendor/league/flysystem/src/Adapter/Ftpd.php  
+  inflating: filegator/vendor/league/flysystem/src/Adapter/NullAdapter.php  
+  inflating: filegator/vendor/league/flysystem/src/Adapter/AbstractAdapter.php  
+  inflating: filegator/vendor/league/flysystem/src/Adapter/AbstractFtpAdapter.php  
+  inflating: filegator/vendor/league/flysystem/src/Adapter/SynologyFtp.php  
+  inflating: filegator/vendor/league/flysystem/src/Adapter/Local.php  
+   creating: filegator/vendor/league/flysystem/src/Adapter/Polyfill/
+  inflating: filegator/vendor/league/flysystem/src/Adapter/Polyfill/StreamedWritingTrait.php  
+  inflating: filegator/vendor/league/flysystem/src/Adapter/Polyfill/StreamedTrait.php  
+  inflating: filegator/vendor/league/flysystem/src/Adapter/Polyfill/StreamedReadingTrait.php  
+  inflating: filegator/vendor/league/flysystem/src/Adapter/Polyfill/NotSupportingVisibilityTrait.php  
+  inflating: filegator/vendor/league/flysystem/src/Adapter/Polyfill/StreamedCopyTrait.php  
+  inflating: filegator/vendor/league/flysystem/src/Adapter/CanOverwriteFiles.php  
+  inflating: filegator/vendor/league/flysystem/src/Adapter/Ftp.php  
+   creating: filegator/vendor/league/flysystem/src/Plugin/
+  inflating: filegator/vendor/league/flysystem/src/Plugin/ForcedRename.php  
+  inflating: filegator/vendor/league/flysystem/src/Plugin/PluginNotFoundException.php  
+  inflating: filegator/vendor/league/flysystem/src/Plugin/AbstractPlugin.php  
+  inflating: filegator/vendor/league/flysystem/src/Plugin/ForcedCopy.php  
+  inflating: filegator/vendor/league/flysystem/src/Plugin/ListPaths.php  
+  inflating: filegator/vendor/league/flysystem/src/Plugin/EmptyDir.php  
+  inflating: filegator/vendor/league/flysystem/src/Plugin/ListWith.php  
+  inflating: filegator/vendor/league/flysystem/src/Plugin/PluggableTrait.php  
+  inflating: filegator/vendor/league/flysystem/src/Plugin/ListFiles.php  
+  inflating: filegator/vendor/league/flysystem/src/Plugin/GetWithMetadata.php  
+  inflating: filegator/vendor/league/flysystem/src/ReadInterface.php  
+  inflating: filegator/vendor/league/flysystem/src/RootViolationException.php  
+   creating: filegator/vendor/league/flysystem/src/Util/
+  inflating: filegator/vendor/league/flysystem/src/Util/ContentListingFormatter.php  
+  inflating: filegator/vendor/league/flysystem/src/Util/MimeType.php  
+  inflating: filegator/vendor/league/flysystem/src/Util/StreamHasher.php  
+  inflating: filegator/vendor/league/flysystem/src/UnreadableFileException.php  
+  inflating: filegator/vendor/league/flysystem/src/Exception.php  
+  inflating: filegator/vendor/league/flysystem/src/File.php  
+  inflating: filegator/vendor/league/flysystem/src/FileNotFoundException.php  
+  inflating: filegator/vendor/league/flysystem/src/Config.php  
+  inflating: filegator/vendor/league/flysystem/src/Handler.php  
+  inflating: filegator/vendor/league/flysystem/src/MountManager.php  
+  inflating: filegator/vendor/league/flysystem/src/FilesystemInterface.php  
+  inflating: filegator/vendor/league/flysystem/src/FilesystemNotFoundException.php  
+  inflating: filegator/vendor/league/flysystem/src/Filesystem.php  
+  inflating: filegator/vendor/league/flysystem/composer.json  
+  inflating: filegator/vendor/league/flysystem/deprecations.md  
+   creating: filegator/vendor/league/mime-type-detection/
+  inflating: filegator/vendor/league/mime-type-detection/CHANGELOG.md  
+  inflating: filegator/vendor/league/mime-type-detection/LICENSE  
+   creating: filegator/vendor/league/mime-type-detection/src/
+  inflating: filegator/vendor/league/mime-type-detection/src/OverridingExtensionToMimeTypeMap.php  
+  inflating: filegator/vendor/league/mime-type-detection/src/MimeTypeDetector.php  
+  inflating: filegator/vendor/league/mime-type-detection/src/ExtensionLookup.php  
+  inflating: filegator/vendor/league/mime-type-detection/src/ExtensionMimeTypeDetector.php  
+  inflating: filegator/vendor/league/mime-type-detection/src/EmptyExtensionToMimeTypeMap.php  
+  inflating: filegator/vendor/league/mime-type-detection/src/FinfoMimeTypeDetector.php  
+  inflating: filegator/vendor/league/mime-type-detection/src/ExtensionToMimeTypeMap.php  
+  inflating: filegator/vendor/league/mime-type-detection/src/GeneratedExtensionToMimeTypeMap.php  
+  inflating: filegator/vendor/league/mime-type-detection/composer.json  
+   creating: filegator/vendor/league/flysystem-ziparchive/
+  inflating: filegator/vendor/league/flysystem-ziparchive/.scrutinizer.yml  
+ extracting: filegator/vendor/league/flysystem-ziparchive/phpunit.php  
+  inflating: filegator/vendor/league/flysystem-ziparchive/.gitignore  
+  inflating: filegator/vendor/league/flysystem-ziparchive/.travis.yml  
+  inflating: filegator/vendor/league/flysystem-ziparchive/phpunit.hhvm.xml  
+   creating: filegator/vendor/league/flysystem-ziparchive/tests/
+  inflating: filegator/vendor/league/flysystem-ziparchive/tests/ZipArchiveTests.php  
+  inflating: filegator/vendor/league/flysystem-ziparchive/readme.md  
+   creating: filegator/vendor/league/flysystem-ziparchive/src/
+  inflating: filegator/vendor/league/flysystem-ziparchive/src/ZipArchiveAdapter.php  
+  inflating: filegator/vendor/league/flysystem-ziparchive/composer.json  
+  inflating: filegator/vendor/league/flysystem-ziparchive/phpunit.xml  
+   creating: filegator/vendor/symfony/
+   creating: filegator/vendor/symfony/mime/
+   creating: filegator/vendor/symfony/mime/Encoder/
+  inflating: filegator/vendor/symfony/mime/Encoder/Base64ContentEncoder.php  
+  inflating: filegator/vendor/symfony/mime/Encoder/ContentEncoderInterface.php  
+  inflating: filegator/vendor/symfony/mime/Encoder/QpEncoder.php  
+  inflating: filegator/vendor/symfony/mime/Encoder/Base64MimeHeaderEncoder.php  
+  inflating: filegator/vendor/symfony/mime/Encoder/Base64Encoder.php  
+  inflating: filegator/vendor/symfony/mime/Encoder/EncoderInterface.php  
+  inflating: filegator/vendor/symfony/mime/Encoder/QpMimeHeaderEncoder.php  
+  inflating: filegator/vendor/symfony/mime/Encoder/Rfc2231Encoder.php  
+  inflating: filegator/vendor/symfony/mime/Encoder/AddressEncoderInterface.php  
+  inflating: filegator/vendor/symfony/mime/Encoder/EightBitContentEncoder.php  
+  inflating: filegator/vendor/symfony/mime/Encoder/QpContentEncoder.php  
+  inflating: filegator/vendor/symfony/mime/Encoder/MimeHeaderEncoderInterface.php  
+  inflating: filegator/vendor/symfony/mime/Encoder/IdnAddressEncoder.php  
+  inflating: filegator/vendor/symfony/mime/MimeTypeGuesserInterface.php  
+  inflating: filegator/vendor/symfony/mime/FileBinaryMimeTypeGuesser.php  
+  inflating: filegator/vendor/symfony/mime/CHANGELOG.md  
+   creating: filegator/vendor/symfony/mime/Test/
+   creating: filegator/vendor/symfony/mime/Test/Constraint/
+  inflating: filegator/vendor/symfony/mime/Test/Constraint/EmailTextBodyContains.php  
+  inflating: filegator/vendor/symfony/mime/Test/Constraint/EmailHasHeader.php  
+  inflating: filegator/vendor/symfony/mime/Test/Constraint/EmailAttachmentCount.php  
+  inflating: filegator/vendor/symfony/mime/Test/Constraint/EmailHtmlBodyContains.php  
+  inflating: filegator/vendor/symfony/mime/Test/Constraint/EmailHeaderSame.php  
+  inflating: filegator/vendor/symfony/mime/Test/Constraint/EmailAddressContains.php  
+  inflating: filegator/vendor/symfony/mime/FileinfoMimeTypeGuesser.php  
+  inflating: filegator/vendor/symfony/mime/LICENSE  
+  inflating: filegator/vendor/symfony/mime/MimeTypesInterface.php  
+   creating: filegator/vendor/symfony/mime/Header/
+  inflating: filegator/vendor/symfony/mime/Header/MailboxHeader.php  
+  inflating: filegator/vendor/symfony/mime/Header/AbstractHeader.php  
+  inflating: filegator/vendor/symfony/mime/Header/PathHeader.php  
+  inflating: filegator/vendor/symfony/mime/Header/Headers.php  
+  inflating: filegator/vendor/symfony/mime/Header/ParameterizedHeader.php  
+  inflating: filegator/vendor/symfony/mime/Header/MailboxListHeader.php  
+  inflating: filegator/vendor/symfony/mime/Header/HeaderInterface.php  
+  inflating: filegator/vendor/symfony/mime/Header/IdentificationHeader.php  
+  inflating: filegator/vendor/symfony/mime/Header/UnstructuredHeader.php  
+  inflating: filegator/vendor/symfony/mime/Header/DateHeader.php  
+   creating: filegator/vendor/symfony/mime/Exception/
+  inflating: filegator/vendor/symfony/mime/Exception/ExceptionInterface.php  
+  inflating: filegator/vendor/symfony/mime/Exception/LogicException.php  
+  inflating: filegator/vendor/symfony/mime/Exception/InvalidArgumentException.php  
+  inflating: filegator/vendor/symfony/mime/Exception/RfcComplianceException.php  
+  inflating: filegator/vendor/symfony/mime/Exception/RuntimeException.php  
+  inflating: filegator/vendor/symfony/mime/Exception/AddressEncoderException.php  
+   creating: filegator/vendor/symfony/mime/DependencyInjection/
+  inflating: filegator/vendor/symfony/mime/DependencyInjection/AddMimeTypeGuesserPass.php  
+   creating: filegator/vendor/symfony/mime/Crypto/
+  inflating: filegator/vendor/symfony/mime/Crypto/SMimeEncrypter.php  
+  inflating: filegator/vendor/symfony/mime/Crypto/SMime.php  
+  inflating: filegator/vendor/symfony/mime/Crypto/DkimSigner.php  
+  inflating: filegator/vendor/symfony/mime/Crypto/SMimeSigner.php  
+  inflating: filegator/vendor/symfony/mime/Crypto/DkimOptions.php  
+  inflating: filegator/vendor/symfony/mime/Email.php  
+  inflating: filegator/vendor/symfony/mime/Address.php  
+  inflating: filegator/vendor/symfony/mime/MessageConverter.php  
+  inflating: filegator/vendor/symfony/mime/README.md  
+  inflating: filegator/vendor/symfony/mime/composer.json  
+  inflating: filegator/vendor/symfony/mime/Message.php  
+   creating: filegator/vendor/symfony/mime/Part/
+  inflating: filegator/vendor/symfony/mime/Part/MessagePart.php  
+   creating: filegator/vendor/symfony/mime/Part/Multipart/
+  inflating: filegator/vendor/symfony/mime/Part/Multipart/MixedPart.php  
+  inflating: filegator/vendor/symfony/mime/Part/Multipart/DigestPart.php  
+  inflating: filegator/vendor/symfony/mime/Part/Multipart/AlternativePart.php  
+  inflating: filegator/vendor/symfony/mime/Part/Multipart/FormDataPart.php  
+  inflating: filegator/vendor/symfony/mime/Part/Multipart/RelatedPart.php  
+  inflating: filegator/vendor/symfony/mime/Part/DataPart.php  
+  inflating: filegator/vendor/symfony/mime/Part/SMimePart.php  
+  inflating: filegator/vendor/symfony/mime/Part/TextPart.php  
+  inflating: filegator/vendor/symfony/mime/Part/AbstractPart.php  
+  inflating: filegator/vendor/symfony/mime/Part/AbstractMultipartPart.php  
+  inflating: filegator/vendor/symfony/mime/CharacterStream.php  
+  inflating: filegator/vendor/symfony/mime/BodyRendererInterface.php  
+  inflating: filegator/vendor/symfony/mime/MimeTypes.php  
+  inflating: filegator/vendor/symfony/mime/RawMessage.php  
+   creating: filegator/vendor/symfony/mime/Resources/
+   creating: filegator/vendor/symfony/mime/Resources/bin/
+  inflating: filegator/vendor/symfony/mime/Resources/bin/update_mime_types.php  
+   creating: filegator/vendor/symfony/polyfill-intl-idn/
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/bootstrap.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/Info.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/LICENSE  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/bootstrap80.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/README.md  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/composer.json  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/Idn.php  
+   creating: filegator/vendor/symfony/polyfill-intl-idn/Resources/
+   creating: filegator/vendor/symfony/polyfill-intl-idn/Resources/unidata/
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/Resources/unidata/deviation.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/Resources/unidata/DisallowedRanges.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/Resources/unidata/Regex.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/Resources/unidata/mapped.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/Resources/unidata/virama.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/Resources/unidata/ignored.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/Resources/unidata/disallowed_STD3_mapped.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/Resources/unidata/disallowed.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-idn/Resources/unidata/disallowed_STD3_valid.php  
+   creating: filegator/vendor/symfony/http-foundation/
+  inflating: filegator/vendor/symfony/http-foundation/RequestMatcher.php  
+  inflating: filegator/vendor/symfony/http-foundation/HeaderUtils.php  
+  inflating: filegator/vendor/symfony/http-foundation/AcceptHeaderItem.php  
+  inflating: filegator/vendor/symfony/http-foundation/RequestStack.php  
+  inflating: filegator/vendor/symfony/http-foundation/CHANGELOG.md  
+  inflating: filegator/vendor/symfony/http-foundation/BinaryFileResponse.php  
+  inflating: filegator/vendor/symfony/http-foundation/StreamedResponse.php  
+   creating: filegator/vendor/symfony/http-foundation/Test/
+   creating: filegator/vendor/symfony/http-foundation/Test/Constraint/
+  inflating: filegator/vendor/symfony/http-foundation/Test/Constraint/ResponseStatusCodeSame.php  
+  inflating: filegator/vendor/symfony/http-foundation/Test/Constraint/ResponseHeaderSame.php  
+  inflating: filegator/vendor/symfony/http-foundation/Test/Constraint/ResponseHasHeader.php  
+  inflating: filegator/vendor/symfony/http-foundation/Test/Constraint/ResponseHasCookie.php  
+  inflating: filegator/vendor/symfony/http-foundation/Test/Constraint/ResponseIsSuccessful.php  
+  inflating: filegator/vendor/symfony/http-foundation/Test/Constraint/RequestAttributeValueSame.php  
+  inflating: filegator/vendor/symfony/http-foundation/Test/Constraint/ResponseFormatSame.php  
+  inflating: filegator/vendor/symfony/http-foundation/Test/Constraint/ResponseIsUnprocessable.php  
+  inflating: filegator/vendor/symfony/http-foundation/Test/Constraint/ResponseCookieValueSame.php  
+  inflating: filegator/vendor/symfony/http-foundation/Test/Constraint/ResponseIsRedirected.php  
+  inflating: filegator/vendor/symfony/http-foundation/Request.php  
+  inflating: filegator/vendor/symfony/http-foundation/Response.php  
+  inflating: filegator/vendor/symfony/http-foundation/JsonResponse.php  
+  inflating: filegator/vendor/symfony/http-foundation/LICENSE  
+  inflating: filegator/vendor/symfony/http-foundation/Cookie.php  
+   creating: filegator/vendor/symfony/http-foundation/Exception/
+  inflating: filegator/vendor/symfony/http-foundation/Exception/SuspiciousOperationException.php  
+  inflating: filegator/vendor/symfony/http-foundation/Exception/BadRequestException.php  
+  inflating: filegator/vendor/symfony/http-foundation/Exception/JsonException.php  
+  inflating: filegator/vendor/symfony/http-foundation/Exception/SessionNotFoundException.php  
+  inflating: filegator/vendor/symfony/http-foundation/Exception/RequestExceptionInterface.php  
+  inflating: filegator/vendor/symfony/http-foundation/Exception/ConflictingHeadersException.php  
+  inflating: filegator/vendor/symfony/http-foundation/ResponseHeaderBag.php  
+  inflating: filegator/vendor/symfony/http-foundation/IpUtils.php  
+  inflating: filegator/vendor/symfony/http-foundation/ParameterBag.php  
+  inflating: filegator/vendor/symfony/http-foundation/UrlHelper.php  
+   creating: filegator/vendor/symfony/http-foundation/File/
+  inflating: filegator/vendor/symfony/http-foundation/File/UploadedFile.php  
+   creating: filegator/vendor/symfony/http-foundation/File/Exception/
+  inflating: filegator/vendor/symfony/http-foundation/File/Exception/FormSizeFileException.php  
+  inflating: filegator/vendor/symfony/http-foundation/File/Exception/PartialFileException.php  
+  inflating: filegator/vendor/symfony/http-foundation/File/Exception/FileException.php  
+  inflating: filegator/vendor/symfony/http-foundation/File/Exception/UploadException.php  
+  inflating: filegator/vendor/symfony/http-foundation/File/Exception/UnexpectedTypeException.php  
+  inflating: filegator/vendor/symfony/http-foundation/File/Exception/ExtensionFileException.php  
+  inflating: filegator/vendor/symfony/http-foundation/File/Exception/AccessDeniedException.php  
+  inflating: filegator/vendor/symfony/http-foundation/File/Exception/NoTmpDirFileException.php  
+  inflating: filegator/vendor/symfony/http-foundation/File/Exception/FileNotFoundException.php  
+  inflating: filegator/vendor/symfony/http-foundation/File/Exception/IniSizeFileException.php  
+  inflating: filegator/vendor/symfony/http-foundation/File/Exception/CannotWriteFileException.php  
+  inflating: filegator/vendor/symfony/http-foundation/File/Exception/NoFileException.php  
+  inflating: filegator/vendor/symfony/http-foundation/File/File.php  
+  inflating: filegator/vendor/symfony/http-foundation/File/Stream.php  
+  inflating: filegator/vendor/symfony/http-foundation/RedirectResponse.php  
+   creating: filegator/vendor/symfony/http-foundation/RateLimiter/
+  inflating: filegator/vendor/symfony/http-foundation/RateLimiter/AbstractRequestRateLimiter.php  
+  inflating: filegator/vendor/symfony/http-foundation/RateLimiter/RequestRateLimiterInterface.php  
+  inflating: filegator/vendor/symfony/http-foundation/RequestMatcherInterface.php  
+  inflating: filegator/vendor/symfony/http-foundation/README.md  
+  inflating: filegator/vendor/symfony/http-foundation/FileBag.php  
+  inflating: filegator/vendor/symfony/http-foundation/HeaderBag.php  
+  inflating: filegator/vendor/symfony/http-foundation/composer.json  
+   creating: filegator/vendor/symfony/http-foundation/Session/
+   creating: filegator/vendor/symfony/http-foundation/Session/Storage/
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/NativeSessionStorage.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/MockFileSessionStorageFactory.php  
+   creating: filegator/vendor/symfony/http-foundation/Session/Storage/Handler/
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Handler/RedisSessionHandler.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Handler/MongoDbSessionHandler.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Handler/PdoSessionHandler.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Handler/NullSessionHandler.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Handler/MigratingSessionHandler.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Handler/IdentityMarshaller.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Handler/StrictSessionHandler.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Handler/MarshallingSessionHandler.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Handler/MemcachedSessionHandler.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Handler/NativeFileSessionHandler.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Handler/SessionHandlerFactory.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Handler/AbstractSessionHandler.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/PhpBridgeSessionStorage.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/ServiceSessionFactory.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/SessionStorageFactoryInterface.php  
+   creating: filegator/vendor/symfony/http-foundation/Session/Storage/Proxy/
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Proxy/AbstractProxy.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/Proxy/SessionHandlerProxy.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/SessionStorageInterface.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/MockFileSessionStorage.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/NativeSessionStorageFactory.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/MockArraySessionStorage.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/MetadataBag.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Storage/PhpBridgeSessionStorageFactory.php  
+   creating: filegator/vendor/symfony/http-foundation/Session/Attribute/
+  inflating: filegator/vendor/symfony/http-foundation/Session/Attribute/AttributeBag.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Attribute/AttributeBagInterface.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Attribute/NamespacedAttributeBag.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/SessionBagProxy.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/SessionUtils.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/SessionFactory.php  
+   creating: filegator/vendor/symfony/http-foundation/Session/Flash/
+  inflating: filegator/vendor/symfony/http-foundation/Session/Flash/FlashBagInterface.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Flash/FlashBag.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Flash/AutoExpireFlashBag.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/Session.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/SessionFactoryInterface.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/SessionInterface.php  
+  inflating: filegator/vendor/symfony/http-foundation/Session/SessionBagInterface.php  
+  inflating: filegator/vendor/symfony/http-foundation/ServerBag.php  
+  inflating: filegator/vendor/symfony/http-foundation/ExpressionRequestMatcher.php  
+  inflating: filegator/vendor/symfony/http-foundation/AcceptHeader.php  
+  inflating: filegator/vendor/symfony/http-foundation/InputBag.php  
+   creating: filegator/vendor/symfony/polyfill-php80/
+  inflating: filegator/vendor/symfony/polyfill-php80/Php80.php  
+  inflating: filegator/vendor/symfony/polyfill-php80/bootstrap.php  
+  inflating: filegator/vendor/symfony/polyfill-php80/LICENSE  
+  inflating: filegator/vendor/symfony/polyfill-php80/README.md  
+  inflating: filegator/vendor/symfony/polyfill-php80/composer.json  
+  inflating: filegator/vendor/symfony/polyfill-php80/PhpToken.php  
+   creating: filegator/vendor/symfony/polyfill-php80/Resources/
+   creating: filegator/vendor/symfony/polyfill-php80/Resources/stubs/
+  inflating: filegator/vendor/symfony/polyfill-php80/Resources/stubs/Attribute.php  
+  inflating: filegator/vendor/symfony/polyfill-php80/Resources/stubs/Stringable.php  
+  inflating: filegator/vendor/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php  
+  inflating: filegator/vendor/symfony/polyfill-php80/Resources/stubs/PhpToken.php  
+  inflating: filegator/vendor/symfony/polyfill-php80/Resources/stubs/ValueError.php  
+   creating: filegator/vendor/symfony/deprecation-contracts/
+  inflating: filegator/vendor/symfony/deprecation-contracts/function.php  
+  inflating: filegator/vendor/symfony/deprecation-contracts/CHANGELOG.md  
+  inflating: filegator/vendor/symfony/deprecation-contracts/LICENSE  
+  inflating: filegator/vendor/symfony/deprecation-contracts/README.md  
+  inflating: filegator/vendor/symfony/deprecation-contracts/composer.json  
+   creating: filegator/vendor/symfony/polyfill-mbstring/
+  inflating: filegator/vendor/symfony/polyfill-mbstring/bootstrap.php  
+  inflating: filegator/vendor/symfony/polyfill-mbstring/LICENSE  
+  inflating: filegator/vendor/symfony/polyfill-mbstring/bootstrap72.php  
+  inflating: filegator/vendor/symfony/polyfill-mbstring/bootstrap80.php  
+  inflating: filegator/vendor/symfony/polyfill-mbstring/README.md  
+  inflating: filegator/vendor/symfony/polyfill-mbstring/composer.json  
+  inflating: filegator/vendor/symfony/polyfill-mbstring/Mbstring.php  
+   creating: filegator/vendor/symfony/polyfill-mbstring/Resources/
+   creating: filegator/vendor/symfony/polyfill-mbstring/Resources/unidata/
+  inflating: filegator/vendor/symfony/polyfill-mbstring/Resources/unidata/upperCase.php  
+  inflating: filegator/vendor/symfony/polyfill-mbstring/Resources/unidata/lowerCase.php  
+  inflating: filegator/vendor/symfony/polyfill-mbstring/Resources/unidata/caseFolding.php  
+  inflating: filegator/vendor/symfony/polyfill-mbstring/Resources/unidata/titleCaseRegexp.php  
+   creating: filegator/vendor/symfony/polyfill-intl-normalizer/
+  inflating: filegator/vendor/symfony/polyfill-intl-normalizer/bootstrap.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-normalizer/LICENSE  
+  inflating: filegator/vendor/symfony/polyfill-intl-normalizer/bootstrap80.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-normalizer/README.md  
+  inflating: filegator/vendor/symfony/polyfill-intl-normalizer/Normalizer.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-normalizer/composer.json  
+   creating: filegator/vendor/symfony/polyfill-intl-normalizer/Resources/
+   creating: filegator/vendor/symfony/polyfill-intl-normalizer/Resources/stubs/
+  inflating: filegator/vendor/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php  
+   creating: filegator/vendor/symfony/polyfill-intl-normalizer/Resources/unidata/
+  inflating: filegator/vendor/symfony/polyfill-intl-normalizer/Resources/unidata/rawCompatibilityDecomposition.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-normalizer/Resources/unidata/compatibilityDecomposition.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-normalizer/Resources/unidata/canonicalComposition.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-normalizer/Resources/unidata/rawCanonicalDecomposition.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-normalizer/Resources/unidata/combiningClass.php  
+  inflating: filegator/vendor/symfony/polyfill-intl-normalizer/Resources/unidata/canonicalDecomposition.php  
+   creating: filegator/vendor/symfony/password-hasher/
+  inflating: filegator/vendor/symfony/password-hasher/CHANGELOG.md  
+  inflating: filegator/vendor/symfony/password-hasher/PasswordHasherInterface.php  
+   creating: filegator/vendor/symfony/password-hasher/Command/
+  inflating: filegator/vendor/symfony/password-hasher/Command/UserPasswordHashCommand.php  
+  inflating: filegator/vendor/symfony/password-hasher/LICENSE  
+   creating: filegator/vendor/symfony/password-hasher/Exception/
+  inflating: filegator/vendor/symfony/password-hasher/Exception/ExceptionInterface.php  
+  inflating: filegator/vendor/symfony/password-hasher/Exception/LogicException.php  
+  inflating: filegator/vendor/symfony/password-hasher/Exception/InvalidPasswordException.php  
+  inflating: filegator/vendor/symfony/password-hasher/LegacyPasswordHasherInterface.php  
+   creating: filegator/vendor/symfony/password-hasher/Hasher/
+  inflating: filegator/vendor/symfony/password-hasher/Hasher/MessageDigestPasswordHasher.php  
+  inflating: filegator/vendor/symfony/password-hasher/Hasher/PlaintextPasswordHasher.php  
+  inflating: filegator/vendor/symfony/password-hasher/Hasher/PasswordHasherFactory.php  
+  inflating: filegator/vendor/symfony/password-hasher/Hasher/CheckPasswordLengthTrait.php  
+  inflating: filegator/vendor/symfony/password-hasher/Hasher/NativePasswordHasher.php  
+  inflating: filegator/vendor/symfony/password-hasher/Hasher/PasswordHasherAwareInterface.php  
+  inflating: filegator/vendor/symfony/password-hasher/Hasher/MigratingPasswordHasher.php  
+  inflating: filegator/vendor/symfony/password-hasher/Hasher/UserPasswordHasher.php  
+  inflating: filegator/vendor/symfony/password-hasher/Hasher/PasswordHasherFactoryInterface.php  
+  inflating: filegator/vendor/symfony/password-hasher/Hasher/Pbkdf2PasswordHasher.php  
+  inflating: filegator/vendor/symfony/password-hasher/Hasher/SodiumPasswordHasher.php  
+  inflating: filegator/vendor/symfony/password-hasher/Hasher/UserPasswordHasherInterface.php  
+  inflating: filegator/vendor/symfony/password-hasher/README.md  
+  inflating: filegator/vendor/symfony/password-hasher/composer.json  
+   creating: filegator/vendor/symfony/security-csrf/
+   creating: filegator/vendor/symfony/security-csrf/TokenStorage/
+  inflating: filegator/vendor/symfony/security-csrf/TokenStorage/NativeSessionTokenStorage.php  
+  inflating: filegator/vendor/symfony/security-csrf/TokenStorage/TokenStorageInterface.php  
+  inflating: filegator/vendor/symfony/security-csrf/TokenStorage/SessionTokenStorage.php  
+  inflating: filegator/vendor/symfony/security-csrf/TokenStorage/ClearableTokenStorageInterface.php  
+   creating: filegator/vendor/symfony/security-csrf/TokenGenerator/
+  inflating: filegator/vendor/symfony/security-csrf/TokenGenerator/UriSafeTokenGenerator.php  
+  inflating: filegator/vendor/symfony/security-csrf/TokenGenerator/TokenGeneratorInterface.php  
+  inflating: filegator/vendor/symfony/security-csrf/CHANGELOG.md  
+  inflating: filegator/vendor/symfony/security-csrf/LICENSE  
+   creating: filegator/vendor/symfony/security-csrf/Exception/
+  inflating: filegator/vendor/symfony/security-csrf/Exception/TokenNotFoundException.php  
+  inflating: filegator/vendor/symfony/security-csrf/CsrfTokenManager.php  
+  inflating: filegator/vendor/symfony/security-csrf/README.md  
+  inflating: filegator/vendor/symfony/security-csrf/CsrfTokenManagerInterface.php  
+  inflating: filegator/vendor/symfony/security-csrf/composer.json  
+  inflating: filegator/vendor/symfony/security-csrf/CsrfToken.php  
+   creating: filegator/vendor/symfony/security-core/
+   creating: filegator/vendor/symfony/security-core/User/
+  inflating: filegator/vendor/symfony/security-core/User/ChainUserChecker.php  
+  inflating: filegator/vendor/symfony/security-core/User/AttributesBasedUserProviderInterface.php  
+  inflating: filegator/vendor/symfony/security-core/User/InMemoryUserProvider.php  
+  inflating: filegator/vendor/symfony/security-core/User/LegacyPasswordAuthenticatedUserInterface.php  
+  inflating: filegator/vendor/symfony/security-core/User/MissingUserProvider.php  
+  inflating: filegator/vendor/symfony/security-core/User/InMemoryUser.php  
+  inflating: filegator/vendor/symfony/security-core/User/ChainUserProvider.php  
+  inflating: filegator/vendor/symfony/security-core/User/PasswordAuthenticatedUserInterface.php  
+  inflating: filegator/vendor/symfony/security-core/User/UserInterface.php  
+  inflating: filegator/vendor/symfony/security-core/User/OidcUser.php  
+  inflating: filegator/vendor/symfony/security-core/User/PasswordUpgraderInterface.php  
+  inflating: filegator/vendor/symfony/security-core/User/UserCheckerInterface.php  
+  inflating: filegator/vendor/symfony/security-core/User/UserProviderInterface.php  
+  inflating: filegator/vendor/symfony/security-core/User/EquatableInterface.php  
+  inflating: filegator/vendor/symfony/security-core/User/InMemoryUserChecker.php  
+  inflating: filegator/vendor/symfony/security-core/CHANGELOG.md  
+   creating: filegator/vendor/symfony/security-core/Test/
+  inflating: filegator/vendor/symfony/security-core/Test/AccessDecisionStrategyTestCase.php  
+   creating: filegator/vendor/symfony/security-core/Role/
+  inflating: filegator/vendor/symfony/security-core/Role/RoleHierarchy.php  
+  inflating: filegator/vendor/symfony/security-core/Role/Role.php  
+  inflating: filegator/vendor/symfony/security-core/Role/RoleHierarchyInterface.php  
+  inflating: filegator/vendor/symfony/security-core/Role/SwitchUserRole.php  
+  inflating: filegator/vendor/symfony/security-core/LICENSE  
+  inflating: filegator/vendor/symfony/security-core/Security.php  
+   creating: filegator/vendor/symfony/security-core/Exception/
+  inflating: filegator/vendor/symfony/security-core/Exception/ExceptionInterface.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/LogicException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/InvalidArgumentException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/AuthenticationException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/LazyResponseException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/InsufficientAuthenticationException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/TooManyLoginAttemptsAuthenticationException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/DisabledException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/LockedException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/TokenNotFoundException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/CustomUserMessageAccountStatusException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/CustomUserMessageAuthenticationException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/CredentialsExpiredException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/InvalidCsrfTokenException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/AuthenticationServiceException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/ProviderNotFoundException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/RuntimeException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/CookieTheftException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/AccessDeniedException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/BadCredentialsException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/UnsupportedUserException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/UserNotFoundException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/AuthenticationExpiredException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/AccountExpiredException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/AuthenticationCredentialsNotFoundException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/SessionUnavailableException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/LogoutException.php  
+  inflating: filegator/vendor/symfony/security-core/Exception/AccountStatusException.php  
+  inflating: filegator/vendor/symfony/security-core/AuthenticationEvents.php  
+   creating: filegator/vendor/symfony/security-core/Validator/
+   creating: filegator/vendor/symfony/security-core/Validator/Constraints/
+  inflating: filegator/vendor/symfony/security-core/Validator/Constraints/UserPassword.php  
+  inflating: filegator/vendor/symfony/security-core/Validator/Constraints/UserPasswordValidator.php  
+   creating: filegator/vendor/symfony/security-core/Authentication/
+   creating: filegator/vendor/symfony/security-core/Authentication/Token/
+  inflating: filegator/vendor/symfony/security-core/Authentication/Token/RememberMeToken.php  
+   creating: filegator/vendor/symfony/security-core/Authentication/Token/Storage/
+  inflating: filegator/vendor/symfony/security-core/Authentication/Token/Storage/TokenStorage.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/Token/Storage/TokenStorageInterface.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/Token/Storage/UsageTrackingTokenStorage.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/Token/UsernamePasswordToken.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/Token/PreAuthenticatedToken.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/Token/NullToken.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/Token/TokenInterface.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/Token/AbstractToken.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/Token/SwitchUserToken.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/AuthenticationTrustResolverInterface.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/AuthenticationTrustResolver.php  
+   creating: filegator/vendor/symfony/security-core/Authentication/RememberMe/
+  inflating: filegator/vendor/symfony/security-core/Authentication/RememberMe/PersistentTokenInterface.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/RememberMe/PersistentToken.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/RememberMe/TokenProviderInterface.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/RememberMe/InMemoryTokenProvider.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/RememberMe/TokenVerifierInterface.php  
+  inflating: filegator/vendor/symfony/security-core/Authentication/RememberMe/CacheTokenVerifier.php  
+   creating: filegator/vendor/symfony/security-core/Authorization/
+  inflating: filegator/vendor/symfony/security-core/Authorization/ExpressionLanguageProvider.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/AccessDecisionManagerInterface.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/ExpressionLanguage.php  
+   creating: filegator/vendor/symfony/security-core/Authorization/Strategy/
+  inflating: filegator/vendor/symfony/security-core/Authorization/Strategy/ConsensusStrategy.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/Strategy/AccessDecisionStrategyInterface.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/Strategy/UnanimousStrategy.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/Strategy/AffirmativeStrategy.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/Strategy/PriorityStrategy.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/AuthorizationChecker.php  
+   creating: filegator/vendor/symfony/security-core/Authorization/Voter/
+  inflating: filegator/vendor/symfony/security-core/Authorization/Voter/TraceableVoter.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/Voter/ExpressionVoter.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/Voter/RoleHierarchyVoter.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/Voter/CacheableVoterInterface.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/Voter/VoterInterface.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/Voter/Voter.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/Voter/RoleVoter.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/Voter/AuthenticatedVoter.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/AccessDecisionManager.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/AuthorizationCheckerInterface.php  
+  inflating: filegator/vendor/symfony/security-core/Authorization/TraceableAccessDecisionManager.php  
+   creating: filegator/vendor/symfony/security-core/Signature/
+  inflating: filegator/vendor/symfony/security-core/Signature/SignatureHasher.php  
+   creating: filegator/vendor/symfony/security-core/Signature/Exception/
+  inflating: filegator/vendor/symfony/security-core/Signature/Exception/ExpiredSignatureException.php  
+  inflating: filegator/vendor/symfony/security-core/Signature/Exception/InvalidSignatureException.php  
+  inflating: filegator/vendor/symfony/security-core/Signature/ExpiredSignatureStorage.php  
+  inflating: filegator/vendor/symfony/security-core/README.md  
+   creating: filegator/vendor/symfony/security-core/Event/
+  inflating: filegator/vendor/symfony/security-core/Event/AuthenticationEvent.php  
+  inflating: filegator/vendor/symfony/security-core/Event/VoteEvent.php  
+  inflating: filegator/vendor/symfony/security-core/Event/AuthenticationSuccessEvent.php  
+  inflating: filegator/vendor/symfony/security-core/composer.json  
+   creating: filegator/vendor/symfony/security-core/Resources/
+   creating: filegator/vendor/symfony/security-core/Resources/translations/
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.lv.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.ar.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.ja.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.bg.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.zh_TW.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.ca.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.tl.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.nn.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.da.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.bs.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.vi.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.lb.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.it.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.ru.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.de.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.mn.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.nl.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.az.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.sl.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.fi.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.tr.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.en.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.sk.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.id.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.sq.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.pt_BR.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.gl.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.hr.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.es.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.sr_Cyrl.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.eu.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.pt.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.ro.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.fr.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.mk.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.uz.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.zh_CN.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.no.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.et.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.uk.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.hy.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.sv.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.el.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.lt.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.my.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.af.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.th.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.cs.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.cy.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.hu.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.he.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.pl.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.sr_Latn.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.ur.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.nb.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.fa.xlf  
+  inflating: filegator/vendor/symfony/security-core/Resources/translations/security.be.xlf  
+   creating: filegator/vendor/symfony/event-dispatcher-contracts/
+  inflating: filegator/vendor/symfony/event-dispatcher-contracts/CHANGELOG.md  
+  inflating: filegator/vendor/symfony/event-dispatcher-contracts/LICENSE  
+  inflating: filegator/vendor/symfony/event-dispatcher-contracts/Event.php  
+  inflating: filegator/vendor/symfony/event-dispatcher-contracts/EventDispatcherInterface.php  
+  inflating: filegator/vendor/symfony/event-dispatcher-contracts/README.md  
+  inflating: filegator/vendor/symfony/event-dispatcher-contracts/composer.json  
+   creating: filegator/vendor/symfony/service-contracts/
+  inflating: filegator/vendor/symfony/service-contracts/ServiceSubscriberInterface.php  
+   creating: filegator/vendor/symfony/service-contracts/Attribute/
+  inflating: filegator/vendor/symfony/service-contracts/Attribute/Required.php  
+  inflating: filegator/vendor/symfony/service-contracts/Attribute/SubscribedService.php  
+  inflating: filegator/vendor/symfony/service-contracts/CHANGELOG.md  
+  inflating: filegator/vendor/symfony/service-contracts/ServiceLocatorTrait.php  
+  inflating: filegator/vendor/symfony/service-contracts/ServiceMethodsSubscriberTrait.php  
+   creating: filegator/vendor/symfony/service-contracts/Test/
+  inflating: filegator/vendor/symfony/service-contracts/Test/ServiceLocatorTest.php  
+  inflating: filegator/vendor/symfony/service-contracts/Test/ServiceLocatorTestCase.php  
+  inflating: filegator/vendor/symfony/service-contracts/ContainerAwareInterface.php  
+  inflating: filegator/vendor/symfony/service-contracts/LICENSE  
+  inflating: filegator/vendor/symfony/service-contracts/ServiceSubscriberTrait.php  
+  inflating: filegator/vendor/symfony/service-contracts/ServiceProviderInterface.php  
+  inflating: filegator/vendor/symfony/service-contracts/README.md  
+  inflating: filegator/vendor/symfony/service-contracts/composer.json  
+  inflating: filegator/vendor/symfony/service-contracts/ContainerProviderInterface.php  
+  inflating: filegator/vendor/symfony/service-contracts/ResetInterface.php  
+  inflating: filegator/vendor/symfony/service-contracts/ServiceCollectionInterface.php  
+   creating: filegator/vendor/dibi/
+   creating: filegator/vendor/dibi/dibi/
+   creating: filegator/vendor/dibi/dibi/examples/
+  inflating: filegator/vendor/dibi/dibi/examples/tracy.php  
+  inflating: filegator/vendor/dibi/dibi/examples/using-fluent-syntax.php  
+  inflating: filegator/vendor/dibi/dibi/examples/using-logger.php  
+  inflating: filegator/vendor/dibi/dibi/examples/using-limit-and-offset.php  
+  inflating: filegator/vendor/dibi/dibi/examples/query-language-basic-examples.php  
+  inflating: filegator/vendor/dibi/dibi/examples/query-language-and-conditions.php  
+  inflating: filegator/vendor/dibi/dibi/examples/database-reflection.php  
+  inflating: filegator/vendor/dibi/dibi/examples/fetching-examples.php  
+  inflating: filegator/vendor/dibi/dibi/examples/importing-dump-from-file.php  
+  inflating: filegator/vendor/dibi/dibi/examples/connecting-to-databases.php  
+   creating: filegator/vendor/dibi/dibi/examples/data/
+  inflating: filegator/vendor/dibi/dibi/examples/data/dibi-powered.gif  
+  inflating: filegator/vendor/dibi/dibi/examples/data/sample.mdb  
+  inflating: filegator/vendor/dibi/dibi/examples/data/arrow.png  
+  inflating: filegator/vendor/dibi/dibi/examples/data/sample.s3db  
+ extracting: filegator/vendor/dibi/dibi/examples/data/sample.dump.sql.gz  
+  inflating: filegator/vendor/dibi/dibi/examples/data/style.css  
+  inflating: filegator/vendor/dibi/dibi/examples/result-set-data-types.php  
+  inflating: filegator/vendor/dibi/dibi/examples/dumping-sql-and-result-set.php  
+  inflating: filegator/vendor/dibi/dibi/examples/using-substitutions.php  
+  inflating: filegator/vendor/dibi/dibi/examples/tracy-and-exceptions.php  
+  inflating: filegator/vendor/dibi/dibi/examples/using-datetime.php  
+  inflating: filegator/vendor/dibi/dibi/examples/using-transactions.php  
+  inflating: filegator/vendor/dibi/dibi/contributing.md  
+  inflating: filegator/vendor/dibi/dibi/readme.md  
+   creating: filegator/vendor/dibi/dibi/src/
+   creating: filegator/vendor/dibi/dibi/src/Dibi/
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Connection.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Helpers.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Translator.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Literal.php  
+   creating: filegator/vendor/dibi/dibi/src/Dibi/Loggers/
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Loggers/FileLogger.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/exceptions.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/HashMap.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/DateTime.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/DataSource.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Row.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Event.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/ResultIterator.php  
+   creating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/OdbcReflector.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/PostgreReflector.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/SqliteDriver.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/SqliteResult.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/PdoResult.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/OdbcResult.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/PostgreDriver.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/Sqlite3Result.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/OracleResult.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/SqlsrvReflector.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/OdbcDriver.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/FirebirdResult.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/MySqliResult.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/FirebirdDriver.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/MySqlReflector.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/PostgreResult.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/NoDataResult.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/OracleReflector.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/SqlsrvDriver.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/FirebirdReflector.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/MySqliDriver.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/PdoDriver.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/SqlsrvResult.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/OracleDriver.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/SqliteReflector.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/DummyDriver.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Drivers/Sqlite3Driver.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Result.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Type.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/interfaces.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Strict.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Expression.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Fluent.php  
+   creating: filegator/vendor/dibi/dibi/src/Dibi/Bridges/
+   creating: filegator/vendor/dibi/dibi/src/Dibi/Bridges/Tracy/
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Bridges/Tracy/Panel.php  
+   creating: filegator/vendor/dibi/dibi/src/Dibi/Bridges/Nette/
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Bridges/Nette/config.sample.neon  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Bridges/Nette/DibiExtension22.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/dibi.php  
+   creating: filegator/vendor/dibi/dibi/src/Dibi/Reflection/
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Reflection/Index.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Reflection/Table.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Reflection/Result.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Reflection/ForeignKey.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Reflection/Column.php  
+  inflating: filegator/vendor/dibi/dibi/src/Dibi/Reflection/Database.php  
+  inflating: filegator/vendor/dibi/dibi/composer.json  
+  inflating: filegator/vendor/dibi/dibi/license.md  
+   creating: filegator/vendor/rakit/
+   creating: filegator/vendor/rakit/validation/
+  inflating: filegator/vendor/rakit/validation/LICENSE.md  
+ extracting: filegator/vendor/rakit/validation/.gitignore  
+  inflating: filegator/vendor/rakit/validation/phpcs.xml  
+  inflating: filegator/vendor/rakit/validation/.gitattributes  
+  inflating: filegator/vendor/rakit/validation/.editorconfig  
+   creating: filegator/vendor/rakit/validation/src/
+  inflating: filegator/vendor/rakit/validation/src/Attribute.php  
+  inflating: filegator/vendor/rakit/validation/src/RuleQuashException.php  
+  inflating: filegator/vendor/rakit/validation/src/Validator.php  
+  inflating: filegator/vendor/rakit/validation/src/ErrorBag.php  
+  inflating: filegator/vendor/rakit/validation/src/Rule.php  
+   creating: filegator/vendor/rakit/validation/src/Traits/
+  inflating: filegator/vendor/rakit/validation/src/Traits/MessagesTrait.php  
+  inflating: filegator/vendor/rakit/validation/src/Traits/TranslationsTrait.php  
+  inflating: filegator/vendor/rakit/validation/src/Helper.php  
+  inflating: filegator/vendor/rakit/validation/src/MissingRequiredParameterException.php  
+   creating: filegator/vendor/rakit/validation/src/Rules/
+  inflating: filegator/vendor/rakit/validation/src/Rules/Integer.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Before.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/NotIn.php  
+   creating: filegator/vendor/rakit/validation/src/Rules/Traits/
+  inflating: filegator/vendor/rakit/validation/src/Rules/Traits/FileTrait.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Traits/SizeTrait.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Traits/DateUtilsTrait.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Date.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Uppercase.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Between.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/RequiredWithoutAll.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Lowercase.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Ipv4.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Accepted.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Regex.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/UploadedFile.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/After.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Json.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Required.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Boolean.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/TypeArray.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Alpha.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Numeric.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Ipv6.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Callback.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/RequiredWithAll.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Extension.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Same.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Email.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/AlphaNum.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Digits.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Ip.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Max.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/RequiredUnless.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/DigitsBetween.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/RequiredWithout.php  
+   creating: filegator/vendor/rakit/validation/src/Rules/Interfaces/
+  inflating: filegator/vendor/rakit/validation/src/Rules/Interfaces/BeforeValidate.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Interfaces/ModifyValue.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Defaults.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/AlphaSpaces.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Mimes.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/RequiredWith.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/RequiredIf.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Different.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/AlphaDash.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/In.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Url.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Present.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Min.php  
+  inflating: filegator/vendor/rakit/validation/src/Rules/Nullable.php  
+  inflating: filegator/vendor/rakit/validation/src/MimeTypeGuesser.php  
+  inflating: filegator/vendor/rakit/validation/src/Validation.php  
+  inflating: filegator/vendor/rakit/validation/src/RuleNotFoundException.php  
+  inflating: filegator/vendor/rakit/validation/README.md  
+  inflating: filegator/vendor/rakit/validation/composer.json  
+   creating: filegator/vendor/psr/
+   creating: filegator/vendor/psr/container/
+  inflating: filegator/vendor/psr/container/LICENSE  
+  inflating: filegator/vendor/psr/container/.gitignore  
+   creating: filegator/vendor/psr/container/src/
+  inflating: filegator/vendor/psr/container/src/ContainerInterface.php  
+  inflating: filegator/vendor/psr/container/src/NotFoundExceptionInterface.php  
+  inflating: filegator/vendor/psr/container/src/ContainerExceptionInterface.php  
+  inflating: filegator/vendor/psr/container/README.md  
+  inflating: filegator/vendor/psr/container/composer.json  
+   creating: filegator/vendor/psr/log/
+  inflating: filegator/vendor/psr/log/LICENSE  
+   creating: filegator/vendor/psr/log/Psr/
+   creating: filegator/vendor/psr/log/Psr/Log/
+  inflating: filegator/vendor/psr/log/Psr/Log/InvalidArgumentException.php  
+  inflating: filegator/vendor/psr/log/Psr/Log/NullLogger.php  
+  inflating: filegator/vendor/psr/log/Psr/Log/LogLevel.php  
+   creating: filegator/vendor/psr/log/Psr/Log/Test/
+  inflating: filegator/vendor/psr/log/Psr/Log/Test/LoggerInterfaceTest.php  
+  inflating: filegator/vendor/psr/log/Psr/Log/Test/DummyTest.php  
+  inflating: filegator/vendor/psr/log/Psr/Log/Test/TestLogger.php  
+  inflating: filegator/vendor/psr/log/Psr/Log/LoggerAwareInterface.php  
+  inflating: filegator/vendor/psr/log/Psr/Log/LoggerTrait.php  
+  inflating: filegator/vendor/psr/log/Psr/Log/LoggerAwareTrait.php  
+  inflating: filegator/vendor/psr/log/Psr/Log/LoggerInterface.php  
+  inflating: filegator/vendor/psr/log/Psr/Log/AbstractLogger.php  
+  inflating: filegator/vendor/psr/log/README.md  
+  inflating: filegator/vendor/psr/log/composer.json  
+   creating: filegator/vendor/psr/event-dispatcher/
+  inflating: filegator/vendor/psr/event-dispatcher/LICENSE  
+ extracting: filegator/vendor/psr/event-dispatcher/.gitignore  
+  inflating: filegator/vendor/psr/event-dispatcher/.editorconfig  
+   creating: filegator/vendor/psr/event-dispatcher/src/
+  inflating: filegator/vendor/psr/event-dispatcher/src/ListenerProviderInterface.php  
+  inflating: filegator/vendor/psr/event-dispatcher/src/EventDispatcherInterface.php  
+  inflating: filegator/vendor/psr/event-dispatcher/src/StoppableEventInterface.php  
+  inflating: filegator/vendor/psr/event-dispatcher/README.md  
+  inflating: filegator/vendor/psr/event-dispatcher/composer.json  
+  inflating: filegator/vendor/autoload.php  
+   creating: filegator/vendor/composer/
+  inflating: filegator/vendor/composer/autoload_real.php  
+  inflating: filegator/vendor/composer/autoload_classmap.php  
+  inflating: filegator/vendor/composer/platform_check.php  
+  inflating: filegator/vendor/composer/LICENSE  
+  inflating: filegator/vendor/composer/autoload_static.php  
+  inflating: filegator/vendor/composer/ClassLoader.php  
+  inflating: filegator/vendor/composer/InstalledVersions.php  
+  inflating: filegator/vendor/composer/autoload_psr4.php  
+  inflating: filegator/vendor/composer/autoload_files.php  
+  inflating: filegator/vendor/composer/installed.php  
+  inflating: filegator/vendor/composer/autoload_namespaces.php  
+  inflating: filegator/vendor/composer/installed.json  
+   creating: filegator/vendor/php-di/
+   creating: filegator/vendor/php-di/invoker/
+  inflating: filegator/vendor/php-di/invoker/LICENSE  
+   creating: filegator/vendor/php-di/invoker/src/
+  inflating: filegator/vendor/php-di/invoker/src/CallableResolver.php  
+  inflating: filegator/vendor/php-di/invoker/src/Invoker.php  
+   creating: filegator/vendor/php-di/invoker/src/Exception/
+  inflating: filegator/vendor/php-di/invoker/src/Exception/NotCallableException.php  
+  inflating: filegator/vendor/php-di/invoker/src/Exception/NotEnoughParametersException.php  
+  inflating: filegator/vendor/php-di/invoker/src/Exception/InvocationException.php  
+  inflating: filegator/vendor/php-di/invoker/src/InvokerInterface.php  
+   creating: filegator/vendor/php-di/invoker/src/ParameterResolver/
+  inflating: filegator/vendor/php-di/invoker/src/ParameterResolver/AssociativeArrayResolver.php  
+  inflating: filegator/vendor/php-di/invoker/src/ParameterResolver/DefaultValueResolver.php  
+  inflating: filegator/vendor/php-di/invoker/src/ParameterResolver/ParameterResolver.php  
+  inflating: filegator/vendor/php-di/invoker/src/ParameterResolver/ResolverChain.php  
+  inflating: filegator/vendor/php-di/invoker/src/ParameterResolver/NumericArrayResolver.php  
+   creating: filegator/vendor/php-di/invoker/src/ParameterResolver/Container/
+  inflating: filegator/vendor/php-di/invoker/src/ParameterResolver/Container/TypeHintContainerResolver.php  
+  inflating: filegator/vendor/php-di/invoker/src/ParameterResolver/Container/ParameterNameContainerResolver.php  
+  inflating: filegator/vendor/php-di/invoker/src/ParameterResolver/TypeHintResolver.php  
+   creating: filegator/vendor/php-di/invoker/src/Reflection/
+  inflating: filegator/vendor/php-di/invoker/src/Reflection/CallableReflection.php  
+  inflating: filegator/vendor/php-di/invoker/README.md  
+  inflating: filegator/vendor/php-di/invoker/composer.json  
+   creating: filegator/vendor/php-di/phpdoc-reader/
+  inflating: filegator/vendor/php-di/phpdoc-reader/.phpcs.xml.dist  
+   creating: filegator/vendor/php-di/phpdoc-reader/.github/
+   creating: filegator/vendor/php-di/phpdoc-reader/.github/workflows/
+  inflating: filegator/vendor/php-di/phpdoc-reader/.github/workflows/ci.yml  
+  inflating: filegator/vendor/php-di/phpdoc-reader/LICENSE  
+  inflating: filegator/vendor/php-di/phpdoc-reader/.gitignore  
+  inflating: filegator/vendor/php-di/phpdoc-reader/.gitattributes  
+   creating: filegator/vendor/php-di/phpdoc-reader/src/
+   creating: filegator/vendor/php-di/phpdoc-reader/src/PhpDocReader/
+  inflating: filegator/vendor/php-di/phpdoc-reader/src/PhpDocReader/PhpDocReader.php  
+  inflating: filegator/vendor/php-di/phpdoc-reader/src/PhpDocReader/AnnotationException.php  
+   creating: filegator/vendor/php-di/phpdoc-reader/src/PhpDocReader/PhpParser/
+  inflating: filegator/vendor/php-di/phpdoc-reader/src/PhpDocReader/PhpParser/UseStatementParser.php  
+  inflating: filegator/vendor/php-di/phpdoc-reader/src/PhpDocReader/PhpParser/TokenParser.php  
+  inflating: filegator/vendor/php-di/phpdoc-reader/README.md  
+  inflating: filegator/vendor/php-di/phpdoc-reader/composer.json  
+   creating: filegator/vendor/php-di/php-di/
+  inflating: filegator/vendor/php-di/php-di/change-log.md  
+  inflating: filegator/vendor/php-di/php-di/LICENSE  
+   creating: filegator/vendor/php-di/php-di/src/
+   creating: filegator/vendor/php-di/php-di/src/Invoker/
+  inflating: filegator/vendor/php-di/php-di/src/Invoker/FactoryParameterResolver.php  
+  inflating: filegator/vendor/php-di/php-di/src/Invoker/DefinitionParameterResolver.php  
+   creating: filegator/vendor/php-di/php-di/src/Definition/
+  inflating: filegator/vendor/php-di/php-di/src/Definition/FactoryDefinition.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/ExtendsPreviousDefinition.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/StringDefinition.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/AutowireDefinition.php  
+   creating: filegator/vendor/php-di/php-di/src/Definition/Helper/
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Helper/AutowireDefinitionHelper.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Helper/CreateDefinitionHelper.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Helper/DefinitionHelper.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Helper/FactoryDefinitionHelper.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/SelfResolvingDefinition.php  
+   creating: filegator/vendor/php-di/php-di/src/Definition/ObjectDefinition/
+  inflating: filegator/vendor/php-di/php-di/src/Definition/ObjectDefinition/PropertyInjection.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/ObjectDefinition/MethodInjection.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/ObjectDefinition.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Reference.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/ArrayDefinition.php  
+   creating: filegator/vendor/php-di/php-di/src/Definition/Source/
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Source/AnnotationBasedAutowiring.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Source/SourceCache.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Source/DefinitionFile.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Source/DefinitionNormalizer.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Source/DefinitionSource.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Source/Autowiring.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Source/NoAutowiring.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Source/SourceChain.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Source/MutableDefinitionSource.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Source/DefinitionArray.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Source/ReflectionBasedAutowiring.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/EnvironmentVariableDefinition.php  
+   creating: filegator/vendor/php-di/php-di/src/Definition/Exception/
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Exception/InvalidDefinition.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Exception/InvalidAnnotation.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/DecoratorDefinition.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/InstanceDefinition.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/ArrayDefinitionExtension.php  
+   creating: filegator/vendor/php-di/php-di/src/Definition/Dumper/
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Dumper/ObjectDefinitionDumper.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Definition.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/ValueDefinition.php  
+   creating: filegator/vendor/php-di/php-di/src/Definition/Resolver/
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Resolver/ArrayResolver.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Resolver/ParameterResolver.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Resolver/ResolverDispatcher.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Resolver/EnvironmentVariableResolver.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Resolver/DecoratorResolver.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Resolver/ObjectCreator.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Resolver/FactoryResolver.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Resolver/InstanceInjector.php  
+  inflating: filegator/vendor/php-di/php-di/src/Definition/Resolver/DefinitionResolver.php  
+   creating: filegator/vendor/php-di/php-di/src/Annotation/
+  inflating: filegator/vendor/php-di/php-di/src/Annotation/Inject.php  
+  inflating: filegator/vendor/php-di/php-di/src/Annotation/Injectable.php  
+  inflating: filegator/vendor/php-di/php-di/src/DependencyException.php  
+   creating: filegator/vendor/php-di/php-di/src/Compiler/
+  inflating: filegator/vendor/php-di/php-di/src/Compiler/ObjectCreationCompiler.php  
+  inflating: filegator/vendor/php-di/php-di/src/Compiler/Compiler.php  
+  inflating: filegator/vendor/php-di/php-di/src/Compiler/RequestedEntryHolder.php  
+  inflating: filegator/vendor/php-di/php-di/src/Compiler/Template.php  
+  inflating: filegator/vendor/php-di/php-di/src/Container.php  
+  inflating: filegator/vendor/php-di/php-di/src/CompiledContainer.php  
+   creating: filegator/vendor/php-di/php-di/src/Proxy/
+  inflating: filegator/vendor/php-di/php-di/src/Proxy/ProxyFactory.php  
+  inflating: filegator/vendor/php-di/php-di/src/NotFoundException.php  
+   creating: filegator/vendor/php-di/php-di/src/Factory/
+  inflating: filegator/vendor/php-di/php-di/src/Factory/RequestedEntry.php  
+  inflating: filegator/vendor/php-di/php-di/src/FactoryInterface.php  
+  inflating: filegator/vendor/php-di/php-di/src/ContainerBuilder.php  
+  inflating: filegator/vendor/php-di/php-di/src/functions.php  
+  inflating: filegator/vendor/php-di/php-di/support.md  
+  inflating: filegator/vendor/php-di/php-di/README.md  
+  inflating: filegator/vendor/php-di/php-di/composer.json  
+  inflating: filegator/CONTRIBUTING.md  
+  inflating: filegator/CODE_OF_CONDUCT.md  
+  inflating: filegator/docker-compose-dev.yml  
+  inflating: filegator/LICENSE       
+  inflating: filegator/Dockerfile.multiarch  
+  inflating: filegator/configuration_sample.php  
+  inflating: filegator/BACKERS.md    
+   creating: filegator/private/
+   creating: filegator/private/sessions/
+ extracting: filegator/private/sessions/.gitignore  
+  inflating: filegator/private/users.json.blank  
+ extracting: filegator/private/.htaccess  
+ extracting: filegator/private/.gitignore  
+   creating: filegator/private/logs/
+ extracting: filegator/private/logs/.gitignore  
+  inflating: filegator/index.php     
+  inflating: filegator/SECURITY.md   
+  inflating: filegator/composer.lock  
+   creating: filegator/repository/
+  inflating: filegator/robots.txt    
+  inflating: filegator/configuration.php  
+  inflating: filegator/package.json  
+  inflating: filegator/Dockerfile    
+  inflating: filegator/composer.json  
+sh-5.2$ sudo rm filegator_latest.zip
+sh-5.2$ ls -la /var/www/filegator
+total 876
+drwxr-xr-x.  7 root root  16384 Oct 21 18:15 .
+drwxr-xr-x.  5 root root     50 Oct 29 17:56 ..
+-rw-r--r--.  1 root root   1484 Oct 21 18:14 BACKERS.md
+-rw-r--r--.  1 root root  10498 Oct 21 18:14 CHANGELOG.md
+-rw-r--r--.  1 root root    472 Oct 21 18:14 CODE_OF_CONDUCT.md
+-rw-r--r--.  1 root root    400 Oct 21 18:14 CONTRIBUTING.md
+-rw-r--r--.  1 root root   2389 Oct 21 18:14 Dockerfile
+-rw-r--r--.  1 root root   1071 Oct 21 18:14 Dockerfile.dev
+-rw-r--r--.  1 root root   1423 Oct 21 18:14 Dockerfile.multiarch
+-rw-r--r--.  1 root root   1082 Oct 21 18:14 LICENSE
+-rw-r--r--.  1 root root    253 Oct 21 18:14 SECURITY.md
+drwxr-xr-x.  8 root root    114 Oct 21 18:14 backend
+-rw-r--r--.  1 root root   1208 Oct 21 18:14 composer.json
+-rw-r--r--.  1 root root 131861 Oct 21 18:14 composer.lock
+-rw-r--r--.  1 root root   4948 Oct 21 18:14 configuration.php
+-rw-r--r--.  1 root root   4948 Oct 21 18:14 configuration_sample.php
+drwxr-xr-x.  6 root root    168 Oct 21 18:15 dist
+-rw-r--r--.  1 root root    926 Oct 21 18:14 docker-compose-dev.yml
+-rw-r--r--.  1 root root    255 Oct 21 18:14 docker-compose.yml
+-rw-r--r--.  1 root root    269 Oct 21 18:14 index.php
+-rw-r--r--.  1 root root 657873 Oct 21 18:14 package-lock.json
+-rw-r--r--.  1 root root   1391 Oct 21 18:14 package.json
+drwxr-xr-x.  4 root root     93 Oct 21 18:14 private
+drwxr-xr-x.  2 root root      6 Oct 21 18:15 repository
+-rw-r--r--.  1 root root    142 Oct 21 18:14 robots.txt
+drwxr-xr-x. 12 root root    164 Oct 21 18:14 vendor
+sh-5.2$ sudo rm -rf /var/www/filegator/repository
+sh-5.2$ sudo ln -s /mnt/efs/arquivos /var/www/filegator/repository
+sh-5.2$ ls -la /var/www/filegator/
+total 876
+drwxr-xr-x.  6 root root  16384 Oct 29 17:56 .
+drwxr-xr-x.  5 root root     50 Oct 29 17:56 ..
+-rw-r--r--.  1 root root   1484 Oct 21 18:14 BACKERS.md
+-rw-r--r--.  1 root root  10498 Oct 21 18:14 CHANGELOG.md
+-rw-r--r--.  1 root root    472 Oct 21 18:14 CODE_OF_CONDUCT.md
+-rw-r--r--.  1 root root    400 Oct 21 18:14 CONTRIBUTING.md
+-rw-r--r--.  1 root root   2389 Oct 21 18:14 Dockerfile
+-rw-r--r--.  1 root root   1071 Oct 21 18:14 Dockerfile.dev
+-rw-r--r--.  1 root root   1423 Oct 21 18:14 Dockerfile.multiarch
+-rw-r--r--.  1 root root   1082 Oct 21 18:14 LICENSE
+-rw-r--r--.  1 root root    253 Oct 21 18:14 SECURITY.md
+drwxr-xr-x.  8 root root    114 Oct 21 18:14 backend
+-rw-r--r--.  1 root root   1208 Oct 21 18:14 composer.json
+-rw-r--r--.  1 root root 131861 Oct 21 18:14 composer.lock
+-rw-r--r--.  1 root root   4948 Oct 21 18:14 configuration.php
+-rw-r--r--.  1 root root   4948 Oct 21 18:14 configuration_sample.php
+drwxr-xr-x.  6 root root    168 Oct 21 18:15 dist
+-rw-r--r--.  1 root root    926 Oct 21 18:14 docker-compose-dev.yml
+-rw-r--r--.  1 root root    255 Oct 21 18:14 docker-compose.yml
+-rw-r--r--.  1 root root    269 Oct 21 18:14 index.php
+-rw-r--r--.  1 root root 657873 Oct 21 18:14 package-lock.json
+-rw-r--r--.  1 root root   1391 Oct 21 18:14 package.json
+drwxr-xr-x.  4 root root     93 Oct 21 18:14 private
+lrwxrwxrwx.  1 root root     17 Oct 29 17:56 repository -> /mnt/efs/arquivos
+-rw-r--r--.  1 root root    142 Oct 21 18:14 robots.txt
+drwxr-xr-x. 12 root root    164 Oct 21 18:14 vendor
+sh-5.2$ sudo chown -R apache:apache /var/www/filegator
+sh-5.2$ sudo chmod -R 775 /var/www/filegator/private
+sh-5.2$ sudo chmod 777 /mnt/efs/arquivos
+sh-5.2$ sudo nano /etc/httpd/conf.d/filegator.conf
+sh-5.2$ sudo systemctl restart httpd
+sh-5.2$ sudo systemctl restart httpd
+sh-5.2$ ls -lh /mnt/efs/arquivos
+total 2.1M
+-rw-r--r--. 1 apache apache 2.1M Oct 29 18:09 'Captura de Tela (7).png'
+sh-5.2$ 
