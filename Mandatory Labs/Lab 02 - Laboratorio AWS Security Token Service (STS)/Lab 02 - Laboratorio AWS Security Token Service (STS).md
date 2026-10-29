@@ -97,44 +97,19 @@ O usuário IAM acessa o CloudShell, que solicita credenciais temporárias ao STS
 
 ## 📊 Resultado
 
-> 🖼️ **Espaço reservado:** adicione abaixo o print do comando `aws sts get-caller-identity` executado **após a configuração das credenciais temporárias**, mostrando a identidade da role em uso.
->
-> 1. Salve o print no repositório, por exemplo em `docs/images/sts-get-caller-identity.png`.
-> 2. Substitua o bloco abaixo pela referência de imagem indicada no comentário.
+### 🪪 Identidade verificada no CloudShell
 
-> 🔒 **Atenção:** antes de publicar, oculte o ID da conta, as chaves de acesso e o *session token* que aparecerem nos prints.
-
-### 🪪 Identidade da role temporária
-
-<!-- Substitua o bloco abaixo por: ![Resultado do aws sts get-caller-identity](docs/images/sts-get-caller-identity.png) -->
+Saída do comando `aws sts get-caller-identity` executado no CloudShell, que retorna a identidade ativa na sessão (ID do usuário, conta e ARN).
 
 <div align="center">
 
-```
-┌──────────────────────────────────────────────┐
-│                                              │
-│   📷  INSIRA AQUI O PRINT DO COMANDO         │
-│       aws sts get-caller-identity            │
-│                                              │
-│   docs/images/sts-get-caller-identity.png    │
-│                                              │
-└──────────────────────────────────────────────┘
-```
+![Resultado do comando aws sts get-caller-identity no CloudShell](docs/images/sts-get-caller-identity.png)
 
-*Figura 1: identidade `assumed-role` retornada pelo STS com as credenciais temporárias.*
+*Figura 1: `aws sts get-caller-identity` no CloudShell, exibindo o ARN do usuário IAM antes de assumir a role temporária.*
 
 </div>
 
-### 🧪 Demais testes realizados
-
-<!-- Quando tiver os prints, troque cada bloco por uma imagem, por exemplo: ![S3 permitido](docs/images/s3-permitido.png) -->
-
-| # | Teste | Print |
-|---|---|---|
-| 1 | 🪣 Acesso ao **S3** permitido | `docs/images/s3-permitido.png` |
-| 2 | ⚡ Acesso ao **Lambda** negado | `docs/images/lambda-negado.png` |
-| 3 | ⏳ Erro de **token expirado** | `docs/images/token-expirado.png` |
-| 4 | 🤝 **AssumeRole negado** após alterar a política de confiança | `docs/images/assume-role-negado.png` |
+> 💡 Após configurar as credenciais temporárias, o mesmo comando passa a retornar um ARN no formato `assumed-role/<nome-da-role>/<nome-da-sessão>`, como descrito na seção de validação abaixo.
 
 ---
 
