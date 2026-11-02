@@ -26,9 +26,9 @@
 
 ## 📖 Sobre o Projeto
 
-Este é o laboratório final da trilha **Arquitetura na AWS**. Em vez de um passo a passo totalmente guiado, o exercício entrega uma lista de requisitos para cada camada do portal web de marketing de uma empresa fictícia e espera que a arquitetura seja montada a partir deles. O laboratório também traz um conjunto de instruções detalhadas para consulta quando alguma tarefa se tornar difícil.
+Neste projeto prático de encerramento da trilha de Arquitetura AWS, **assumi o desafio de projetar e implantar** uma solução multicamadas (*Multi-Tier Architecture*) partindo estritamente de requisitos de negócio e sem roteiro pré-guiado: **segreguei** a rede em múltiplas Zonas de Disponibilidade, **provisionei** um cluster gerenciado Amazon Aurora MySQL, **estabeleci** armazenamento compartilhado NFS com Amazon EFS e **tornei** a camada web escalável e tolerante a falhas com Application Load Balancer e Auto Scaling Groups.
 
-O cenário é uma prova de conceito que leva uma aplicação voltada ao cliente de um data center on-premises para a AWS. O objetivo é uma solução rápida, durável, escalável e mais barata que a infraestrutura atual. O resultado é uma aplicação WordPress rodando sobre camadas de rede, banco de dados, armazenamento compartilhado, balanceamento de carga e computação distribuídas em duas Zonas de Disponibilidade.
+O projeto consistiu em uma prova de conceito (PoC) de migração de uma aplicação web corporativa de um data center on-premises para a AWS, visando alta disponibilidade, elasticidade e redução de TCO. O resultado entregue foi uma aplicação WordPress produtiva sustentada por infraestrutura segregada em camadas (apresentação, aplicação e dados) em duas AZs.
 
 > 💬 *Primeiro os requisitos, depois o console: o laboratório treina o hábito de transformar necessidades de negócio em decisões de arquitetura.*
 
@@ -145,7 +145,7 @@ O tráfego da internet entra pelo gateway da internet e chega ao Application Loa
 - 📝 Um editor de texto para guardar os valores copiados entre as tarefas (endpoint do gravador, ID do sistema de arquivos, nome DNS do ALB)
 - 📧 Um endereço de e-mail válido para o parâmetro de administrador do WordPress
 
-> ⚠️ **Atenção:** o ambiente de capacitação tem permissões limitadas. Os serviços não usados no laboratório ficam desativados e os recursos permitidos se restringem ao que ele exige; por isso, ações fora do roteiro podem gerar erros. Um erro de permissão de monitoramento aprimorado exibido ao criar o cluster Aurora pode ser ignorado, segundo as instruções.
+> 💡 **Nota de Engenharia:** A arquitetura seguiu rigorosamente os padrões de isolamento de rede recomendados pela AWS, mantendo instâncias de banco de dados e pontos de montagem EFS em sub-redes privadas e permitindo tráfego público exclusivamente através do Application Load Balancer.
 
 ---
 

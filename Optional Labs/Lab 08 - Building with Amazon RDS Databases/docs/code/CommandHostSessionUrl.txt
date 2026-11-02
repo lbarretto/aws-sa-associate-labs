@@ -1,0 +1,606 @@
+sh-5.2$ cd ~
+aws secretsmanager list-secret-version-ids --secret-id mydbsecret-0111
+{
+    "Versions": [
+        {
+            "VersionId": "772d5d35-7e1b-4d0b-ac7e-252f0a8c48a8",
+            "VersionStages": [
+                "AWSCURRENT"
+            ],
+            "LastAccessedDate": "2026-11-01T00:00:00+00:00",
+            "CreatedDate": "2026-11-01T22:41:56.196000+00:00",
+            "KmsKeyIds": [
+                "DefaultEncryptionKey"
+            ]
+        }
+    ],
+    "ARN": "arn:aws:secretsmanager:us-east-1:593528889246:secret:mydbsecret-0111-Pcso5t",
+    "Name": "mydbsecret-0111"
+}
+sh-5.2$ aws secretsmanager list-secret-version-ids --secret-id mydbsecret-0111 --output text --query ARN
+arn:aws:secretsmanager:us-east-1:593528889246:secret:mydbsecret-0111-Pcso5t
+sh-5.2$ aws secretsmanager get-secret-value --secret-id arn:aws:secretsmanager:us-east-1:593528889246:secret:mydbsecret-0111-Pcso5 --version-stage AWSCURRENT
+
+aws: [ERROR]: An error occurred (ResourceNotFoundException) when calling the GetSecretValue operation: Secrets Manager can't find the specified secret.
+sh-5.2$ aws secretsmanager get-secret-value --secret-id arn:aws:secretsmanager:us-east-1:593528889246:secret:mydbsecret-0111-Pcso5t --version-stage AWSCURRENT
+{
+    "ARN": "arn:aws:secretsmanager:us-east-1:593528889246:secret:mydbsecret-0111-Pcso5t",
+    "Name": "mydbsecret-0111",
+    "VersionId": "772d5d35-7e1b-4d0b-ac7e-252f0a8c48a8",
+    "SecretString": "{\"username\":\"admin\",\"password\":\"jQzRz4F9J3i7\",\"engine\":\"mysql\",\"host\":\"mydb.c78wgqic0l6i.us-east-1.rds.amazonaws.com\",\"port\":3306,\"dbname\":\"mydb\",\"dbInstanceIdentifier\":\"mydb\"}",
+    "VersionStages": [
+        "AWSCURRENT"
+    ],
+    "CreatedDate": "2026-11-01T22:41:56.196000+00:00"
+}
+sh-5.2$ secret=$(aws secretsmanager get-secret-value --secret-id arn:aws:secretsmanager:us-east-1:593528889246:secret:mydbsecret-0111-Pcso5t | jq .SecretString | jq fromjson)
+user=$(echo $secret | jq -r .username)
+password=$(echo $secret | jq -r .password)
+endpoint=$(echo $secret | jq -r .host)
+port=$(echo $secret | jq -r .port)
+sh-5.2$ mysql -h $endpoint -u $user -P $port -p$password mydb
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 58
+Server version: 8.4.11 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [mydb]> STATUS;
+--------------
+mysql  Ver 15.1 Distrib 10.5.29-MariaDB, for Linux (x86_64) using  EditLine wrapper
+
+Connection id:          58
+Current database:       mydb
+Current user:           admin@10.0.1.112
+SSL:                    Not in use
+Current pager:          stdout
+Using outfile:          ''
+Using delimiter:        ;
+Server:                 MySQL
+Server version:         8.4.11 Source distribution
+Protocol version:       10
+Connection:             mydb.c78wgqic0l6i.us-east-1.rds.amazonaws.com via TCP/IP
+Server characterset:    utf8mb4
+Db     characterset:    utf8mb4
+Client characterset:    utf8mb3
+Conn.  characterset:    utf8mb3
+TCP port:               3306
+Uptime:                 1 hour 3 min 7 sec
+
+Threads: 4  Questions: 14712  Slow queries: 0  Opens: 409  Flush tables: 3  Open tables: 273  Queries per second avg: 3.884
+--------------
+
+MySQL [mydb]> exit
+Bye
+sh-5.2$ cd ~
+chmod 600 global-bundle.pem
+sh-5.2$ secret=$(aws secretsmanager get-secret-value --secret-id arn:aws:secretsmanager:us-east-1:593528889246:secret:mydbsecret-0111-Pcso5t | jq .SecretString | jq fromjson)
+user=$(echo $secret | jq -r .username)
+password=$(echo $secret | jq -r .password)
+endpoint=$(echo $secret | jq -r .host)
+port=$(echo $secret | jq -r .port)
+sh-5.2$ mysql -h $endpoint --ssl-ca=/home/ssm-user/global-bundle.pem --ssl-verify-server-cert -u $user -P $port -p$password mydb
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 65
+Server version: 8.4.11 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [mydb]> STATUS;
+--------------
+mysql  Ver 15.1 Distrib 10.5.29-MariaDB, for Linux (x86_64) using  EditLine wrapper
+
+Connection id:          65
+Current database:       mydb
+Current user:           admin@10.0.1.112
+SSL:                    Cipher in use is TLS_AES_256_GCM_SHA384
+Current pager:          stdout
+Using outfile:          ''
+Using delimiter:        ;
+Server:                 MySQL
+Server version:         8.4.11 Source distribution
+Protocol version:       10
+Connection:             mydb.c78wgqic0l6i.us-east-1.rds.amazonaws.com via TCP/IP
+Server characterset:    utf8mb4
+Db     characterset:    utf8mb4
+Client characterset:    utf8mb3
+Conn.  characterset:    utf8mb3
+TCP port:               3306
+Uptime:                 1 hour 9 min 35 sec
+
+Threads: 4  Questions: 15200  Slow queries: 0  Opens: 410  Flush tables: 3  Open tables: 274  Queries per second avg: 3.640
+--------------
+
+MySQL [mydb]> exit
+Bye
+sh-5.2$ cd ~
+sh-5.2$ python3 create_failover_sync_db.py
+/usr/local/lib/python3.9/site-packages/boto3/compat.py:89: PythonDeprecationWarning: Boto3 will no longer support Python 3.9 starting April 29, 2026. To continue receiving service updates, bug fixes, and security updates please upgrade to Python 3.10 or later. More information can be found here: https://aws.amazon.com/blogs/developer/python-support-policy-updates-for-aws-sdks-and-tools/
+  warnings.warn(warning, PythonDeprecationWarning)
+This will destroy and recreate sync database and tracking table
+enter y to continue, n to exit [n]: y
+Connecting over SSL (y/n) [y]: y
+path to ssl cert [./global-bundle.pem]: ./global-bundle.pem
+mydb.c78wgqic0l6i.us-east-1.rds.amazonaws.com
+Database db_test_meter created
+Table db_test_meter.db_sync created
+sh-5.2$ python3 failover_test.py --test_run_id test_run_0
+/usr/local/lib/python3.9/site-packages/boto3/compat.py:89: PythonDeprecationWarning: Boto3 will no longer support Python 3.9 starting April 29, 2026. To continue receiving service updates, bug fixes, and security updates please upgrade to Python 3.10 or later. More information can be found here: https://aws.amazon.com/blogs/developer/python-support-policy-updates-for-aws-sdks-and-tools/
+  warnings.warn(warning, PythonDeprecationWarning)
+Connecting over SSL (y/n) [y]: y
+path to ssl cert [./global-bundle.pem]: ./global-bundle.pem
+mydb.c78wgqic0l6i.us-east-1.rds.amazonaws.com
+Connection succeeded at Sun Nov  1 22:58:04 2026
+Test starting, initial Db node hostname: ip-172-17-1-193
+Insert succeeded at Sun Nov  1 22:58:04 2026 test_run_id: test_run_0, index_id:1
+Insert succeeded at Sun Nov  1 22:58:04 2026 test_run_id: test_run_0, index_id:2
+Insert succeeded at Sun Nov  1 22:58:05 2026 test_run_id: test_run_0, index_id:3
+Insert succeeded at Sun Nov  1 22:58:05 2026 test_run_id: test_run_0, index_id:4
+Insert succeeded at Sun Nov  1 22:58:06 2026 test_run_id: test_run_0, index_id:5
+Insert succeeded at Sun Nov  1 22:58:06 2026 test_run_id: test_run_0, index_id:6
+Insert succeeded at Sun Nov  1 22:58:07 2026 test_run_id: test_run_0, index_id:7
+Insert succeeded at Sun Nov  1 22:58:07 2026 test_run_id: test_run_0, index_id:8
+Insert succeeded at Sun Nov  1 22:58:08 2026 test_run_id: test_run_0, index_id:9
+Insert succeeded at Sun Nov  1 22:58:08 2026 test_run_id: test_run_0, index_id:10
+Insert succeeded at Sun Nov  1 22:58:09 2026 test_run_id: test_run_0, index_id:11
+Insert succeeded at Sun Nov  1 22:58:09 2026 test_run_id: test_run_0, index_id:12
+Insert succeeded at Sun Nov  1 22:58:10 2026 test_run_id: test_run_0, index_id:13
+Insert succeeded at Sun Nov  1 22:58:10 2026 test_run_id: test_run_0, index_id:14
+Insert succeeded at Sun Nov  1 22:58:11 2026 test_run_id: test_run_0, index_id:15
+Insert succeeded at Sun Nov  1 22:58:11 2026 test_run_id: test_run_0, index_id:16
+Insert succeeded at Sun Nov  1 22:58:12 2026 test_run_id: test_run_0, index_id:17
+Insert succeeded at Sun Nov  1 22:58:12 2026 test_run_id: test_run_0, index_id:18
+Insert succeeded at Sun Nov  1 22:58:13 2026 test_run_id: test_run_0, index_id:19
+Insert succeeded at Sun Nov  1 22:58:13 2026 test_run_id: test_run_0, index_id:20
+Insert succeeded at Sun Nov  1 22:58:14 2026 test_run_id: test_run_0, index_id:21
+Insert succeeded at Sun Nov  1 22:58:14 2026 test_run_id: test_run_0, index_id:22
+Insert succeeded at Sun Nov  1 22:58:15 2026 test_run_id: test_run_0, index_id:23
+Insert succeeded at Sun Nov  1 22:58:15 2026 test_run_id: test_run_0, index_id:24
+Insert succeeded at Sun Nov  1 22:58:16 2026 test_run_id: test_run_0, index_id:25
+Insert succeeded at Sun Nov  1 22:58:16 2026 test_run_id: test_run_0, index_id:26
+Insert succeeded at Sun Nov  1 22:58:17 2026 test_run_id: test_run_0, index_id:27
+Insert succeeded at Sun Nov  1 22:58:17 2026 test_run_id: test_run_0, index_id:28
+Insert succeeded at Sun Nov  1 22:58:18 2026 test_run_id: test_run_0, index_id:29
+Insert succeeded at Sun Nov  1 22:58:18 2026 test_run_id: test_run_0, index_id:30
+Insert succeeded at Sun Nov  1 22:58:19 2026 test_run_id: test_run_0, index_id:31
+Insert succeeded at Sun Nov  1 22:58:19 2026 test_run_id: test_run_0, index_id:32
+Insert succeeded at Sun Nov  1 22:58:20 2026 test_run_id: test_run_0, index_id:33
+Insert succeeded at Sun Nov  1 22:58:20 2026 test_run_id: test_run_0, index_id:34
+Insert succeeded at Sun Nov  1 22:58:21 2026 test_run_id: test_run_0, index_id:35
+Insert succeeded at Sun Nov  1 22:58:21 2026 test_run_id: test_run_0, index_id:36
+Insert succeeded at Sun Nov  1 22:58:22 2026 test_run_id: test_run_0, index_id:37
+Insert succeeded at Sun Nov  1 22:58:22 2026 test_run_id: test_run_0, index_id:38
+Insert succeeded at Sun Nov  1 22:58:23 2026 test_run_id: test_run_0, index_id:39
+Insert succeeded at Sun Nov  1 22:58:23 2026 test_run_id: test_run_0, index_id:40
+Insert succeeded at Sun Nov  1 22:58:24 2026 test_run_id: test_run_0, index_id:41
+Insert succeeded at Sun Nov  1 22:58:25 2026 test_run_id: test_run_0, index_id:42
+Insert succeeded at Sun Nov  1 22:58:25 2026 test_run_id: test_run_0, index_id:43
+Insert succeeded at Sun Nov  1 22:58:26 2026 test_run_id: test_run_0, index_id:44
+Insert succeeded at Sun Nov  1 22:58:26 2026 test_run_id: test_run_0, index_id:45
+Insert succeeded at Sun Nov  1 22:58:27 2026 test_run_id: test_run_0, index_id:46
+Insert succeeded at Sun Nov  1 22:58:27 2026 test_run_id: test_run_0, index_id:47
+Insert succeeded at Sun Nov  1 22:58:28 2026 test_run_id: test_run_0, index_id:48
+Insert succeeded at Sun Nov  1 22:58:28 2026 test_run_id: test_run_0, index_id:49
+Insert succeeded at Sun Nov  1 22:58:29 2026 test_run_id: test_run_0, index_id:50
+Insert succeeded at Sun Nov  1 22:58:29 2026 test_run_id: test_run_0, index_id:51
+Insert succeeded at Sun Nov  1 22:58:30 2026 test_run_id: test_run_0, index_id:52
+Insert succeeded at Sun Nov  1 22:58:30 2026 test_run_id: test_run_0, index_id:53
+Insert succeeded at Sun Nov  1 22:58:31 2026 test_run_id: test_run_0, index_id:54
+Insert succeeded at Sun Nov  1 22:58:31 2026 test_run_id: test_run_0, index_id:55
+Insert succeeded at Sun Nov  1 22:58:32 2026 test_run_id: test_run_0, index_id:56
+Insert succeeded at Sun Nov  1 22:58:32 2026 test_run_id: test_run_0, index_id:57
+Insert succeeded at Sun Nov  1 22:58:33 2026 test_run_id: test_run_0, index_id:58
+Insert succeeded at Sun Nov  1 22:58:33 2026 test_run_id: test_run_0, index_id:59
+Insert succeeded at Sun Nov  1 22:58:34 2026 test_run_id: test_run_0, index_id:60
+Insert succeeded at Sun Nov  1 22:58:34 2026 test_run_id: test_run_0, index_id:61
+Insert succeeded at Sun Nov  1 22:58:35 2026 test_run_id: test_run_0, index_id:62
+Insert succeeded at Sun Nov  1 22:58:35 2026 test_run_id: test_run_0, index_id:63
+Insert succeeded at Sun Nov  1 22:58:36 2026 test_run_id: test_run_0, index_id:64
+Insert succeeded at Sun Nov  1 22:58:36 2026 test_run_id: test_run_0, index_id:65
+Insert succeeded at Sun Nov  1 22:58:37 2026 test_run_id: test_run_0, index_id:66
+Insert succeeded at Sun Nov  1 22:58:37 2026 test_run_id: test_run_0, index_id:67
+Insert succeeded at Sun Nov  1 22:58:38 2026 test_run_id: test_run_0, index_id:68
+Insert succeeded at Sun Nov  1 22:58:38 2026 test_run_id: test_run_0, index_id:69
+Insert succeeded at Sun Nov  1 22:58:39 2026 test_run_id: test_run_0, index_id:70
+Insert succeeded at Sun Nov  1 22:58:39 2026 test_run_id: test_run_0, index_id:71
+Insert succeeded at Sun Nov  1 22:58:40 2026 test_run_id: test_run_0, index_id:72
+Insert succeeded at Sun Nov  1 22:58:40 2026 test_run_id: test_run_0, index_id:73
+Insert succeeded at Sun Nov  1 22:58:41 2026 test_run_id: test_run_0, index_id:74
+Insert succeeded at Sun Nov  1 22:58:41 2026 test_run_id: test_run_0, index_id:75
+Insert succeeded at Sun Nov  1 22:58:42 2026 test_run_id: test_run_0, index_id:76
+Insert succeeded at Sun Nov  1 22:58:42 2026 test_run_id: test_run_0, index_id:77
+Insert succeeded at Sun Nov  1 22:58:43 2026 test_run_id: test_run_0, index_id:78
+Insert succeeded at Sun Nov  1 22:58:43 2026 test_run_id: test_run_0, index_id:79
+Insert succeeded at Sun Nov  1 22:58:44 2026 test_run_id: test_run_0, index_id:80
+Insert succeeded at Sun Nov  1 22:58:44 2026 test_run_id: test_run_0, index_id:81
+Insert succeeded at Sun Nov  1 22:58:45 2026 test_run_id: test_run_0, index_id:82
+Insert succeeded at Sun Nov  1 22:58:45 2026 test_run_id: test_run_0, index_id:83
+Insert succeeded at Sun Nov  1 22:58:46 2026 test_run_id: test_run_0, index_id:84
+Insert succeeded at Sun Nov  1 22:58:46 2026 test_run_id: test_run_0, index_id:85
+Insert succeeded at Sun Nov  1 22:58:47 2026 test_run_id: test_run_0, index_id:86
+Insert succeeded at Sun Nov  1 22:58:47 2026 test_run_id: test_run_0, index_id:87
+Insert succeeded at Sun Nov  1 22:58:48 2026 test_run_id: test_run_0, index_id:88
+Insert succeeded at Sun Nov  1 22:58:48 2026 test_run_id: test_run_0, index_id:89
+Insert succeeded at Sun Nov  1 22:58:49 2026 test_run_id: test_run_0, index_id:90
+Insert succeeded at Sun Nov  1 22:58:49 2026 test_run_id: test_run_0, index_id:91
+Insert succeeded at Sun Nov  1 22:58:50 2026 test_run_id: test_run_0, index_id:92
+Insert succeeded at Sun Nov  1 22:58:50 2026 test_run_id: test_run_0, index_id:93
+Insert succeeded at Sun Nov  1 22:58:51 2026 test_run_id: test_run_0, index_id:94
+Insert succeeded at Sun Nov  1 22:58:51 2026 test_run_id: test_run_0, index_id:95
+Insert succeeded at Sun Nov  1 22:58:52 2026 test_run_id: test_run_0, index_id:96
+Insert succeeded at Sun Nov  1 22:58:53 2026 test_run_id: test_run_0, index_id:97
+Insert succeeded at Sun Nov  1 22:58:53 2026 test_run_id: test_run_0, index_id:98
+Insert succeeded at Sun Nov  1 22:58:54 2026 test_run_id: test_run_0, index_id:99
+Insert succeeded at Sun Nov  1 22:58:54 2026 test_run_id: test_run_0, index_id:100
+Insert succeeded at Sun Nov  1 22:58:55 2026 test_run_id: test_run_0, index_id:101
+Insert succeeded at Sun Nov  1 22:58:55 2026 test_run_id: test_run_0, index_id:102
+Insert succeeded at Sun Nov  1 22:58:56 2026 test_run_id: test_run_0, index_id:103
+Insert succeeded at Sun Nov  1 22:58:56 2026 test_run_id: test_run_0, index_id:104
+Insert succeeded at Sun Nov  1 22:58:57 2026 test_run_id: test_run_0, index_id:105
+Insert succeeded at Sun Nov  1 22:58:57 2026 test_run_id: test_run_0, index_id:106
+Insert succeeded at Sun Nov  1 22:58:58 2026 test_run_id: test_run_0, index_id:107
+Insert succeeded at Sun Nov  1 22:58:58 2026 test_run_id: test_run_0, index_id:108
+Insert succeeded at Sun Nov  1 22:58:59 2026 test_run_id: test_run_0, index_id:109
+Insert succeeded at Sun Nov  1 22:58:59 2026 test_run_id: test_run_0, index_id:110
+Insert succeeded at Sun Nov  1 22:59:00 2026 test_run_id: test_run_0, index_id:111
+Insert succeeded at Sun Nov  1 22:59:00 2026 test_run_id: test_run_0, index_id:112
+Insert succeeded at Sun Nov  1 22:59:01 2026 test_run_id: test_run_0, index_id:113
+Insert succeeded at Sun Nov  1 22:59:01 2026 test_run_id: test_run_0, index_id:114
+Insert succeeded at Sun Nov  1 22:59:02 2026 test_run_id: test_run_0, index_id:115
+Insert succeeded at Sun Nov  1 22:59:02 2026 test_run_id: test_run_0, index_id:116
+Insert succeeded at Sun Nov  1 22:59:03 2026 test_run_id: test_run_0, index_id:117
+Insert succeeded at Sun Nov  1 22:59:03 2026 test_run_id: test_run_0, index_id:118
+Insert succeeded at Sun Nov  1 22:59:04 2026 test_run_id: test_run_0, index_id:119
+Insert succeeded at Sun Nov  1 22:59:04 2026 test_run_id: test_run_0, index_id:120
+Insert succeeded at Sun Nov  1 22:59:05 2026 test_run_id: test_run_0, index_id:121
+Insert succeeded at Sun Nov  1 22:59:05 2026 test_run_id: test_run_0, index_id:122
+Insert succeeded at Sun Nov  1 22:59:06 2026 test_run_id: test_run_0, index_id:123
+Insert succeeded at Sun Nov  1 22:59:06 2026 test_run_id: test_run_0, index_id:124
+Insert succeeded at Sun Nov  1 22:59:07 2026 test_run_id: test_run_0, index_id:125
+Insert succeeded at Sun Nov  1 22:59:07 2026 test_run_id: test_run_0, index_id:126
+Insert succeeded at Sun Nov  1 22:59:08 2026 test_run_id: test_run_0, index_id:127
+Insert succeeded at Sun Nov  1 22:59:08 2026 test_run_id: test_run_0, index_id:128
+Insert succeeded at Sun Nov  1 22:59:09 2026 test_run_id: test_run_0, index_id:129
+Insert succeeded at Sun Nov  1 22:59:09 2026 test_run_id: test_run_0, index_id:130
+Insert succeeded at Sun Nov  1 22:59:10 2026 test_run_id: test_run_0, index_id:131
+Insert succeeded at Sun Nov  1 22:59:10 2026 test_run_id: test_run_0, index_id:132
+Insert succeeded at Sun Nov  1 22:59:11 2026 test_run_id: test_run_0, index_id:133
+Insert succeeded at Sun Nov  1 22:59:11 2026 test_run_id: test_run_0, index_id:134
+Insert succeeded at Sun Nov  1 22:59:12 2026 test_run_id: test_run_0, index_id:135
+Insert succeeded at Sun Nov  1 22:59:12 2026 test_run_id: test_run_0, index_id:136
+Insert succeeded at Sun Nov  1 22:59:13 2026 test_run_id: test_run_0, index_id:137
+Insert succeeded at Sun Nov  1 22:59:13 2026 test_run_id: test_run_0, index_id:138
+Insert succeeded at Sun Nov  1 22:59:14 2026 test_run_id: test_run_0, index_id:139
+Insert succeeded at Sun Nov  1 22:59:14 2026 test_run_id: test_run_0, index_id:140
+Insert succeeded at Sun Nov  1 22:59:15 2026 test_run_id: test_run_0, index_id:141
+Insert succeeded at Sun Nov  1 22:59:15 2026 test_run_id: test_run_0, index_id:142
+Insert succeeded at Sun Nov  1 22:59:16 2026 test_run_id: test_run_0, index_id:143
+Insert succeeded at Sun Nov  1 22:59:17 2026 test_run_id: test_run_0, index_id:144
+Insert succeeded at Sun Nov  1 22:59:17 2026 test_run_id: test_run_0, index_id:145
+Insert succeeded at Sun Nov  1 22:59:18 2026 test_run_id: test_run_0, index_id:146
+Insert succeeded at Sun Nov  1 22:59:18 2026 test_run_id: test_run_0, index_id:147
+Insert succeeded at Sun Nov  1 22:59:19 2026 test_run_id: test_run_0, index_id:148
+Insert succeeded at Sun Nov  1 22:59:19 2026 test_run_id: test_run_0, index_id:149
+Insert succeeded at Sun Nov  1 22:59:20 2026 test_run_id: test_run_0, index_id:150
+Insert succeeded at Sun Nov  1 22:59:20 2026 test_run_id: test_run_0, index_id:151
+Insert succeeded at Sun Nov  1 22:59:21 2026 test_run_id: test_run_0, index_id:152
+Insert succeeded at Sun Nov  1 22:59:21 2026 test_run_id: test_run_0, index_id:153
+Insert succeeded at Sun Nov  1 22:59:22 2026 test_run_id: test_run_0, index_id:154
+Insert succeeded at Sun Nov  1 22:59:22 2026 test_run_id: test_run_0, index_id:155
+Insert succeeded at Sun Nov  1 22:59:23 2026 test_run_id: test_run_0, index_id:156
+Insert succeeded at Sun Nov  1 22:59:23 2026 test_run_id: test_run_0, index_id:157
+Insert succeeded at Sun Nov  1 22:59:24 2026 test_run_id: test_run_0, index_id:158
+Insert succeeded at Sun Nov  1 22:59:24 2026 test_run_id: test_run_0, index_id:159
+Insert succeeded at Sun Nov  1 22:59:25 2026 test_run_id: test_run_0, index_id:160
+Insert succeeded at Sun Nov  1 22:59:25 2026 test_run_id: test_run_0, index_id:161
+Insert succeeded at Sun Nov  1 22:59:26 2026 test_run_id: test_run_0, index_id:162
+Insert succeeded at Sun Nov  1 22:59:26 2026 test_run_id: test_run_0, index_id:163
+Insert succeeded at Sun Nov  1 22:59:27 2026 test_run_id: test_run_0, index_id:164
+Insert succeeded at Sun Nov  1 22:59:27 2026 test_run_id: test_run_0, index_id:165
+Insert succeeded at Sun Nov  1 22:59:28 2026 test_run_id: test_run_0, index_id:166
+Insert succeeded at Sun Nov  1 22:59:28 2026 test_run_id: test_run_0, index_id:167
+Insert succeeded at Sun Nov  1 22:59:29 2026 test_run_id: test_run_0, index_id:168
+Insert succeeded at Sun Nov  1 22:59:29 2026 test_run_id: test_run_0, index_id:169
+Insert succeeded at Sun Nov  1 22:59:30 2026 test_run_id: test_run_0, index_id:170
+Insert succeeded at Sun Nov  1 22:59:30 2026 test_run_id: test_run_0, index_id:171
+Insert succeeded at Sun Nov  1 22:59:31 2026 test_run_id: test_run_0, index_id:172
+Insert succeeded at Sun Nov  1 22:59:31 2026 test_run_id: test_run_0, index_id:173
+Insert succeeded at Sun Nov  1 22:59:32 2026 test_run_id: test_run_0, index_id:174
+Insert succeeded at Sun Nov  1 22:59:32 2026 test_run_id: test_run_0, index_id:175
+Insert succeeded at Sun Nov  1 22:59:33 2026 test_run_id: test_run_0, index_id:176
+Insert succeeded at Sun Nov  1 22:59:33 2026 test_run_id: test_run_0, index_id:177
+Insert succeeded at Sun Nov  1 22:59:34 2026 test_run_id: test_run_0, index_id:178
+Insert succeeded at Sun Nov  1 22:59:34 2026 test_run_id: test_run_0, index_id:179
+Insert succeeded at Sun Nov  1 22:59:35 2026 test_run_id: test_run_0, index_id:180
+Insert succeeded at Sun Nov  1 22:59:35 2026 test_run_id: test_run_0, index_id:181
+Insert succeeded at Sun Nov  1 22:59:36 2026 test_run_id: test_run_0, index_id:182
+Insert succeeded at Sun Nov  1 22:59:36 2026 test_run_id: test_run_0, index_id:183
+Insert succeeded at Sun Nov  1 22:59:37 2026 test_run_id: test_run_0, index_id:184
+Insert succeeded at Sun Nov  1 22:59:37 2026 test_run_id: test_run_0, index_id:185
+Insert succeeded at Sun Nov  1 22:59:38 2026 test_run_id: test_run_0, index_id:186
+Insert succeeded at Sun Nov  1 22:59:38 2026 test_run_id: test_run_0, index_id:187
+Insert succeeded at Sun Nov  1 22:59:39 2026 test_run_id: test_run_0, index_id:188
+Insert succeeded at Sun Nov  1 22:59:39 2026 test_run_id: test_run_0, index_id:189
+Insert succeeded at Sun Nov  1 22:59:40 2026 test_run_id: test_run_0, index_id:190
+Insert succeeded at Sun Nov  1 22:59:40 2026 test_run_id: test_run_0, index_id:191
+Insert succeeded at Sun Nov  1 22:59:41 2026 test_run_id: test_run_0, index_id:192
+Insert succeeded at Sun Nov  1 22:59:41 2026 test_run_id: test_run_0, index_id:193
+Insert succeeded at Sun Nov  1 22:59:42 2026 test_run_id: test_run_0, index_id:194
+Insert succeeded at Sun Nov  1 22:59:42 2026 test_run_id: test_run_0, index_id:195
+Insert succeeded at Sun Nov  1 22:59:43 2026 test_run_id: test_run_0, index_id:196
+Insert succeeded at Sun Nov  1 22:59:43 2026 test_run_id: test_run_0, index_id:197
+Insert succeeded at Sun Nov  1 22:59:44 2026 test_run_id: test_run_0, index_id:198
+Insert succeeded at Sun Nov  1 22:59:45 2026 test_run_id: test_run_0, index_id:199
+Insert succeeded at Sun Nov  1 22:59:45 2026 test_run_id: test_run_0, index_id:200
+Insert succeeded at Sun Nov  1 22:59:46 2026 test_run_id: test_run_0, index_id:201
+Insert succeeded at Sun Nov  1 22:59:46 2026 test_run_id: test_run_0, index_id:202
+Insert succeeded at Sun Nov  1 22:59:47 2026 test_run_id: test_run_0, index_id:203
+(2013, 'Lost connection to MySQL server during query (The read operation timed out)')
+There was an error: Db Connection failed
+
+Connection succeeded at Sun Nov  1 23:01:49 2026
+
+========================================
+Total Db connection attempts: 206
+Successful Db connections: 205
+Failed Db connections: 1
+failure_start_time: Sun Nov  1 22:59:48 2026
+failure_end_time: Sun Nov  1 23:01:49 2026
+failure condition duration: 120 seconds
+Last inserted sync record id on initial primary db node: 203
+Pre-failure Db node hostname: ip-172-17-1-193
+Post-failure Db node hostname: ip-172-17-4-62
+Newest 5 sync records in current primary db node:
+[ {'created': 1793573987, 'index_id': 203, 'test_run_id': 'test_run_0'},
+  {'created': 1793573986, 'index_id': 202, 'test_run_id': 'test_run_0'},
+  {'created': 1793573986, 'index_id': 201, 'test_run_id': 'test_run_0'},
+  {'created': 1793573985, 'index_id': 200, 'test_run_id': 'test_run_0'},
+  {'created': 1793573985, 'index_id': 199, 'test_run_id': 'test_run_0'}]
+sh-5.2$ 
+sh-5.2$ secret=$(aws secretsmanager get-secret-value --secret-id arn:aws:secretsmanager:us-east-1:593528889246:secret:mydbsecret-0111-Pcso5t | jq .SecretString | jq fromjson)
+user=$(echo $secret | jq -r .username)
+password=$(echo $secret | jq -r .password)
+endpoint=$(echo $secret | jq -r .host)
+port=$(echo $secret | jq -r .port)
+sh-5.2$ mysql -h $endpoint --ssl-ca=/home/ssm-user/global-bundle.pem --ssl-verify-server-cert -u $user -P $port -p$password mydb
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.4.11 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [mydb]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| db_test_meter      |
+| information_schema |
+| mydb               |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.001 sec)
+
+MySQL [mydb]> USE db_test_meter;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MySQL [db_test_meter]> SELECT * FROM db_sync;
++-------------+----------+------------+
+| test_run_id | index_id | created    |
++-------------+----------+------------+
+| test_run_0  |        1 | 1793573884 |
+| test_run_0  |        2 | 1793573884 |
+| test_run_0  |        3 | 1793573885 |
+| test_run_0  |        4 | 1793573885 |
+| test_run_0  |        5 | 1793573886 |
+| test_run_0  |        6 | 1793573886 |
+| test_run_0  |        7 | 1793573887 |
+| test_run_0  |        8 | 1793573887 |
+| test_run_0  |        9 | 1793573888 |
+| test_run_0  |       10 | 1793573888 |
+| test_run_0  |       11 | 1793573889 |
+| test_run_0  |       12 | 1793573889 |
+| test_run_0  |       13 | 1793573890 |
+| test_run_0  |       14 | 1793573890 |
+| test_run_0  |       15 | 1793573891 |
+| test_run_0  |       16 | 1793573891 |
+| test_run_0  |       17 | 1793573892 |
+| test_run_0  |       18 | 1793573892 |
+| test_run_0  |       19 | 1793573893 |
+| test_run_0  |       20 | 1793573893 |
+| test_run_0  |       21 | 1793573894 |
+| test_run_0  |       22 | 1793573894 |
+| test_run_0  |       23 | 1793573895 |
+| test_run_0  |       24 | 1793573895 |
+| test_run_0  |       25 | 1793573896 |
+| test_run_0  |       26 | 1793573896 |
+| test_run_0  |       27 | 1793573897 |
+| test_run_0  |       28 | 1793573897 |
+| test_run_0  |       29 | 1793573898 |
+| test_run_0  |       30 | 1793573898 |
+| test_run_0  |       31 | 1793573899 |
+| test_run_0  |       32 | 1793573899 |
+| test_run_0  |       33 | 1793573900 |
+| test_run_0  |       34 | 1793573900 |
+| test_run_0  |       35 | 1793573901 |
+| test_run_0  |       36 | 1793573901 |
+| test_run_0  |       37 | 1793573902 |
+| test_run_0  |       38 | 1793573902 |
+| test_run_0  |       39 | 1793573903 |
+| test_run_0  |       40 | 1793573903 |
+| test_run_0  |       41 | 1793573904 |
+| test_run_0  |       42 | 1793573905 |
+| test_run_0  |       43 | 1793573905 |
+| test_run_0  |       44 | 1793573906 |
+| test_run_0  |       45 | 1793573906 |
+| test_run_0  |       46 | 1793573907 |
+| test_run_0  |       47 | 1793573907 |
+| test_run_0  |       48 | 1793573908 |
+| test_run_0  |       49 | 1793573908 |
+| test_run_0  |       50 | 1793573909 |
+| test_run_0  |       51 | 1793573909 |
+| test_run_0  |       52 | 1793573910 |
+| test_run_0  |       53 | 1793573910 |
+| test_run_0  |       54 | 1793573911 |
+| test_run_0  |       55 | 1793573911 |
+| test_run_0  |       56 | 1793573912 |
+| test_run_0  |       57 | 1793573912 |
+| test_run_0  |       58 | 1793573913 |
+| test_run_0  |       59 | 1793573913 |
+| test_run_0  |       60 | 1793573914 |
+| test_run_0  |       61 | 1793573914 |
+| test_run_0  |       62 | 1793573915 |
+| test_run_0  |       63 | 1793573915 |
+| test_run_0  |       64 | 1793573916 |
+| test_run_0  |       65 | 1793573916 |
+| test_run_0  |       66 | 1793573917 |
+| test_run_0  |       67 | 1793573917 |
+| test_run_0  |       68 | 1793573918 |
+| test_run_0  |       69 | 1793573918 |
+| test_run_0  |       70 | 1793573919 |
+| test_run_0  |       71 | 1793573919 |
+| test_run_0  |       72 | 1793573920 |
+| test_run_0  |       73 | 1793573920 |
+| test_run_0  |       74 | 1793573921 |
+| test_run_0  |       75 | 1793573921 |
+| test_run_0  |       76 | 1793573922 |
+| test_run_0  |       77 | 1793573922 |
+| test_run_0  |       78 | 1793573923 |
+| test_run_0  |       79 | 1793573923 |
+| test_run_0  |       80 | 1793573924 |
+| test_run_0  |       81 | 1793573924 |
+| test_run_0  |       82 | 1793573925 |
+| test_run_0  |       83 | 1793573925 |
+| test_run_0  |       84 | 1793573926 |
+| test_run_0  |       85 | 1793573926 |
+| test_run_0  |       86 | 1793573927 |
+| test_run_0  |       87 | 1793573927 |
+| test_run_0  |       88 | 1793573928 |
+| test_run_0  |       89 | 1793573928 |
+| test_run_0  |       90 | 1793573929 |
+| test_run_0  |       91 | 1793573929 |
+| test_run_0  |       92 | 1793573930 |
+| test_run_0  |       93 | 1793573930 |
+| test_run_0  |       94 | 1793573931 |
+| test_run_0  |       95 | 1793573932 |
+| test_run_0  |       96 | 1793573932 |
+| test_run_0  |       97 | 1793573933 |
+| test_run_0  |       98 | 1793573933 |
+| test_run_0  |       99 | 1793573934 |
+| test_run_0  |      100 | 1793573934 |
+| test_run_0  |      101 | 1793573935 |
+| test_run_0  |      102 | 1793573935 |
+| test_run_0  |      103 | 1793573936 |
+| test_run_0  |      104 | 1793573936 |
+| test_run_0  |      105 | 1793573937 |
+| test_run_0  |      106 | 1793573937 |
+| test_run_0  |      107 | 1793573938 |
+| test_run_0  |      108 | 1793573938 |
+| test_run_0  |      109 | 1793573939 |
+| test_run_0  |      110 | 1793573939 |
+| test_run_0  |      111 | 1793573940 |
+| test_run_0  |      112 | 1793573940 |
+| test_run_0  |      113 | 1793573941 |
+| test_run_0  |      114 | 1793573941 |
+| test_run_0  |      115 | 1793573942 |
+| test_run_0  |      116 | 1793573942 |
+| test_run_0  |      117 | 1793573943 |
+| test_run_0  |      118 | 1793573943 |
+| test_run_0  |      119 | 1793573944 |
+| test_run_0  |      120 | 1793573944 |
+| test_run_0  |      121 | 1793573945 |
+| test_run_0  |      122 | 1793573945 |
+| test_run_0  |      123 | 1793573946 |
+| test_run_0  |      124 | 1793573946 |
+| test_run_0  |      125 | 1793573947 |
+| test_run_0  |      126 | 1793573947 |
+| test_run_0  |      127 | 1793573948 |
+| test_run_0  |      128 | 1793573948 |
+| test_run_0  |      129 | 1793573949 |
+| test_run_0  |      130 | 1793573949 |
+| test_run_0  |      131 | 1793573950 |
+| test_run_0  |      132 | 1793573950 |
+| test_run_0  |      133 | 1793573951 |
+| test_run_0  |      134 | 1793573951 |
+| test_run_0  |      135 | 1793573952 |
+| test_run_0  |      136 | 1793573952 |
+| test_run_0  |      137 | 1793573953 |
+| test_run_0  |      138 | 1793573953 |
+| test_run_0  |      139 | 1793573954 |
+| test_run_0  |      140 | 1793573954 |
+| test_run_0  |      141 | 1793573955 |
+| test_run_0  |      142 | 1793573956 |
+| test_run_0  |      143 | 1793573956 |
+| test_run_0  |      144 | 1793573957 |
+| test_run_0  |      145 | 1793573957 |
+| test_run_0  |      146 | 1793573958 |
+| test_run_0  |      147 | 1793573958 |
+| test_run_0  |      148 | 1793573959 |
+| test_run_0  |      149 | 1793573959 |
+| test_run_0  |      150 | 1793573960 |
+| test_run_0  |      151 | 1793573960 |
+| test_run_0  |      152 | 1793573961 |
+| test_run_0  |      153 | 1793573961 |
+| test_run_0  |      154 | 1793573962 |
+| test_run_0  |      155 | 1793573962 |
+| test_run_0  |      156 | 1793573963 |
+| test_run_0  |      157 | 1793573963 |
+| test_run_0  |      158 | 1793573964 |
+| test_run_0  |      159 | 1793573964 |
+| test_run_0  |      160 | 1793573965 |
+| test_run_0  |      161 | 1793573965 |
+| test_run_0  |      162 | 1793573966 |
+| test_run_0  |      163 | 1793573966 |
+| test_run_0  |      164 | 1793573967 |
+| test_run_0  |      165 | 1793573967 |
+| test_run_0  |      166 | 1793573968 |
+| test_run_0  |      167 | 1793573968 |
+| test_run_0  |      168 | 1793573969 |
+| test_run_0  |      169 | 1793573969 |
+| test_run_0  |      170 | 1793573970 |
+| test_run_0  |      171 | 1793573970 |
+| test_run_0  |      172 | 1793573971 |
+| test_run_0  |      173 | 1793573971 |
+| test_run_0  |      174 | 1793573972 |
+| test_run_0  |      175 | 1793573972 |
+| test_run_0  |      176 | 1793573973 |
+| test_run_0  |      177 | 1793573973 |
+| test_run_0  |      178 | 1793573974 |
+| test_run_0  |      179 | 1793573974 |
+| test_run_0  |      180 | 1793573975 |
+| test_run_0  |      181 | 1793573975 |
+| test_run_0  |      182 | 1793573976 |
+| test_run_0  |      183 | 1793573976 |
+| test_run_0  |      184 | 1793573977 |
+| test_run_0  |      185 | 1793573977 |
+| test_run_0  |      186 | 1793573978 |
+| test_run_0  |      187 | 1793573978 |
+| test_run_0  |      188 | 1793573979 |
+| test_run_0  |      189 | 1793573979 |
+| test_run_0  |      190 | 1793573980 |
+| test_run_0  |      191 | 1793573980 |
+| test_run_0  |      192 | 1793573981 |
+| test_run_0  |      193 | 1793573981 |
+| test_run_0  |      194 | 1793573982 |
+| test_run_0  |      195 | 1793573982 |
+| test_run_0  |      196 | 1793573983 |
+| test_run_0  |      197 | 1793573983 |
+| test_run_0  |      198 | 1793573984 |
+| test_run_0  |      199 | 1793573985 |
+| test_run_0  |      200 | 1793573985 |
+| test_run_0  |      201 | 1793573986 |
+| test_run_0  |      202 | 1793573986 |
+| test_run_0  |      203 | 1793573987 |
++-------------+----------+------------+
+203 rows in set (0.001 sec)
+
+MySQL [db_test_meter]> 

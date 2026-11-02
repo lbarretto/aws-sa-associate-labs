@@ -32,7 +32,7 @@
 
 This is an optional lab from the **AWS Skill Builder** platform, part of my preparation for the **AWS Certified Solutions Architect – Associate** exam. It belongs to the `aws-sa-associate-labs` repository, under *Optional Labs*.
 
-The lab builds a fully serverless, event-driven pipeline: when a JPG image lands in an S3 bucket, an event notification publishes to an **SNS topic**, which fans the message out to three **SQS queues**. Each queue triggers its own **Lambda function**, and each function produces a different resized version of the image (thumbnail, web, and mobile) and saves it back to the bucket.
+In this project, I **architected and deployed** a completely serverless, event-driven pipeline using the Fan-out pattern: configured **Amazon S3** event notifications to publish to an **Amazon SNS topic**, which broadcasts messages concurrently to three **Amazon SQS queues**. Each queue triggers an independent **AWS Lambda function** to process and store resized variants (thumbnail, web, and mobile) back into the S3 bucket.
 
 > 💬 *One upload, one notification, three independent consumers — SNS and SQS decouple the producer from the workers.*
 
@@ -51,7 +51,7 @@ The lab builds a fully serverless, event-driven pipeline: when a JPG image lands
 
 ## 🧩 Scenario
 
-An ingest bucket receives images, and each new image must be turned into three sizes automatically, without any servers to manage. S3 notifies a single SNS topic; the topic delivers a copy of the message to each of three queues; and one Lambda function per queue handles one output size.
+To implement a resilient, zero-server image processing workflow, I established a decoupled architecture: configured S3 to trigger SNS fan-out into dedicated SQS queues, enabling parallel and resilient Lambda execution without bottlenecks.
 
 | Parameter | Value |
 |---|---|

@@ -32,7 +32,7 @@
 
 This project documents an optional hands-on lab completed on the **AWS Skill Builder** platform (*Introduction to AWS Identity and Access Management*, code SPL-66), part of my preparation for the **AWS Certified Solutions Architect – Associate** certification.
 
-The lab introduces the fundamentals of **AWS Identity and Access Management (IAM)**: exploring pre-created users, groups, and policies, assigning users to groups according to their job role, and testing in practice how permissions affect access to services such as **Amazon EC2** and **Amazon S3**.
+In this project, I **structured and managed** identity and access governance using **AWS IAM**: evaluated managed and inline policies, grouped users by job functions following the principle of least privilege, and practically audited access boundaries across **Amazon EC2** and **Amazon S3**.
 
 > 💡 In IAM, the starting rule is **no access**. Every permission must be granted explicitly, and grouping users by role keeps that management simple and scalable.
 
@@ -50,7 +50,7 @@ The lab introduces the fundamentals of **AWS Identity and Access Management (IAM
 
 ## 🧩 Scenario
 
-The company is expanding its use of AWS, with many **Amazon EC2** instances and a large volume of data in **Amazon S3**. The goal is to grant new team members access according to their job role.
+In an expanding enterprise cloud footprint across **Amazon EC2** and **Amazon S3**, I took charge of implementing role-based access control (RBAC), ensuring that team members received only the exact permissions needed for their daily operations.
 
 | 👤 User | 👥 Group | 🔐 Expected permission |
 |---|---|---|

@@ -32,7 +32,7 @@
 
 This project documents a hands-on lab completed during the **Escola da Nuvem** training program (**Class C10 OUT – DPCN 19**), part of my preparation for the **AWS Certified Solutions Architect – Associate** certification.
 
-The lab walks through setting up a spending budget with **AWS Budgets**, including an **email alert** triggered by a usage threshold, and then verifying the resulting configuration.
+In this project, I configured a proactive cost management budget with **AWS Budgets**, set up an **automated email alert** triggered by actual usage thresholds, and validated the notification pipeline.
 
 > 💡 Cost visibility is a core part of well-architected workloads. A budget with alerts turns cost management from **reactive** (finding out at the end of the month) into **proactive** (acting while spending happens).
 
@@ -49,7 +49,7 @@ The lab walks through setting up a spending budget with **AWS Budgets**, includi
 
 ## 🧩 Scenario
 
-As a student using AWS for learning and experimentation, the goal is to avoid billing surprises and keep spending under control.
+To establish financial governance and prevent unexpected cloud billing, I designed and deployed this preventive budget to keep operational expenditures strictly controlled.
 
 | Parameter | Value |
 |---|---|
@@ -105,7 +105,7 @@ Budget list in the **AWS Budgets** console, showing the lab budget, the defined 
 
 ## 🔍 Validation
 
-In the budgets list, check that:
+Validation of the parameters configured in the console:
 
 | ✔️ | Item | Expected |
 |---|---|---|
@@ -118,7 +118,7 @@ In the budgets list, check that:
 
 ## 💡 Key Takeaways
 
-- 🔔 **Alerts before overruns:** thresholds give you time to react before costs exceed your limit.
+- 🔔 **Alerts before overruns:** thresholds provide the necessary window to intervene before expenditures exceed planned limits.
 - 🕵️ **Investigate costs early:** a notification is the cue to find where spending comes from.
 - 🧯 **Corrective action:** shut down unused resources and optimize services in time.
 - 📉 **Avoid surprises:** monitor spending throughout the billing cycle, not only at its end.

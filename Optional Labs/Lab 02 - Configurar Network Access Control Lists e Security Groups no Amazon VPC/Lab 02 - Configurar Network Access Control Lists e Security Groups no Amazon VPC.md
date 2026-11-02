@@ -32,7 +32,7 @@
 
 Este é um laboratório opcional da plataforma **AWS Skill Builder**, parte da minha preparação para a certificação **AWS Certified Solutions Architect – Associate**. Ele faz parte do repositório `aws-sa-associate-labs`, na pasta *Optional Labs*.
 
-O exercício mostra como duas camadas de filtragem de tráfego em uma VPC trabalham juntas: as **Network ACLs** (aplicadas na borda da sub-rede) e os **Security Groups** (aplicados no nível da instância). Duas instâncias EC2 ficam em sub-redes públicas diferentes, e o objetivo é fazer com que ambas sejam alcançáveis pela internet e entre si, identificando e corrigindo um caminho bloqueado ao longo do processo.
+Neste projeto, **implementei e validei** a defesa em profundidade na camada de rede da Amazon VPC, combinando **Network ACLs** (stateless, aplicadas nas sub-redes) e **Security Groups** (stateful, aplicados nas instâncias). Configurei o fluxo de tráfego entre duas instâncias EC2 em sub-redes públicas distintas e conduzi o diagnóstico e a resolução de bloqueios de pacotes causados por regras restritivas.
 
 > 💬 *As Network ACLs vigiam a porta da sub-rede; os Security Groups vigiam a porta de cada instância — o tráfego precisa ser permitido nas duas.*
 
@@ -50,7 +50,7 @@ O exercício mostra como duas camadas de filtragem de tráfego em uma VPC trabal
 
 ## 🧩 Cenário
 
-O ambiente já traz uma VPC com duas sub-redes públicas, cada uma com uma instância EC2 (Instância A e Instância B) e seu próprio Security Group (SG A e SG B). As duas instâncias precisam acessar a internet e se comunicar entre si. Você cria as Network ACLs do zero, ajusta os Security Groups e usa o `ping` para descobrir onde o tráfego está sendo descartado.
+Em uma VPC com duas sub-redes públicas e instâncias EC2 isoladas, assumi a responsabilidade de restabelecer a conectividade com a internet e a comunicação interna. **Desenvolvi** as Network ACLs do zero, **ajustei** as regras dos Security Groups e **utilizei** diagnósticos via `ping` (ICMP) para rastrear e corrigir descartes indevidos de tráfego.
 
 | Parâmetro | Valor |
 |---|---|

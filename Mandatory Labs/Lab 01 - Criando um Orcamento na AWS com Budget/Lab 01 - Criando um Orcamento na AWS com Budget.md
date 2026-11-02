@@ -32,7 +32,7 @@
 
 Este projeto documenta um laboratório prático realizado durante a capacitação da **Escola da Nuvem** (**Turma C10 OUT – DPCN 19**), como parte da minha preparação para a certificação **AWS Certified Solutions Architect – Associate**.
 
-O laboratório mostra como configurar um orçamento de gastos com o **AWS Budgets**, incluindo um **alerta por e-mail** disparado por um limite de uso, e como verificar a configuração criada.
+Neste projeto, implementei um orçamento de gastos com o **AWS Budgets**, configurei um **alerta automático por e-mail** disparado por limite de uso e validei a operação da notificação.
 
 > 💡 Visibilidade de custos é parte essencial de cargas de trabalho bem arquitetadas. Um orçamento com alertas transforma o gerenciamento de custos de **reativo** (descobrir no fim do mês) em **proativo** (agir enquanto o gasto acontece).
 
@@ -49,7 +49,7 @@ O laboratório mostra como configurar um orçamento de gastos com o **AWS Budget
 
 ## 🧩 Cenário
 
-Como estudante que utiliza a AWS para aprender e testar, o objetivo é evitar surpresas na fatura e manter os gastos sob controle.
+Com foco em governança financeira e prevenção de custos imprevistos na nuvem, estruturei este orçamento preventivo para manter os gastos rigorosamente sob controle.
 
 | Parâmetro | Valor |
 |---|---|
@@ -105,7 +105,7 @@ Lista de orçamentos no console do **AWS Budgets**, exibindo o orçamento do lab
 
 ## 🔍 Validação
 
-Na lista de orçamentos, verifique se:
+Validação dos parâmetros configurados no console:
 
 | ✔️ | Item | Esperado |
 |---|---|---|

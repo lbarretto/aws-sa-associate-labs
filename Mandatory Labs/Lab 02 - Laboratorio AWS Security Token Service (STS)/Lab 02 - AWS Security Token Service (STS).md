@@ -32,7 +32,7 @@
 
 This project documents a hands-on lab completed during the **Escola da Nuvem** training program (**Class C10 OUT – DPCN 19**), part of my preparation for the **AWS Certified Solutions Architect – Associate** certification.
 
-The lab demonstrates how to use **temporary credentials** on AWS through **AWS Security Token Service (STS)**: creating and assuming an **IAM role** with restricted permissions, generating temporary credentials with a Python script in **CloudShell**, and validating allowed and denied access.
+In this project, I **implemented and validated** the use of **temporary credentials** on AWS using the **AWS Security Token Service (STS)**: created and assumed an **IAM role** with scoped permissions, generated ephemeral credentials programmatically with Python/Boto3 in **CloudShell**, and audited allowed versus denied access policies.
 
 > 💡 Instead of relying on long-lived access keys, STS issues credentials that **expire on their own** and carry only the permissions of the assumed role, which reduces the impact of a potential leak.
 
@@ -52,7 +52,7 @@ The lab demonstrates how to use **temporary credentials** on AWS through **AWS S
 
 ## 🧩 Scenario
 
-Acting as an **IAM user** (not root) with permission to create and assume roles, the lab goes through hands-on steps in the console and CloudShell to observe how the permissions of a temporary role behave.
+Operating as an **IAM administrator** with privileges to provision and assume roles, I executed tests across the console and CloudShell to inspect the exact behavior and trust boundaries of temporary security tokens.
 
 | Parameter | Value |
 |---|---|
@@ -68,7 +68,7 @@ Acting as an **IAM user** (not root) with permission to create and assume roles,
 
 ```mermaid
 flowchart LR
-    U["👤 IAM User"] -->|access| C["💻 CloudShell"]
+    U["👤 Engineer (Lucas)"] -->|access| C["💻 CloudShell"]
     C -->|request credentials| S["🔐 AWS STS"]
     C -->|access permitted| B["🪣 Amazon S3"]
     C -->|access denied| L["⚡ AWS Lambda"]
@@ -81,7 +81,7 @@ flowchart LR
     end
 ```
 
-The IAM user opens CloudShell, which requests temporary credentials from STS. With them, **S3 access is permitted** (the role has `AmazonS3FullAccess`) and **Lambda access is denied** (the role has no permissions for that service).
+From CloudShell, I assumed the temporary role requesting credentials from STS. With the temporary session active, I verified that **Amazon S3 access was granted** (`AmazonS3FullAccess`) while all **AWS Lambda API requests were denied** due to lack of permissions.
 
 ---
 

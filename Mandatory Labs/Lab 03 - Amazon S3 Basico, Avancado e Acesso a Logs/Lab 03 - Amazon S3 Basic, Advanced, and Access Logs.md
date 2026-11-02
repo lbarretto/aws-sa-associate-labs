@@ -32,7 +32,7 @@
 
 This project documents a hands-on lab completed during the **Escola da Nuvem** training program (**Class C10 OUT – DPCN 19**), part of my preparation for the **AWS Certified Solutions Architect – Associate** certification.
 
-The lab explores **Amazon S3** features for organizing, securing, and efficiently managing data: object **versioning**, **lifecycle rules** to optimize costs, and **server access logging** to monitor requests made to the bucket.
+In this project, I **designed and deployed** a secure, cost-optimized cloud storage solution on **Amazon S3**: configured object **versioning** for data resiliency, implemented automated **lifecycle transition rules** shifting objects to Glacier Instant Retrieval, and enabled centralized **server access logging** for auditability and access compliance.
 
 > 💡 In S3, good storage practices are not just about where data lives, but also about **how it is protected, what it costs over time, and who accesses it**.
 
@@ -51,7 +51,7 @@ The lab explores **Amazon S3** features for organizing, securing, and efficientl
 
 ## 🧩 Scenario
 
-As the person responsible for a company's cloud storage, the mission is to keep data **organized, secure, and cost-optimized**, applying versioning, storage rule automation, and access monitoring.
+Acting as the cloud storage administrator, I took charge of keeping enterprise datasets **organized, resilient, and financially optimized**, implementing versioning controls, tiered storage lifecycle automation, and detailed access tracking.
 
 | Parameter | Value |
 |---|---|

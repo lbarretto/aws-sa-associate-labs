@@ -26,7 +26,7 @@
 
 ## 📖 Sobre o Projeto
 
-Este laboratório mostra como um único sistema de arquivos Amazon EFS pode funcionar como ponto central de armazenamento usado por várias instâncias EC2 ao mesmo tempo. Para aproximar o exercício de uma carga de trabalho real, as instâncias executam o **FileGator**, um gerenciador de arquivos web de código aberto baseado em PHP, de modo que arquivos podem ser enviados e baixados pelo navegador enquanto os dados ficam no EFS, e não em um servidor específico.
+Neste projeto, **arquitetei e implementei** um sistema de arquivos compartilhado e distribuído com o **Amazon EFS** integrado a múltiplas instâncias **Amazon EC2** em Zonas de Disponibilidade distintas. Para validar o compartilhamento de arquivos em um ambiente de produção real, implantei o **FileGator** (gerenciador web em PHP/Apache) montado no ponto NFS comum, assegurando consistência de dados centralizada sem acoplamento ao disco local das instâncias.
 
 O FileGator é um projeto de terceiros, usado aqui apenas como ferramenta didática para demonstrar conceitos da AWS; os direitos sobre ele pertencem aos seus autores, conforme a licença de código aberto do projeto.
 
@@ -48,7 +48,7 @@ O FileGator é um projeto de terceiros, usado aqui apenas como ferramenta didát
 
 ## 🧩 Cenário
 
-Duas instâncias EC2 ficam em sub-redes públicas diferentes, cada uma em sua própria Zona de Disponibilidade, para simular um ambiente distribuído. As duas montam o mesmo sistema de arquivos EFS, e um gerenciador de arquivos web em cada instância guarda ali os arquivos enviados.
+Para estruturar uma arquitetura distribuída e resiliente, provisionei duas instâncias EC2 em Zonas de Disponibilidade distintas (`us-east-1a` e `us-east-1b`). Ambas montam o mesmo sistema de arquivos EFS via NFSv4, permitindo que qualquer arquivo carregado através de uma instância fique imediatamente acessível e sincronizado na outra.
 
 | Item | Valor |
 |---|---|

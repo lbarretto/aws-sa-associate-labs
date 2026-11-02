@@ -1,0 +1,112 @@
+CREATE TABLE flights (
+  year           smallint,
+  month          smallint,
+  day            smallint,
+  carrier        varchar(80) DISTKEY,
+  origin         char(3),
+  dest           char(3),
+  aircraft_code  char(3),
+  miles          int,
+  departures     int,
+  minutes        int,
+  seats          int,
+  passengers     int,
+  freight_pounds int
+);
+
+
+COPY flights
+FROM 's3://us-west-2-aws-training/courses/spl-17/v4.2.20.prod-fd1dbe42/data/flights-usa'
+IAM_ROLE 'arn:aws:iam::264483961265:role/Redshift-Role'
+GZIP
+DELIMITER ','
+REMOVEQUOTES
+REGION 'us-west-2';
+
+
+SELECT COUNT(*) FROM flights;
+
+SELECT *
+FROM flights
+ORDER BY random()
+LIMIT 10;
+
+SELECT
+  carrier,
+  SUM (departures)
+FROM flights
+GROUP BY carrier
+ORDER BY 2 DESC
+LIMIT 10;
+
+CREATE TABLE aircraft (
+  aircraft_code CHAR(3) SORTKEY,
+  aircraft      VARCHAR(100)
+);
+
+COPY aircraft
+FROM 's3://us-west-2-aws-training/courses/spl-17/v4.2.20.prod-fd1dbe42/data/lookup_aircraft.csv'
+IAM_ROLE 'arn:aws:iam::264483961265:role/Redshift-Role'
+IGNOREHEADER 1
+DELIMITER ','
+REMOVEQUOTES
+TRUNCATECOLUMNS
+REGION 'us-west-2';
+
+SELECT *
+FROM aircraft
+ORDER BY random()
+LIMIT 10;
+
+ANALYZE COMPRESSION flights;
+
+CREATE TABLE airports (
+  airport_code CHAR(3) SORTKEY,
+  airport      varchar(100)
+);
+
+COPY airports
+FROM 's3://us-west-2-aws-training/courses/spl-17/v4.2.20.prod-fd1dbe42/data/lookup_airports.csv'
+IAM_ROLE 'arn:aws:iam::264483961265:role/Redshift-Role'
+IGNOREHEADER 1
+DELIMITER ','
+REMOVEQUOTES
+TRUNCATECOLUMNS
+REGION 'us-west-2';
+
+CREATE TABLE vegas_flights
+  DISTKEY (origin)
+  SORTKEY (origin)
+AS
+SELECT
+  flights.*,
+  airport
+FROM flights
+JOIN airports ON origin = airport_code
+WHERE dest = 'LAS';
+
+SELECT
+  airport,
+  to_char(SUM(passengers), '999,999,999') as passengers
+FROM vegas_flights
+GROUP BY airport
+ORDER BY SUM(passengers) desc
+LIMIT 10;
+
+SELECT
+  owner AS node,
+  diskno,
+  used,
+  capacity,
+  used/capacity::numeric * 100 as percent_used
+FROM stv_partitions
+WHERE host = node
+ORDER BY 1, 2;
+
+SELECT
+  name,
+  count(*)
+FROM stv_blocklist
+JOIN (SELECT DISTINCT name, id as tbl from stv_tbl_perm) USING (tbl)
+GROUP BY name;
+

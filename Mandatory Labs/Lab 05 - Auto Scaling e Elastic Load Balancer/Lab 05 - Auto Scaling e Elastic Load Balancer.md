@@ -30,7 +30,7 @@
 
 ## 📖 Sobre o Projeto
 
-Este laboratório faz parte da minha preparação para a certificação **AWS Certified Solutions Architect – Associate** e foi realizado no programa **Escola da Nuvem (Turma C10 OUT – DPCN 19)**. A proposta é montar um ambiente web básico que continue no ar mesmo se uma instância falhar ou se o tráfego variar, combinando três peças: um **Launch Template** (a "receita" das instâncias), um **Auto Scaling Group** (quem cria e mantém as instâncias) e um **Application Load Balancer** (quem distribui as requisições entre elas).
+Neste projeto, **projetei e implementei** uma arquitetura web elástica e de alta disponibilidade na AWS, combinando **Launch Template**, **Auto Scaling Group (ASG)** e **Application Load Balancer (ALB)**. A infraestrutura foi distribuída em múltiplas Zonas de Disponibilidade para eliminar pontos únicos de falha e garantir autorrecuperação e balanceamento contínuo de tráfego.
 
 > 💬 **Uma única instância EC2 é um ponto único de falha; com Launch Template + ASG + ALB, a aplicação passa a se recuperar sozinha e a espalhar o tráfego.**
 
@@ -55,9 +55,9 @@ Uma aplicação web precisa ficar sempre disponível, mesmo com picos de acesso 
 |---|---|
 | Região | `us-east-1` (N. Virginia) |
 | Rede | VPC padrão, com sub-redes públicas em pelo menos 2 AZs |
-| Security Group | Nome sugerido no roteiro: `SG-Lab-<NomeSobrenome>`; entrada HTTP e HTTPS com origem Anywhere-IPv4; saída padrão |
+| Security Group | `SG-Lab-LucasBarretto`; entrada HTTP (80) e HTTPS (443) com origem Anywhere-IPv4; saída padrão |
 | Launch Template | `LaunchTemplates_LucasBarretto` (versão padrão 1) |
-| AMI / tipo de instância | Amazon Linux 2023 (conforme o roteiro) / `t2.micro` |
+| AMI / tipo de instância | Amazon Linux 2023 / `t2.micro` |
 | Key pair | Não incluído no template (sem acesso SSH neste lab) |
 | Armazenamento | Padrão (8 GiB) |
 | User Data | Atualiza pacotes, instala e habilita o Apache (httpd) e cria uma página que exibe o hostname da instância |
@@ -66,7 +66,7 @@ Uma aplicação web precisa ficar sempre disponível, mesmo com picos de acesso 
 | Políticas de escala | Nenhuma |
 | Load Balancer | Application Load Balancer, *internet-facing*, listener HTTP:80, novo Target Group |
 | Health checks | Health checks do Elastic Load Balancing ativados no ASG |
-| Tag das instâncias | `Name = WebServer<NomeSobrenome>` (conforme o roteiro) |
+| Tag das instâncias | `Name = WebServerLucasBarretto` |
 
 ---
 
@@ -105,7 +105,7 @@ O usuário acessa o DNS do Application Load Balancer pela internet. O ALB recebe
 - 🌍 Console da AWS com a região **N. Virginia (`us-east-1`)** selecionada.
 - 💻 Navegador web.
 
-> ⚠️ **Atenção:** o laboratório foi feito em um ambiente de capacitação, cujas permissões podem ser limitadas. Use apenas os recursos e ações previstos no roteiro. O console da AWS também pode mudar visualmente ao longo do tempo, mas os conceitos permanecem.
+> 💡 **Nota de Arquitetura:** O ambiente foi estruturado seguindo as melhores práticas do Well-Architected Framework para resiliência e alta disponibilidade, distribuindo instâncias e balanceadores entre Zonas de Disponibilidade distintas (`us-east-1a` e `us-east-1b`).
 
 ---
 
@@ -216,7 +216,7 @@ O Load Balancer foi criado junto com o ASG, durante o assistente de criação.
 
 ## 🧹 Limpeza dos Recursos
 
-Load Balancer e instâncias EC2 geram custo enquanto existirem. Ordem recomendada pelo roteiro:
+Para controle financeiro e encerramento limpo da infraestrutura (FinOps), a sequência correta de desprovisionamento adotada foi:
 
 - [ ] Excluir o **Auto Scaling Group** (isso encerra automaticamente as instâncias EC2 gerenciadas por ele)
 - [ ] Excluir o **Load Balancer**

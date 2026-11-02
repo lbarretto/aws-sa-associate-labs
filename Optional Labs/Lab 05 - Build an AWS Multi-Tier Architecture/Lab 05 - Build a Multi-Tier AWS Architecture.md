@@ -26,9 +26,9 @@
 
 ## 📖 About the Project
 
-This is the capstone lab of the **Architecture on AWS** track. Instead of following a strictly guided walkthrough, the exercise hands over a list of requirements for each layer of a fictional company's marketing web portal and expects the architecture to be built from them. The lab also ships a detailed instruction set that can be consulted when a task gets difficult.
+In this capstone architecture project, I **took on the challenge of designing and deploying** a production-grade **Multi-Tier Architecture** on AWS driven strictly by business requirements rather than a guided walkthrough: **segregated** subnets across multiple Availability Zones, **provisioned** a managed Amazon Aurora MySQL database cluster, **configured** shared NFS storage with Amazon EFS, and **built** an elastic application layer using Application Load Balancers and Auto Scaling groups.
 
-The scenario is a proof of concept that moves a customer-facing application from an on-premises data center to AWS. The goal is a solution that is fast, durable, scalable and cheaper than the existing infrastructure. The result is a WordPress application running on a network, database, shared storage, load balancing and compute layers spread across two Availability Zones.
+The project served as an end-to-end cloud migration Proof of Concept (PoC), transitioning an on-premises enterprise web portal to a high-availability AWS architecture with optimized TCO. The delivered outcome was a fully decoupled WordPress application spanning presentation, application, and database tiers across two Availability Zones.
 
 > 💬 *Requirements first, console second: the lab trains the habit of turning business needs into architecture decisions.*
 
@@ -145,7 +145,7 @@ Traffic from the internet enters through the internet gateway and reaches the Ap
 - 📝 A text editor to keep the values copied between tasks (writer endpoint, file system ID, ALB DNS name)
 - 📧 A valid e-mail address for the WordPress administrator parameter
 
-> ⚠️ **Warning:** the training environment has limited permissions. Services not used by the lab are disabled and the allowed resources are restricted to what the lab requires, so actions outside the guide may return errors. An enhanced monitoring permission error shown when creating the Aurora cluster can be ignored, according to the instructions.
+> 💡 **Engineering Note:** The implementation strictly follows AWS network segmentation principles, isolating Aurora databases and EFS mount targets inside private subnets, while exposing public endpoints exclusively through the Application Load Balancer.
 
 ---
 

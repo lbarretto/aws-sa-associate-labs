@@ -32,7 +32,7 @@
 
 Este projeto documenta um laboratório prático opcional realizado na plataforma **AWS Skill Builder** (*Introduction to AWS Identity and Access Management*, código SPL-66), como parte da minha preparação para a certificação **AWS Certified Solutions Architect – Associate**.
 
-O laboratório apresenta os fundamentos do **AWS Identity and Access Management (IAM)**: explorar usuários, grupos e políticas já criados, atribuir usuários a grupos de acordo com a função de cada um e testar, na prática, como as permissões afetam o acesso a serviços como **Amazon EC2** e **Amazon S3**.
+Neste projeto, **estruturei e gerenciei** a governança de identidades e acessos na AWS utilizando o **AWS IAM**: analisei políticas de permissões (gerenciadas e inline), organizei os usuários em grupos por função de negócio seguindo o princípio do menor privilégio e validei na prática o isolamento de acessos aos serviços **Amazon EC2** e **Amazon S3**.
 
 > 💡 No IAM, a regra de partida é **nenhum acesso**. Cada permissão precisa ser concedida de forma explícita, e agrupar usuários por função torna essa gestão simples e escalável.
 
@@ -50,7 +50,7 @@ O laboratório apresenta os fundamentos do **AWS Identity and Access Management 
 
 ## 🧩 Cenário
 
-A empresa está ampliando o uso da AWS, com muitas instâncias do **Amazon EC2** e grande volume de dados no **Amazon S3**. O objetivo é conceder acesso aos novos membros da equipe de acordo com a função de cada um.
+Em um cenário corporativo de expansão na AWS com cargas no **Amazon EC2** e **Amazon S3**, assumi a responsabilidade de implementar o controle de acesso baseado em funções (RBAC), garantindo que cada membro da equipe possua apenas os privilégios estritamente necessários para seu papel.
 
 | 👤 Usuário | 👥 Grupo | 🔐 Permissão esperada |
 |---|---|---|

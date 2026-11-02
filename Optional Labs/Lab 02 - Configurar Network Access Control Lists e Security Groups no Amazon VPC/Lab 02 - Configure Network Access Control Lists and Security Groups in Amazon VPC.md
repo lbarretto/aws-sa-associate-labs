@@ -32,7 +32,7 @@
 
 This is an optional lab from the **AWS Skill Builder** platform, part of my preparation for the **AWS Certified Solutions Architect – Associate** exam. It lives in the `aws-sa-associate-labs` repository, under *Optional Labs*.
 
-The exercise shows how two layers of VPC traffic filtering work together: **Network ACLs** (applied at the subnet boundary) and **Security Groups** (applied at the instance level). Two EC2 instances sit in two different public subnets, and the goal is to make them reachable from the internet and from each other, finding and fixing a blocked path along the way.
+In this project, I **implemented and validated** defense in depth for VPC networking, coordinating **Network ACLs** (stateless subnet boundaries) and **Security Groups** (stateful instance firewalls). I configured bidirectional traffic between EC2 instances across isolated public subnets and conducted network troubleshooting to pinpoint and resolve packet drop issues.
 
 > 💬 *Network ACLs guard the door of the subnet; Security Groups guard the door of each instance — traffic needs to be allowed by both.*
 
@@ -50,7 +50,7 @@ The exercise shows how two layers of VPC traffic filtering work together: **Netw
 
 ## 🧩 Scenario
 
-The environment comes with a VPC that has two public subnets, each hosting one EC2 instance (Instance A and Instance B), each with its own Security Group (SG A and SG B). Both instances must be able to reach the internet and to talk to each other. You build the Network ACLs from scratch, tune the Security Groups, and use `ping` to find out where traffic is being dropped.
+Inside a VPC with two public subnets and isolated EC2 instances, I took on the task of establishing full internet and inter-instance reachability. I **built** custom Network ACLs from scratch, **tuned** Security Group inbound rules, and **leveraged** ICMP (`ping`) diagnostics to resolve network packet drops.
 
 | Parameter | Value |
 |---|---|

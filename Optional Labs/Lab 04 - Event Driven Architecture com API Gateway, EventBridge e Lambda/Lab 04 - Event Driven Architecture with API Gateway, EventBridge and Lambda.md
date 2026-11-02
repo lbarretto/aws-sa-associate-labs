@@ -32,7 +32,7 @@
 
 This is an optional lab from the **AWS Skill Builder** platform, part of my preparation for the **AWS Certified Solutions Architect – Associate** exam. It belongs to the `aws-sa-associate-labs` repository, under *Optional Labs*.
 
-The lab combines microservices, event-driven design and serverless computing. An **HTTP API** in API Gateway forwards each order straight to an **EventBridge** event bus; rules on the bus trigger **Lambda** functions that move the order through three stages, each one publishing a new event back to the bus. In parallel, a **WebSocket API** keeps a live connection with the browser, so every event is pushed to the client as soon as it happens.
+In this project, I **architected and built** a completely serverless, event-driven architecture (EDA): integrated an **HTTP API** in Amazon API Gateway directly with an **Amazon EventBridge** custom event bus, choreographing decoupled **AWS Lambda** microservices across distinct asynchronous lifecycle stages. In parallel, I implemented a **WebSocket API** backed by Amazon DynamoDB for live connection tracking and real-time state streaming to the browser.
 
 > 💬 *In an event-driven design, producers and consumers never call each other directly — they only react to events on a shared bus.*
 
@@ -50,7 +50,7 @@ The lab combines microservices, event-driven design and serverless computing. An
 
 ## 🧩 Scenario
 
-A customer "orders a pizza" from a small web app. The order moves through three stages — make, cook and deliver — and the browser must show every stage live. Each stage is handled by its own Lambda function, and the stages are chained only through events on the bus. A separate function forwards every event to the browser over the WebSocket connection.
+To implement a live asynchronous ordering pipeline, I designed a solution where each operational phase (make, cook, deliver) executes via decoupled Lambda workers driven strictly by event bus rules, while a dedicated worker streams live status updates to the client via WebSockets.
 
 | Parameter | Value |
 |---|---|

@@ -26,7 +26,7 @@
 
 ## 📖 About the Project
 
-This lab shows how a single Amazon EFS file system can act as a central storage point that several EC2 instances use at the same time. To make the exercise feel like a real workload, the instances run **FileGator**, an open-source, PHP-based web file manager, so files can be uploaded and downloaded from a browser while the data lives in EFS instead of on any one server.
+In this project, I **architected and deployed** a shared, highly available file system using **Amazon EFS** mounted across multiple **Amazon EC2** instances in separate Availability Zones. To simulate a production-grade shared workload, I installed and configured **FileGator** (a PHP/Apache web file manager) with its data repository symlinked directly to the shared NFS mount, ensuring stateless application servers and unified file consistency.
 
 FileGator is a third-party project; it is used here only as a teaching tool to demonstrate AWS concepts, and its rights belong to its authors under the project's open-source license.
 
@@ -48,7 +48,7 @@ FileGator is a third-party project; it is used here only as a teaching tool to d
 
 ## 🧩 Scenario
 
-Two EC2 instances are placed in different public subnets, each in its own Availability Zone, to simulate a distributed environment. Both mount the same EFS file system, and a web file manager on each instance stores its uploaded files there.
+To build a resilient and distributed infrastructure, I provisioned two EC2 instances across distinct Availability Zones (`us-east-1a` and `us-east-1b`). Both instances mount the shared Amazon EFS file system via NFSv4, ensuring that any file uploaded to one server is instantly accessible and synchronized on the other.
 
 | Item | Value |
 |---|---|

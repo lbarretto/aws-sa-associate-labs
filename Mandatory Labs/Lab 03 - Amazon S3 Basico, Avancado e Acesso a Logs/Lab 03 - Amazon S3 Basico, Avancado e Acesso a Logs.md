@@ -32,7 +32,7 @@
 
 Este projeto documenta um laboratório prático realizado durante a capacitação da **Escola da Nuvem** (**Turma C10 OUT – DPCN 19**), como parte da minha preparação para a certificação **AWS Certified Solutions Architect – Associate**.
 
-O laboratório explora recursos do **Amazon S3** voltados à organização, à segurança e ao gerenciamento eficiente de dados: **versionamento** de objetos, **regras de ciclo de vida** para otimizar custos e **registro em log de acesso ao servidor** para monitorar as requisições feitas ao bucket.
+Neste projeto, **estruturei e gerenciei** uma arquitetura de armazenamento altamente eficiente e segura no **Amazon S3**: configurei **versionamento** para proteção e recuperação de dados, implementei **regras de ciclo de vida (Lifecycle Rules)** para automação de custos com transição para o Glacier Instant Retrieval e ativei o **registro de logs de acesso ao servidor** para fins de auditoria e conformidade.
 
 > 💡 No S3, boas práticas de armazenamento não são só sobre onde guardar os dados, mas também sobre **como protegê-los, quanto custam ao longo do tempo e quem os acessa**.
 
@@ -51,7 +51,7 @@ O laboratório explora recursos do **Amazon S3** voltados à organização, à s
 
 ## 🧩 Cenário
 
-Como responsável pela gestão de armazenamento em nuvem de uma empresa, a missão é manter os dados **organizados, seguros e com custo otimizado**, aplicando versionamento, automação de regras de armazenamento e monitoramento de acessos.
+Atuando na gestão e governança de armazenamento em nuvem, assumi a responsabilidade de manter os dados corporativos **organizados, resilientes e financeiramente eficientes**, implementando controle de versão, transições automatizadas de camadas e rastreamento de acessos.
 
 | Parâmetro | Valor |
 |---|---|

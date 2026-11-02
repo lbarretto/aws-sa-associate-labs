@@ -32,7 +32,7 @@
 
 Este é um laboratório opcional da plataforma **AWS Skill Builder**, parte da minha preparação para a certificação **AWS Certified Solutions Architect – Associate**. Ele faz parte do repositório `aws-sa-associate-labs`, na pasta *Optional Labs*.
 
-O laboratório monta um pipeline totalmente serverless e orientado a eventos: quando uma imagem JPG chega a um bucket do S3, uma notificação de evento publica em um **tópico do SNS**, que distribui a mensagem para três **filas do SQS**. Cada fila dispara sua própria **função Lambda**, e cada função gera uma versão redimensionada diferente da imagem (miniatura, web e mobile) e a salva de volta no bucket.
+Neste projeto, **desenvolvi e implementei** um pipeline totalmente serverless e orientado a eventos utilizando o padrão arquitetural Fan-out: configurei notificações de eventos no **Amazon S3** para publicar em um **tópico do Amazon SNS**, que distribui as mensagens simultaneamente para três **filas do Amazon SQS**. Cada fila aciona de forma independente sua respectiva **função AWS Lambda** para gerar versões redimensionadas das imagens (miniatura, web e mobile) e persistir os resultados de volta no bucket.
 
 > 💬 *Um upload, uma notificação, três consumidores independentes — SNS e SQS desacoplam quem produz de quem processa.*
 
@@ -51,7 +51,7 @@ O laboratório monta um pipeline totalmente serverless e orientado a eventos: qu
 
 ## 🧩 Cenário
 
-Um bucket de ingestão recebe imagens, e cada nova imagem precisa virar três tamanhos automaticamente, sem servidores para gerenciar. O S3 notifica um único tópico do SNS; o tópico entrega uma cópia da mensagem a cada uma das três filas; e uma função Lambda por fila cuida de um tamanho de saída.
+Para atender a um fluxo de ingestão e processamento assíncrono de imagens sem servidores, estruturei um fluxo desacoplado: configurei o S3 para notificar o tópico SNS, que replica a carga para três filas SQS dedicadas, permitindo que cada função Lambda execute o processamento paralelo sem gargalos.
 
 | Parâmetro | Valor |
 |---|---|

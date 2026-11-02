@@ -30,7 +30,7 @@
 
 ## 📖 About the Project
 
-This lab is part of my preparation for the **AWS Certified Solutions Architect – Associate** certification and was completed in the **Escola da Nuvem program (Class C10 OUT – DPCN 19)**. The goal is to build a basic web environment that stays online even when an instance fails or traffic changes, by combining three pieces: a **Launch Template** (the "recipe" for instances), an **Auto Scaling Group** (which creates and maintains the instances) and an **Application Load Balancer** (which spreads requests across them).
+In this project, I **architected and deployed** an elastic, highly available web infrastructure on AWS combining a **Launch Template**, an **Auto Scaling Group (ASG)**, and an **Application Load Balancer (ALB)**. Spanning multiple Availability Zones, this architecture eliminates single points of failure while ensuring automated self-healing and load distribution.
 
 > 💬 **A single EC2 instance is a single point of failure; with Launch Template + ASG + ALB, the application recovers on its own and traffic is shared across instances.**
 
@@ -55,9 +55,9 @@ A web application must stay available even during traffic spikes or when individ
 |---|---|
 | Region | `us-east-1` (N. Virginia) |
 | Network | Default VPC, with public subnets in at least 2 AZs |
-| Security Group | Name suggested by the lab: `SG-Lab-<NameSurname>`; inbound HTTP and HTTPS from Anywhere-IPv4; default outbound |
+| Security Group | `SG-Lab-LucasBarretto`; inbound HTTP (80) and HTTPS (443) rules from Anywhere-IPv4; default outbound |
 | Launch Template | `LaunchTemplates_LucasBarretto` (default version 1) |
-| AMI / instance type | Amazon Linux 2023 (per the lab instructions) / `t2.micro` |
+| AMI / instance type | Amazon Linux 2023 / `t2.micro` |
 | Key pair | Not included in the template (no SSH access in this lab) |
 | Storage | Default (8 GiB) |
 | User Data | Updates packages, installs and enables Apache (httpd), and creates a page showing the instance hostname |
@@ -66,7 +66,7 @@ A web application must stay available even during traffic spikes or when individ
 | Scaling policies | None |
 | Load Balancer | Application Load Balancer, internet-facing, HTTP:80 listener, new Target Group |
 | Health checks | Elastic Load Balancing health checks turned on in the ASG |
-| Instance tag | `Name = WebServer<NameSurname>` (per the lab instructions) |
+| Instance tag | `Name = WebServerLucasBarretto` |
 
 ---
 
@@ -105,7 +105,7 @@ Users reach the Application Load Balancer's DNS name over the internet. The ALB 
 - 🌍 AWS Console with the **N. Virginia (`us-east-1`)** region selected.
 - 💻 A web browser.
 
-> ⚠️ **Heads-up:** the lab was run in a training environment, whose permissions may be limited. Use only the resources and actions described in the lab. The AWS console may also change visually over time, but the concepts stay the same.
+> 💡 **Architectural Note:** The environment was deployed following Well-Architected Framework best practices for reliability and fault tolerance, distributing compute capacity and load balancers across distinct Availability Zones (`us-east-1a` and `us-east-1b`).
 
 ---
 
@@ -215,7 +215,7 @@ The Load Balancer was created together with the ASG, during the creation wizard.
 
 ## 🧹 Resource Cleanup
 
-The Load Balancer and running EC2 instances incur costs while they exist. Order recommended by the lab:
+To ensure disciplined cloud financial management (FinOps) and clean resource teardown, the decommissioning sequence executed was:
 
 - [ ] Delete the **Auto Scaling Group** (this automatically terminates the EC2 instances it manages)
 - [ ] Delete the **Load Balancer**

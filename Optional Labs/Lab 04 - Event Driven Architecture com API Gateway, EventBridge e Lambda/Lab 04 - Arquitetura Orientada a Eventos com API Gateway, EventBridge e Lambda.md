@@ -32,7 +32,7 @@
 
 Este é um laboratório opcional da plataforma **AWS Skill Builder**, parte da minha preparação para o exame **AWS Certified Solutions Architect – Associate**. Ele pertence ao repositório `aws-sa-associate-labs`, na seção *Optional Labs*.
 
-O laboratório combina microsserviços, design orientado a eventos e computação serverless. Uma **HTTP API** no API Gateway encaminha cada pedido diretamente para um **barramento de eventos do EventBridge**; regras no barramento acionam funções **Lambda** que levam o pedido por três etapas, cada uma publicando um novo evento de volta no barramento. Em paralelo, uma **WebSocket API** mantém uma conexão ativa com o navegador, de modo que cada evento é enviado ao cliente assim que acontece.
+Neste projeto, **arquitei e implementei** uma arquitetura orientada a eventos (EDA) totalmente serverless: configurei uma **HTTP API** no Amazon API Gateway integrada diretamente a um **barramento de eventos do Amazon EventBridge**, orquestrando microsserviços **AWS Lambda** em múltiplos estágios assíncronos. Adicionalmente, implementei uma **WebSocket API** com persistência de sessões no Amazon DynamoDB para streaming de eventos e atualização de status em tempo real no cliente web.
 
 > 💬 *Em um design orientado a eventos, produtores e consumidores nunca se chamam diretamente — eles apenas reagem a eventos em um barramento compartilhado.*
 
@@ -50,7 +50,7 @@ O laboratório combina microsserviços, design orientado a eventos e computaçã
 
 ## 🧩 Cenário
 
-Um cliente "pede uma pizza" em uma pequena aplicação web. O pedido passa por três etapas — preparar, assar e entregar — e o navegador deve exibir cada etapa ao vivo. Cada etapa é tratada por sua própria função Lambda, e as etapas são encadeadas apenas por eventos no barramento. Uma função separada encaminha cada evento ao navegador pela conexão WebSocket.
+Para simular um fluxo de pedidos assíncrono em tempo real, desenvolvi uma solução onde cada transição de estado (preparo, cozimento e entrega) é processada por funções Lambda desacopladas via EventBridge, enquanto uma função dedicada notifica o navegador via WebSocket a cada alteração de status.
 
 | Parâmetro | Valor |
 |---|---|

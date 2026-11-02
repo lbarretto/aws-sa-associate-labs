@@ -32,7 +32,7 @@
 
 Este projeto documenta um laboratório prático realizado durante a capacitação da **Escola da Nuvem** (**Turma C10 OUT – DPCN 19**), como parte da minha preparação para a certificação **AWS Certified Solutions Architect – Associate**.
 
-O laboratório demonstra o uso de **credenciais temporárias** na AWS por meio do **AWS Security Token Service (STS)**: criação e assunção de uma **role IAM** com permissões restritas, geração de credenciais temporárias via script Python no **CloudShell** e validação de acessos permitidos e negados.
+Neste projeto, implementei e validei o uso de **credenciais temporárias** na AWS através do **AWS Security Token Service (STS)**: criei e assumi uma **role IAM** com privilégios restritos, gerei credenciais efêmeras programaticamente com Python/Boto3 no **CloudShell** e auditei os acessos concedidos e revogados.
 
 > 💡 Em vez de depender de chaves de acesso de longa duração, o STS entrega credenciais que **expiram sozinhas** e carregam apenas as permissões da role assumida, o que reduz o impacto de um eventual vazamento.
 
@@ -52,7 +52,7 @@ O laboratório demonstra o uso de **credenciais temporárias** na AWS por meio d
 
 ## 🧩 Cenário
 
-Atuando como um **usuário IAM** (não o root) com permissão para criar e assumir roles, o laboratório percorre etapas práticas no console e no CloudShell para observar como as permissões de uma role temporária se comportam.
+Atuando como **administrador de identidades IAM** com privilégios para criar e assumir roles, executei testes práticos no console e no CloudShell para validar o comportamento estrito de permissões e políticas de confiança de uma role temporária.
 
 | Parâmetro | Valor |
 |---|---|
@@ -68,7 +68,7 @@ Atuando como um **usuário IAM** (não o root) com permissão para criar e assum
 
 ```mermaid
 flowchart LR
-    U["👤 Usuário IAM"] -->|acesso| C["💻 CloudShell"]
+    U["👤 Engenheiro (Lucas)"] -->|acesso| C["💻 CloudShell"]
     C -->|solicita credenciais| S["🔐 AWS STS"]
     C -->|acesso permitido| B["🪣 Amazon S3"]
     C -->|acesso negado| L["⚡ AWS Lambda"]
@@ -81,7 +81,7 @@ flowchart LR
     end
 ```
 
-O usuário IAM acessa o CloudShell, que solicita credenciais temporárias ao STS. Com elas, o acesso ao **S3 é permitido** (a role tem `AmazonS3FullAccess`) e o acesso ao **Lambda é negado** (a role não tem nenhuma permissão para o serviço).
+A partir do CloudShell, assumi a role temporária solicitando credenciais ao STS. Com a sessão ativa, validei na prática que o acesso ao **Amazon S3 foi autorizado** (política `AmazonS3FullAccess`) enquanto as chamadas ao **AWS Lambda foram bloqueadas** por ausência de permissões.
 
 ---
 
