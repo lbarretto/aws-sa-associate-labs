@@ -31,7 +31,6 @@
 - [📊 Resultado](#-resultado)
 - [🔍 Validação](#-validação)
 - [💡 Principais Aprendizados](#-principais-aprendizados)
-- [🧹 Encerramento do Laboratório](#-encerramento-do-laboratório)
 - [☁️ Serviços Abordados](#%EF%B8%8F-serviços-abordados)
 - [👤 Autor](#-autor)
 

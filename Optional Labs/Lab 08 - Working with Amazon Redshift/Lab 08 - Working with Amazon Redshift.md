@@ -22,7 +22,6 @@
 - [📊 Results](#-results)
 - [🔍 Validation](#-validation)
 - [💡 Key Takeaways](#-key-takeaways)
-- [🧹 Resource Cleanup](#-resource-cleanup)
 - [☁️ AWS Services Covered](#️-aws-services-covered)
 - [👤 Author](#-author)
 

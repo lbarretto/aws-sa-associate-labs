@@ -22,7 +22,6 @@
 - [📊 Result](#-result)
 - [🔍 Validation](#-validation)
 - [💡 Key Takeaways](#-key-takeaways)
-- [🧹 Lab Wrap-Up](#-lab-wrap-up)
 - [☁️ AWS Services Covered](#️-aws-services-covered)
 - [👤 Author](#-author)
 

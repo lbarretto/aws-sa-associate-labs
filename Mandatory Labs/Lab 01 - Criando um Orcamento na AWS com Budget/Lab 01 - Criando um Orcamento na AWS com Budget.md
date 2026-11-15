@@ -22,7 +22,6 @@
 - [📊 Resultado](#-resultado)
 - [🔍 Validação](#-validação)
 - [💡 Principais Aprendizados](#-principais-aprendizados)
-- [🧹 Limpeza e Observações de Custo](#-limpeza-e-observações-de-custo)
 - [☁️ Serviços Abordados](#️-serviços-abordados)
 - [👤 Autor](#-autor)
 

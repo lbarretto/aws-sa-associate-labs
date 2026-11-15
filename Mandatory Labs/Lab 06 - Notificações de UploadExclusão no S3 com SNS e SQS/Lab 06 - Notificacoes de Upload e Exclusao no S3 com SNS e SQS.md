@@ -28,7 +28,6 @@
 - [📊 Resultado](#-resultado)
 - [🔍 Validação](#-validação)
 - [💡 Principais Aprendizados](#-principais-aprendizados)
-- [🧹 Limpeza dos Recursos](#-limpeza-dos-recursos)
 - [☁️ Serviços Abordados](#%EF%B8%8F-serviços-abordados)
 - [👤 Autor](#-autor)
 

@@ -22,7 +22,6 @@
 - [📊 Resultado](#-resultado)
 - [🔍 Validação](#-validação)
 - [💡 Principais Aprendizados](#-principais-aprendizados)
-- [🧹 Encerramento do Laboratório](#-encerramento-do-laboratório)
 - [☁️ Serviços Abordados](#-serviços-abordados)
 - [👤 Autor](#-autor)
 

@@ -22,7 +22,6 @@
 - [📊 Result](#-result)
 - [🔍 Validation](#-validation)
 - [💡 Key Takeaways](#-key-takeaways)
-- [🧹 Cleanup and Cost Notes](#-cleanup-and-cost-notes)
 - [☁️ AWS Services Covered](#️-aws-services-covered)
 - [👤 Author](#-author)
 
