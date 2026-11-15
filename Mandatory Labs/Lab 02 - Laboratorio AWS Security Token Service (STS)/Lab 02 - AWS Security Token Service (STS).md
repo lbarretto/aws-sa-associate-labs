@@ -141,16 +141,6 @@ Output of the `aws sts get-caller-identity` command run in CloudShell, which ret
 
 ---
 
-## 🧹 Resource Cleanup
-
-At the end, every resource created was removed:
-
-- 🗑️ **CloudShell** environment deleted
-- 🗑️ Lab **IAM role** deleted
-- 🧽 Temporary credentials removed or commented out in the AWS CLI configuration files
-
----
-
 ## ☁️ AWS Services Covered
 
 ![AWS STS](https://img.shields.io/badge/AWS-STS-DD344C?style=flat-square&logo=amazonaws&logoColor=white) ![AWS IAM](https://img.shields.io/badge/AWS-IAM-DD344C?style=flat-square&logo=amazonaws&logoColor=white) ![AWS CloudShell](https://img.shields.io/badge/AWS-CloudShell-232F3E?style=flat-square&logo=amazonaws&logoColor=white) ![Amazon S3](https://img.shields.io/badge/Amazon-S3-569A31?style=flat-square&logo=amazons3&logoColor=white) ![AWS Lambda](https://img.shields.io/badge/AWS-Lambda-FF9900?style=flat-square&logo=awslambda&logoColor=white)

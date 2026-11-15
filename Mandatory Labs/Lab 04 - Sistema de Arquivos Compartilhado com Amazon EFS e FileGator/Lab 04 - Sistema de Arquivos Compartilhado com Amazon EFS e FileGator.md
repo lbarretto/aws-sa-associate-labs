@@ -1,4 +1,4 @@
-<h1 align="center">🗂️ Lab – Sistema de Arquivos Compartilhado com Amazon EFS e FileGator</h1>
+<h1 align="center">🗂️ Sistema de Arquivos Compartilhado com Amazon EFS e FileGator</h1>
 
 <p align="center"><b>Laboratório prático: um sistema de arquivos Amazon EFS compartilhado por duas instâncias EC2 que rodam um gerenciador de arquivos web</b></p>
 
@@ -163,18 +163,6 @@ A área administrativa do FileGator lista as contas de usuário da aplicação.
 - 🔀 **Links simbólicos redirecionam a E/S:** apontar a pasta de dados da aplicação para o EFS fez os uploads irem para o armazenamento compartilhado sem alterar o código.
 - 🛡️ **Permissões na prática:** `777` é cômodo em laboratório, mas em produção deve ser trocado por um proprietário específico e permissões mais restritas.
 - 🧠 **Relevância para a prova:** escolha entre EFS, EBS e S3, modos de desempenho e throughput do EFS, Regional vs. One Zone, destinos de montagem, desenho de grupos de segurança e acesso via Systems Manager são temas comuns na prova AWS Certified Solutions Architect – Associate.
-
----
-
-## 🧹 Limpeza dos Recursos
-
-A exclusão dos recursos criados neste laboratório ainda não foi confirmada. Lista de tarefas:
-
-- [ ] Encerrar as instâncias EC2 `EC2-Web-01` e `EC2-Web-02` (e a terceira, se o desafio opcional foi feito)
-- [ ] Se uma AMI personalizada foi criada, cancelar o registro dela e excluir também os snapshots associados (geram custo)
-- [ ] Excluir o sistema de arquivos EFS `EFS-<Nome>`
-- [ ] Excluir os grupos de segurança `SG-EFS-<Nome>` e `SG-EC2-<Nome>` quando nada mais os usar
-- [ ] Excluir a IAM Role `Role-EC2-SSM-<Nome>`
 
 ---
 

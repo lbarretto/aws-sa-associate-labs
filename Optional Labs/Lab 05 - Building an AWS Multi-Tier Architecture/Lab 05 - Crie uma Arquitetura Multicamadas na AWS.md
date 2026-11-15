@@ -196,20 +196,6 @@ Ainda não há prints anexados a este README. A tabela abaixo lista as verifica�
 
 ---
 
-## 🧹 Limpeza dos Recursos
-
-A exclusão dos recursos criados neste laboratório ainda não foi confirmada. Lista de tarefas:
-
-- [ ] Excluir o grupo do Auto Scaling `WP-ASG`
-- [ ] Excluir o balanceador de carga `myWPAppALB` e o grupo de destino `myWPTargetGroup`
-- [ ] Excluir a pilha `WPLaunchConfigStack`
-- [ ] Excluir o cluster Aurora `MyDBCluster` e o grupo de sub-redes `AuroraSubnetGroup`
-- [ ] Excluir o sistema de arquivos EFS `myWPEFS`
-- [ ] Excluir a pilha `VPCStack`
-- [ ] Sair do console e selecionar **End Lab** na página do laboratório
-
----
-
 ## ☁ Serviços Abordados
 
 <p align="center"><img src="https://img.shields.io/badge/Amazon%20VPC-8C4FFF?style=flat-square&logo=amazonaws&logoColor=white" alt="Amazon VPC"> <img src="https://img.shields.io/badge/Amazon%20Aurora-3B48CC?style=flat-square&logo=amazonaws&logoColor=white" alt="Amazon Aurora"> <img src="https://img.shields.io/badge/Amazon%20EFS-569A31?style=flat-square&logo=amazonaws&logoColor=white" alt="Amazon EFS"> <img src="https://img.shields.io/badge/Amazon%20EC2-FF9900?style=flat-square&logo=amazonec2&logoColor=white" alt="Amazon EC2"> <img src="https://img.shields.io/badge/Elastic%20Load%20Balancing-FF9900?style=flat-square&logo=amazonaws&logoColor=white" alt="Elastic Load Balancing"> <img src="https://img.shields.io/badge/EC2%20Auto%20Scaling-FF9900?style=flat-square&logo=amazonaws&logoColor=white" alt="EC2 Auto Scaling"> <img src="https://img.shields.io/badge/AWS%20CloudFormation-E7157B?style=flat-square&logo=amazonaws&logoColor=white" alt="AWS CloudFormation"> <img src="https://img.shields.io/badge/Amazon%20CloudWatch-E7157B?style=flat-square&logo=amazonaws&logoColor=white" alt="Amazon CloudWatch"></p>

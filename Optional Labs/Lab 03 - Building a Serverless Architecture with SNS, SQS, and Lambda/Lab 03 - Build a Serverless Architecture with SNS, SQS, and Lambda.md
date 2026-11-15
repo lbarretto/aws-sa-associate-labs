@@ -154,15 +154,6 @@ This lab was documented without screenshots, so the results are summarized below
 - 📈 **Observability:** CloudWatch Logs and the Monitor tab are the first places to check invocations, durations and errors.
 - 🧠 **Relevance for the exam:** SNS/SQS fan-out, S3 event notifications, Lambda with SQS triggers and loosely coupled, serverless designs are frequent Solutions Architect Associate topics.
 
----
-
-## 🧹 Lab Wrap-Up
-
-The lab environment is closed through the Skill Builder lab page. Mark each item once done:
-
-- [ ] Sign out of the AWS console (user menu → Sign out)
-- [ ] Choose **End Lab** on the lab page and confirm
-- [ ] Confirm that the temporary lab resources (topic, queues, functions, bucket) are no longer available
 
 ---
 

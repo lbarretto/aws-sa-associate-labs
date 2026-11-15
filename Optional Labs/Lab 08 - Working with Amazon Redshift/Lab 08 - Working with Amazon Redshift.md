@@ -469,17 +469,6 @@ In the console I opened **Query monitoring**, refreshed the list and located the
 - 📤 **I noted `UNLOAD`** as the reverse of `COPY`, to export results to S3 in delimited or fixed-width format, with optional GZIP and encryption.
 - 🧠 **Relevance for the exam:** SAA-C03 tests picking the right data service for each workload. Redshift is the answer for data warehousing and analytics (OLAP) at petabyte scale, with `COPY` ingestion from S3, JDBC/ODBC access, snapshot backups and scaling by resizing nodes, in contrast with RDS/Aurora (OLTP) and DynamoDB (NoSQL).
 
----
-
-## 🧹 Resource Cleanup
-
-- [ ] Open the Amazon Redshift console and select the `lab` cluster
-- [ ] In the **Actions** menu, choose **Delete**
-- [ ] Uncheck the **Create final snapshot** option
-- [ ] Type `delete` in the confirmation field
-- [ ] Select **Delete cluster** and wait for the removal
-- [ ] Verify that no manual snapshots remain generating charges
-- [ ] Sign out of the console and click **End Lab** on the platform
 
 ---
 

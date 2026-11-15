@@ -149,15 +149,6 @@ At the end of the lab, each user behaved according to the permissions inherited 
 
 ---
 
-## 🧹 Lab Wrap-Up
-
-The lab environment is temporary and managed by Skill Builder. To finish:
-
-- 🚪 Sign out of the AWS console
-- 🛑 Use **End Lab** on the lab page and confirm
-
----
-
 ## ☁️ AWS Services Covered
 
 ![AWS IAM](https://img.shields.io/badge/AWS-IAM-DD344C?style=flat-square&logo=amazonaws&logoColor=white) ![Amazon EC2](https://img.shields.io/badge/Amazon-EC2-FF9900?style=flat-square&logo=amazonec2&logoColor=white) ![Amazon S3](https://img.shields.io/badge/Amazon-S3-569A31?style=flat-square&logo=amazons3&logoColor=white)

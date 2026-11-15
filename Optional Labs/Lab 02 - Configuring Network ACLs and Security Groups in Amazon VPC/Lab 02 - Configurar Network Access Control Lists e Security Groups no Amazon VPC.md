@@ -216,16 +216,6 @@ $
 
 ---
 
-## 🧹 Encerramento do Laboratório
-
-O ambiente do laboratório é encerrado pela página do lab no Skill Builder. Marque cada item quando concluir:
-
-- [ ] Sair do console da AWS (menu do usuário → Sign out)
-- [ ] Escolher **End Lab** na página do laboratório e confirmar
-- [ ] Confirmar que os recursos temporários do lab (instâncias, Network ACLs, Security Groups) não estão mais disponíveis
-
----
-
 ## ☁️ Serviços Abordados
 
 ![Amazon VPC](https://img.shields.io/badge/Amazon%20VPC-8C4FFF?style=flat-square&logo=amazonaws&logoColor=white) ![Amazon EC2](https://img.shields.io/badge/Amazon%20EC2-FF9900?style=flat-square&logo=amazonec2&logoColor=white) ![Session Manager](https://img.shields.io/badge/Session%20Manager-232F3E?style=flat-square&logo=amazonaws&logoColor=white)

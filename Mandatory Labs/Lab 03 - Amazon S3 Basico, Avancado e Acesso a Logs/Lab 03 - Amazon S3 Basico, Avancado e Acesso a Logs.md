@@ -175,17 +175,6 @@ Configuração de logs do bucket principal, apontando para o bucket de destino.
 
 ---
 
-## 🧹 Limpeza dos Recursos
-
-Para evitar custos desnecessários, os recursos criados no laboratório devem ser removidos ao final:
-
-- [ ] Esvaziar e excluir o **bucket principal** (`bucket-edn-<seu-nome>`), incluindo todas as versões dos objetos
-- [ ] Esvaziar e excluir o **bucket de logs** (`s3-access-logs-<seu-nome>`)
-
-> 💡 Em buckets com versionamento, é preciso remover também as versões antigas dos objetos antes de excluir o bucket.
-
----
-
 ## ☁️ Serviços Abordados
 
 ![Amazon S3](https://img.shields.io/badge/Amazon-S3-569A31?style=flat-square&logo=amazons3&logoColor=white) ![S3 Versioning](https://img.shields.io/badge/S3-Versioning-569A31?style=flat-square&logo=amazons3&logoColor=white) ![S3 Lifecycle](https://img.shields.io/badge/S3-Lifecycle-569A31?style=flat-square&logo=amazons3&logoColor=white) ![S3 Glacier](https://img.shields.io/badge/S3-Glacier%20Instant%20Retrieval-569A31?style=flat-square&logo=amazons3&logoColor=white) ![S3 Server Access Logging](https://img.shields.io/badge/S3-Server%20Access%20Logging-569A31?style=flat-square&logo=amazons3&logoColor=white)

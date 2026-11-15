@@ -216,16 +216,6 @@ $
 
 ---
 
-## 🧹 Lab Wrap-Up
-
-The lab environment is closed through the Skill Builder lab page. Mark each item once done:
-
-- [ ] Sign out of the AWS console (user menu → Sign out)
-- [ ] Choose **End Lab** on the lab page and confirm
-- [ ] Confirm that the temporary lab resources (instances, Network ACLs, Security Groups) are no longer available
-
----
-
 ## ☁️ Services Covered
 
 ![Amazon VPC](https://img.shields.io/badge/Amazon%20VPC-8C4FFF?style=flat-square&logo=amazonaws&logoColor=white) ![Amazon EC2](https://img.shields.io/badge/Amazon%20EC2-FF9900?style=flat-square&logo=amazonec2&logoColor=white) ![Session Manager](https://img.shields.io/badge/Session%20Manager-232F3E?style=flat-square&logo=amazonaws&logoColor=white)

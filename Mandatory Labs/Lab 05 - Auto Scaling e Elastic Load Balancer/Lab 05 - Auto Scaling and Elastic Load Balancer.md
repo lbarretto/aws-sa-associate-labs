@@ -1,14 +1,10 @@
-<div align="center">
+<h1 align="center">🗂️ Shared File System with Amazon EFS and FileGator</h1>
 
-# ⚖️ Lab 05 – Auto Scaling and Elastic Load Balancer
+<p align="center"><b>Hands-on lab: one Amazon EFS file system shared by two EC2 instances running a web file manager</b></p>
 
-**Hands-on lab: a highly available and scalable web environment with a Launch Template, Auto Scaling Group and Application Load Balancer**
+<p align="center"><img src="https://img.shields.io/badge/Amazon%20EFS-569A31?style=flat-square&logo=amazonaws&logoColor=white" alt="Amazon EFS"> <img src="https://img.shields.io/badge/Amazon%20EC2-FF9900?style=flat-square&logo=amazonec2&logoColor=white" alt="Amazon EC2"> <img src="https://img.shields.io/badge/AWS%20IAM-DD344C?style=flat-square&logo=amazonaws&logoColor=white" alt="AWS IAM"> <img src="https://img.shields.io/badge/Systems%20Manager-232F3E?style=flat-square&logo=amazonaws&logoColor=white" alt="AWS Systems Manager"> <img src="https://img.shields.io/badge/Theme-Shared%20Storage-2E7D32?style=flat-square" alt="Theme: Shared Storage"> <img src="https://img.shields.io/badge/Status-Completed-2E7D32?style=flat-square" alt="Status: Completed"></p>
 
-![EC2](https://img.shields.io/badge/Amazon%20EC2-FF9900?style=flat-square&logo=amazonaws&logoColor=white) ![Auto Scaling](https://img.shields.io/badge/EC2%20Auto%20Scaling-FF9900?style=flat-square&logo=amazonaws&logoColor=white) ![ELB](https://img.shields.io/badge/Elastic%20Load%20Balancing-8C4FFF?style=flat-square&logo=amazonaws&logoColor=white) ![Theme](https://img.shields.io/badge/Theme-High%20Availability%20and%20Scalability-2E7D32?style=flat-square) ![Status](https://img.shields.io/badge/Status-Completed-2E7D32?style=flat-square)
-
-![Goal](https://img.shields.io/badge/Goal-AWS%20Certified%20Solutions%20Architect%20Associate-232F3E?style=flat-square&logo=amazonaws&logoColor=white) ![Source](https://img.shields.io/badge/Escola%20da%20Nuvem%20%E2%80%93%20Turma%20C10%20OUT%20%E2%80%93%20DPCN%2019-0A66C2?style=flat-square) ![Language](https://img.shields.io/badge/Language-English-232F3E?style=flat-square)
-
-</div>
+<p align="center"><img src="https://img.shields.io/badge/Goal-AWS%20Certified%20Solutions%20Architect%20Associate-232F3E?style=flat-square&logo=amazonaws&logoColor=white" alt="Goal: AWS Certified Solutions Architect Associate"> <img src="https://img.shields.io/badge/Escola%20da%20Nuvem%20%E2%80%93%20Turma%20C10%20OUT%20%E2%80%93%20DPCN%2019-0A66C2?style=flat-square" alt="Escola da Nuvem – Turma C10 OUT – DPCN 19"> <img src="https://img.shields.io/badge/Language-English-232F3E?style=flat-square" alt="Language: English"></p>
 
 ---
 
@@ -17,173 +13,130 @@
 - [📖 About the Project](#-about-the-project)
 - [🎯 Objectives](#-objectives)
 - [🧩 Scenario](#-scenario)
-- [🏗️ Architecture](#-architecture)
+- [🏗 Architecture](#-architecture)
 - [✅ Prerequisites](#-prerequisites)
-- [📊 Results](#-results)
+- [📊 Result](#-result)
 - [🔍 Validation](#-validation)
 - [💡 Key Takeaways](#-key-takeaways)
 - [🧹 Resource Cleanup](#-resource-cleanup)
-- [☁️ AWS Services Covered](#-aws-services-covered)
+- [☁ AWS Services Covered](#-aws-services-covered)
 - [👤 Author](#-author)
 
 ---
 
 ## 📖 About the Project
 
-In this project, I **architected and deployed** an elastic, highly available web infrastructure on AWS combining a **Launch Template**, an **Auto Scaling Group (ASG)**, and an **Application Load Balancer (ALB)**. Spanning multiple Availability Zones, this architecture eliminates single points of failure while ensuring automated self-healing and load distribution.
+This lab is part of my preparation for the **AWS Certified Solutions Architect – Associate** certification and was completed in the **Escola da Nuvem** program (**Turma C10 OUT – DPCN 19**).
 
-> 💬 **A single EC2 instance is a single point of failure; with Launch Template + ASG + ALB, the application recovers on its own and traffic is shared across instances.**
+It shows how a single Amazon EFS file system can act as a central storage point that several EC2 instances use at the same time. To make the exercise feel like a real workload, the instances run **FileGator**, an open-source, PHP-based web file manager, so files can be uploaded and downloaded from a browser while the data lives in EFS instead of on any one server.
+
+FileGator is a third-party project; it is used here only as a teaching tool to demonstrate AWS concepts, and its rights belong to its authors under the project's open-source license.
+
+> 💬 *When storage lives outside the instance, any server in the fleet sees the same files.*
 
 ---
 
 ## 🎯 Objectives
 
-- 🌐 Use the default VPC in `us-east-1` and confirm its public subnets.
-- 🛡️ Create a Security Group allowing HTTP and HTTPS.
-- 📋 Create a Launch Template with a startup script (User Data) that brings up a web server.
-- 📈 Create an Auto Scaling Group spread across more than one Availability Zone.
-- ⚖️ Create an internet-facing Application Load Balancer and integrate it with the ASG.
-- 🧪 Test load balancing and check instance health.
+- 🧱 Understand the difference between block storage (EBS) and a network file system (EFS)
+- 🔐 Chain security groups so only the application instances can reach NFS
+- 🪪 Use an IAM role and Systems Manager Session Manager to reach servers without SSH keys or open admin ports
+- 📁 Create an EFS file system and understand how mount targets work
+- 🐧 Install an Apache and PHP stack on Amazon Linux 2023 with the `dnf` package manager
+- 🔗 Create symbolic links and adjust POSIX ownership and permissions
+- 🔄 Confirm that data is shared between two different servers through the same EFS
 
 ---
 
 ## 🧩 Scenario
 
-A web application must stay available even during traffic spikes or when individual instances fail. The solution defines the instance model once, lets the ASG keep the desired number of instances running, and puts the ALB in front to send traffic only to healthy instances.
+Two EC2 instances are placed in different public subnets, each in its own Availability Zone, to simulate a distributed environment. Both mount the same EFS file system, and a web file manager on each instance stores its uploaded files there.
 
-| Parameter | Value |
+| Item | Value |
 |---|---|
-| Region | `us-east-1` (N. Virginia) |
-| Network | Default VPC, with public subnets in at least 2 AZs |
-| Security Group | `SG-Lab-LucasBarretto`; inbound HTTP (80) and HTTPS (443) rules from Anywhere-IPv4; default outbound |
-| Launch Template | `LaunchTemplates_LucasBarretto` (default version 1) |
-| AMI / instance type | Amazon Linux 2023 / `t2.micro` |
-| Key pair | Not included in the template (no SSH access in this lab) |
-| Storage | Default (8 GiB) |
-| User Data | Updates packages, installs and enables Apache (httpd), and creates a page showing the instance hostname |
-| Auto Scaling Group | `ASG-LucasBarretto` |
-| Capacity (desired / min / max) | 2 / 2 / 2 |
-| Scaling policies | None |
-| Load Balancer | Application Load Balancer, internet-facing, HTTP:80 listener, new Target Group |
-| Health checks | Elastic Load Balancing health checks turned on in the ASG |
-| Instance tag | `Name = WebServerLucasBarretto` |
+| Region | US East (N. Virginia), as shown in the console screenshot |
+| Network | Default VPC, two public subnets in different AZs |
+| Web security group | `SG-EC2-<Name>`: inbound HTTP (port 80) from anywhere (IPv4) |
+| EFS security group | `SG-EFS-<Name>`: inbound NFS (port 2049) only from the web security group |
+| IAM role | `Role-EC2-SSM-<Name>` with the `AmazonSSMManagedInstanceCore` managed policy |
+| EFS file system | `EFS-<Name>`; Regional; automatic backups on; lifecycle transitions set to none; Bursting throughput |
+| Mount targets | One per AZ/subnet, each using the EFS security group instead of the default one |
+| Instances | `EC2-Web-01-<Name>` and `EC2-Web-02-<Name>`; Amazon Linux 2023; `t2.micro`; no key pair; public IP enabled; IAM role attached |
+| EFS mount on the instances | `/mnt/efs`, configured during instance launch |
+| Shared folder | `/mnt/efs/arquivos` |
+| Application | FileGator served by Apache on port 80; its `repository` folder is a symbolic link to the shared EFS folder |
+| Optional challenge | Create a custom AMI from the configured instance and launch a third instance from it |
 
 ---
 
-## 🏗️ Architecture
+## 🏗 Architecture
 
 ```mermaid
 flowchart TB
-    U["👤 User<br/>(Internet)"] -->|"HTTP :80"| IGW["🚪 Internet Gateway"]
-    subgraph VPC["🌐 Default VPC – us-east-1"]
-        IGW --> ALB["⚖️ Application Load Balancer<br/>internet-facing"]
-        ALB --> TG["🎯 Target Group<br/>health checks"]
-        subgraph AZA["📍 Availability Zone A"]
-            EC1["🖥️ EC2 Web 1<br/>t2.micro + Apache"]
+    U["👤 User browser"] --> IGW["🚪 Internet Gateway"]
+
+    subgraph VPC["☁️ Default VPC"]
+        subgraph AZA["Availability Zone A"]
+            subgraph PUBA["🟢 Public subnet 1"]
+                EC1["🖥️ EC2-Web-01<br/>Apache + FileGator"]
+                MT1["🔗 EFS mount target"]
+            end
         end
-        subgraph AZB["📍 Availability Zone B"]
-            EC2["🖥️ EC2 Web 2<br/>t2.micro + Apache"]
+        subgraph AZB["Availability Zone B"]
+            subgraph PUBB["🟢 Public subnet 2"]
+                EC2["🖥️ EC2-Web-02<br/>Apache + FileGator"]
+                MT2["🔗 EFS mount target"]
+            end
         end
-        TG --> EC1
-        TG --> EC2
-        LT["📋 Launch Template"] -.->|"model"| ASG["📈 Auto Scaling Group<br/>desired 2 / min 2 / max 2"]
-        ASG -.->|"creates and maintains"| EC1
-        ASG -.->|"creates and maintains"| EC2
-        SG["🛡️ Security Group<br/>HTTP / HTTPS"] -.-> EC1
-        SG -.-> EC2
     end
+
+    EFS[("📁 Amazon EFS (Regional)")]
+    SSM["🛠️ Systems Manager<br/>Session Manager"]
+
+    IGW --> EC1
+    IGW --> EC2
+    EC1 --> MT1 --> EFS
+    EC2 --> MT2 --> EFS
+    SSM -. terminal access .-> EC1
+    SSM -. terminal access .-> EC2
 ```
 
-Users reach the Application Load Balancer's DNS name over the internet. The ALB receives the request on the HTTP:80 listener and forwards it, through the Target Group, to one of the healthy instances. The instances are launched by the Auto Scaling Group from the Launch Template, in subnets of different Availability Zones: if an instance fails, the ASG replaces it, and the ALB stops sending traffic to it while the health check reports a problem. Each instance shows its own hostname, which makes the rotation visible when refreshing the page.
+Users reach each instance through the internet gateway on port 80. On each server, Apache serves FileGator, and the FileGator `repository` path is redirected with a symbolic link to `/mnt/efs/arquivos`. That directory belongs to the EFS file system, which each instance reaches through the mount target in its own subnet, protected by a security group that only accepts NFS traffic from the web instances. Administrators open a terminal on the servers through Session Manager, so no SSH port or key pair is required.
 
 ---
 
 ## ✅ Prerequisites
 
-- ☁️ An active AWS account.
-- 🔑 IAM permissions: `AmazonEC2FullAccess`, `AmazonEC2AutoScalingFullAccess` and `ElasticLoadBalancingFullAccess`.
-- 🌍 AWS Console with the **N. Virginia (`us-east-1`)** region selected.
-- 💻 A web browser.
+- 🎓 An AWS account or lab environment provided by the Escola da Nuvem program
+- 🧠 Basic Linux command-line knowledge and familiarity with EC2, VPC and IAM
+- 🌐 A browser to reach the instances' public IP addresses
+- 📂 A test file on your computer to upload through FileGator
 
-> 💡 **Architectural Note:** The environment was deployed following Well-Architected Framework best practices for reliability and fault tolerance, distributing compute capacity and load balancers across distinct Availability Zones (`us-east-1a` and `us-east-1b`).
+> ⚠️ **Warning:** if the lab runs in a training environment, permissions may be limited and some actions (such as creating IAM roles) may be restricted or fail. Whatever the environment, avoid leaving open permissions such as `777` in real workloads.
 
 ---
 
-## 📊 Results
+## 📊 Result
 
-### 🌐 VPC and Subnets
+### EFS file system created
 
-The VPC *Resource map* used in the lab shows the network, its subnets, the route table and the internet connection.
-
-<div align="center">
-
-![VPC resource map with 6 subnets in zones us-east-1a to us-east-1f, 1 route table and 1 network connection to an Internet Gateway](docs/images/vpc_diagram.png)
-
-*Figure 1: VPC resource map, with 6 subnets (us-east-1a to us-east-1f), 1 route table and 1 network connection (igw-…).*
-
-</div>
-
-### 🛡️ Security Group
-
-### Security Group
+The EFS details page confirms the file system was created and is ready to be mounted by the instances.
 
 <div align="center">
-
-![Security Group showing the HTTP and HTTPS inbound rules.](docs/images/SG-Lab-LucasBarretto.png)
-
-*Figure 2: Security Group showing the HTTP and HTTPS inbound rules*
-
+  <img src="docs/images/LB_EFS.png" alt="Details page of the file system EFS-LucasBarretto in the Amazon EFS console, showing General Purpose performance, Bursting throughput, Regional availability, automatic backups enabled, state Available and a metered size of 2.05 MiB" width="900">
 </div>
 
-### 📋 Launch Template
+<p align="center"><i>Figure 1: Amazon EFS console showing the EFS-LucasBarretto file system in US East (N. Virginia), in the Available state, with General Purpose performance mode, Bursting throughput mode, Regional availability, lifecycle transitions set to None, automatic backups enabled and 2.05 MiB of metered size (the account ID was masked).</i></p>
 
-The Launch Template was created with version 1 as default and defines the AMI and instance type used by the ASG.
+### FileGator users panel
+
+The FileGator administration area lists the application's user accounts.
 
 <div align="center">
-
-![Details of the LaunchTemplates_LucasBarretto launch template, with default version 1, AMI and t2.micro instance type](docs/images/LaunchTemplates_LucasBarretto.png)
-
-*Figure 3: Launch Template `LaunchTemplates_LucasBarretto`, with default and latest version 1, an AMI set and instance type `t2.micro`.*
-
+  <img src="docs/images/LB_FileGator.png" alt="FileGator users list with three accounts: a standard user with read, write, upload, download, batch download, zip and chmod permissions, a guest account with no permissions and an admin account with the same permissions as the standard user" width="900">
 </div>
 
-### 📈 Auto Scaling Group
-
-The ASG was created with desired capacity 2 and scaling limits 2–2, using the Launch Template above.
-
-<div align="center">
-
-![Details of the ASG-LucasBarretto Auto Scaling Group with desired capacity 2, limits 2 to 2, status Updating capacity and 1 of 1 healthy instance](docs/images/ASG-LucasBarretto.png)
-
-*Figure 4: Auto Scaling Group `ASG-LucasBarretto`, captured with status "Updating capacity": desired capacity 2, limits 2–2 and 1 instance (1/1 healthy) already running.*
-
-</div>
-
-### ⚖️ Application Load Balancer
-
-The Load Balancer was created together with the ASG, during the creation wizard.
-
-<div align="center">
-
-![Details of the ASG-LucasBarretto-1 Application Load Balancer, active, internet-facing, spread across two Availability Zones](docs/images/ASG-LucasBarretto-1.png)
-
-*Figure 5: Load Balancer `ASG-LucasBarretto-1`, of type Application, internet-facing, with state Active, IPv4 and two Availability Zones (us-east-1f and us-east-1c).*
-
-</div>
-
-### 🧪 Load Balancing Test
-
-<div align="center">
-
-![Browser accessing the Load Balancer's DNS name, showing the page served by the first instance.](docs/images/LoadBalancing-Test-1.png)
-
-*Browser accessing the Load Balancer's DNS name, showing the page served by the first instance.*
-
-![Browser accessing the Load Balancer's DNS name after refreshing, showing the page served by a different instance.](docs/images/LoadBalancing-Test-2.png)
-
-*Figure 7: Browser accessing the Load Balancer's DNS name after refreshing, showing the page served by a different instance.*
-
-</div>
+<p align="center"><i>Figure 2: FileGator users page listing three accounts: a regular user and the admin, both with read, write, upload, download, batchdownload, zip and chmod permissions, and a guest account with no permissions.</i></p>
 
 ---
 
@@ -191,50 +144,41 @@ The Load Balancer was created together with the ASG, during the creation wizard.
 
 | ✔️ | Item | Expected result |
 |---|---|---|
-| ✔️ | Default VPC in `us-east-1` | Subnets across several AZs and a route to an Internet Gateway (Figure 1) |
-| ✔️ | Security Group | HTTP and HTTPS inbound allowed from Anywhere-IPv4 |
-| ✔️ | Launch Template | Created with default version 1 and a `t2.micro` instance (Figure 2) |
-| ✔️ | Auto Scaling Group | Desired, minimum and maximum capacity all equal to 2 (Figure 3) |
-| ✔️ | Instances | Healthy in the ASG and in the Target Group after about 5 minutes |
-| ✔️ | Application Load Balancer | State Active, internet-facing, in 2 AZs (Figure 4) |
-| ✔️ | Access through the ALB DNS name | The "Servidor Web" page is shown and the hostname changes on refresh |
+| ✔️ | Security groups | Web group allows HTTP; EFS group allows NFS only from the web group |
+| ✔️ | IAM role | Role with the Systems Manager managed policy exists and is attached to both instances |
+| ✔️ | EFS file system | Available, with a mount target in each AZ using the EFS security group |
+| ✔️ | EFS mount on the server | `df -h` shows the file system mounted on `/mnt/efs` |
+| ✔️ | Apache | Service enabled and reported as active (running) |
+| ✔️ | Symbolic link | FileGator's `repository` entry points to `/mnt/efs/arquivos` |
+| ✔️ | FileGator | Login page loads at the instance's public IP |
+| ✔️ | Persistence | A file uploaded in the browser is listed in the EFS directory from the terminal |
+| ✔️ | Sharing | The same file appears when logging in to FileGator on the second instance |
 
 ---
 
 ## 💡 Key Takeaways
 
-- 🏠 **Launch Template as a "recipe":** defines AMI, type, Security Group and User Data once, ensuring identical instances.
-- 🔁 **ASG maintains capacity:** if an instance fails, it launches another; with equal minimum and maximum the group stays fixed, but is ready for scaling policies.
-- 🌍 **Subnets in different AZs:** this is what delivers high availability, since losing one zone does not take everything down.
-- ⚖️ **ALB distributes and checks health:** it only sends traffic to healthy targets registered in the Target Group.
-- 🩺 **ELB health checks in the ASG:** let the load balancer tell the ASG to replace instances that stop responding.
-- 🧰 **User Data automates setup:** every new instance is born with the web server ready.
-- 🧠 **Relevance for the exam:** a recurring SAA theme — high availability and elasticity with ASG + ELB across multiple AZs, ALB for HTTP/HTTPS (layer 7) traffic with Target Groups and health checks, and Launch Templates to define the ASG's instances.
+- 💾 **EBS vs. EFS:** EBS is block storage attached to one instance; EFS is a shared NFS file system that many instances in different AZs can mount.
+- 🔗 **Security group chaining:** referencing a security group as the source, instead of an IP range, restricts NFS to the intended instances only.
+- 🪪 **No SSH needed:** an IAM role plus Session Manager gives terminal access without key pairs or an open port 22.
+- 📍 **Mount targets:** they are network interfaces in each subnet, and their security group decides who can connect.
+- 🔀 **Symlinks redirect I/O:** pointing the application's data folder to EFS made uploads land in shared storage with no code change.
+- 🛡️ **Permissions in practice:** `777` is convenient for a lab but should be replaced by a specific owner and tighter permissions in production.
+- 🧠 **Relevance for the exam:** choosing EFS vs. EBS vs. S3, EFS performance and throughput modes, Regional vs. One Zone, mount targets, security group design and Systems Manager access are common topics in the AWS Certified Solutions Architect – Associate exam.
+
 
 ---
 
-## 🧹 Resource Cleanup
+## ☁ AWS Services Covered
 
-To ensure disciplined cloud financial management (FinOps) and clean resource teardown, the decommissioning sequence executed was:
-
-- [ ] Delete the **Auto Scaling Group** (this automatically terminates the EC2 instances it manages)
-- [ ] Delete the **Load Balancer**
-- [ ] Delete the **Target Group**
-- [ ] Delete the **Launch Template**
-- [ ] Delete the **Security Group**
-
----
-
-## ☁️ AWS Services Covered
-
-![EC2](https://img.shields.io/badge/Amazon%20EC2-FF9900?style=flat-square&logo=amazonaws&logoColor=white) ![Auto Scaling](https://img.shields.io/badge/EC2%20Auto%20Scaling-FF9900?style=flat-square&logo=amazonaws&logoColor=white) ![ELB](https://img.shields.io/badge/Elastic%20Load%20Balancing-8C4FFF?style=flat-square&logo=amazonaws&logoColor=white) ![VPC](https://img.shields.io/badge/Amazon%20VPC-8C4FFF?style=flat-square&logo=amazonaws&logoColor=white)
+<p align="center"><img src="https://img.shields.io/badge/Amazon%20EFS-569A31?style=flat-square&logo=amazonaws&logoColor=white" alt="Amazon EFS"> <img src="https://img.shields.io/badge/Amazon%20EC2-FF9900?style=flat-square&logo=amazonec2&logoColor=white" alt="Amazon EC2"> <img src="https://img.shields.io/badge/AWS%20IAM-DD344C?style=flat-square&logo=amazonaws&logoColor=white" alt="AWS IAM"> <img src="https://img.shields.io/badge/Systems%20Manager-232F3E?style=flat-square&logo=amazonaws&logoColor=white" alt="AWS Systems Manager"></p>
 
 | Service | Role in the lab |
 |---|---|
-| Amazon EC2 | Runs the web servers and hosts Launch Templates and Security Groups |
-| Amazon EC2 Auto Scaling | Creates and maintains the desired number of instances, replacing failed ones |
-| Elastic Load Balancing (ALB) | Distributes traffic across healthy instances through a Target Group |
-| Amazon VPC | Provides the default network, public subnets and internet access |
+| Amazon EFS | Shared, elastic NFS storage mounted by both instances |
+| Amazon EC2 | Web servers running Apache and FileGator (security groups and AMI included) |
+| AWS IAM | Role that lets the instances register with Systems Manager |
+| AWS Systems Manager | Session Manager terminal access without SSH keys |
 
 ---
 
@@ -242,12 +186,8 @@ To ensure disciplined cloud financial management (FinOps) and clean resource tea
 
 **Lucas Barretto**
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Lucas%20Barretto-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/lucaspimentabarretto) [![GitHub](https://img.shields.io/badge/GitHub-lbarretto-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/lbarretto)
+<p><a href="https://www.linkedin.com/in/lucaspimentabarretto"><img src="https://img.shields.io/badge/LinkedIn-Lucas%20Barretto-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a> <a href="https://github.com/lbarretto"><img src="https://img.shields.io/badge/GitHub-lbarretto-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub"></a></p>
 
 ---
 
-<div align="center">
-
-Lab completed as part of the Escola da Nuvem program, Class C10 OUT – DPCN 19 🚀
-
-</div>
+<p align="center">Lab completed as part of the Escola da Nuvem program, Turma C10 OUT – DPCN 19 🚀</p>

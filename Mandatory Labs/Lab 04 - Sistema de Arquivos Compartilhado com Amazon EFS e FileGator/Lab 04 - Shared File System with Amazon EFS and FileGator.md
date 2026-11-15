@@ -1,4 +1,4 @@
-<h1 align="center">🗂️ Lab – Shared File System with Amazon EFS and FileGator</h1>
+<h1 align="center">🗂️ Shared File System with Amazon EFS and FileGator</h1>
 
 <p align="center"><b>Hands-on lab: one Amazon EFS file system shared by two EC2 instances running a web file manager</b></p>
 
@@ -163,18 +163,6 @@ The FileGator administration area lists the application's user accounts.
 - 🔀 **Symlinks redirect I/O:** pointing the application's data folder to EFS made uploads land in shared storage with no code change.
 - 🛡️ **Permissions in practice:** `777` is convenient for a lab but should be replaced by a specific owner and tighter permissions in production.
 - 🧠 **Relevance for the exam:** choosing EFS vs. EBS vs. S3, EFS performance and throughput modes, Regional vs. One Zone, mount targets, security group design and Systems Manager access are common topics in the AWS Certified Solutions Architect – Associate exam.
-
----
-
-## 🧹 Resource Cleanup
-
-The resources created in this lab have not yet been confirmed as deleted. Checklist:
-
-- [ ] Terminate the EC2 instances `EC2-Web-01` and `EC2-Web-02` (and the third one, if the optional challenge was done)
-- [ ] If a custom AMI was created, deregister it and also delete its associated snapshots (they generate cost)
-- [ ] Delete the EFS file system `EFS-<Name>`
-- [ ] Delete the security groups `SG-EFS-<Name>` and `SG-EC2-<Name>` once nothing uses them
-- [ ] Delete the IAM role `Role-EC2-SSM-<Name>`
 
 ---
 

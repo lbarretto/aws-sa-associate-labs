@@ -141,16 +141,6 @@ Saída do comando `aws sts get-caller-identity` executado no CloudShell, que ret
 
 ---
 
-## 🧹 Limpeza dos Recursos
-
-Ao final, todos os recursos criados foram removidos:
-
-- 🗑️ Ambiente do **CloudShell** excluído
-- 🗑️ **Role IAM** do laboratório excluída
-- 🧽 Credenciais temporárias removidas ou comentadas nos arquivos de configuração do AWS CLI
-
----
-
 ## ☁️ Serviços Abordados
 
 ![AWS STS](https://img.shields.io/badge/AWS-STS-DD344C?style=flat-square&logo=amazonaws&logoColor=white) ![AWS IAM](https://img.shields.io/badge/AWS-IAM-DD344C?style=flat-square&logo=amazonaws&logoColor=white) ![AWS CloudShell](https://img.shields.io/badge/AWS-CloudShell-232F3E?style=flat-square&logo=amazonaws&logoColor=white) ![Amazon S3](https://img.shields.io/badge/Amazon-S3-569A31?style=flat-square&logo=amazons3&logoColor=white) ![AWS Lambda](https://img.shields.io/badge/AWS-Lambda-FF9900?style=flat-square&logo=awslambda&logoColor=white)

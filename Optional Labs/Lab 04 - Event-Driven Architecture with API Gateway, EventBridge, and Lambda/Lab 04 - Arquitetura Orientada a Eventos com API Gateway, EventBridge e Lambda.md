@@ -150,16 +150,6 @@ Depois de conectar todos os componentes, a aplicação web de teste recebeu a UR
 
 ---
 
-## 🧹 Encerramento do Lab
-
-O ambiente do lab é encerrado pela página do lab no Skill Builder. Marque cada item após concluí-lo:
-
-- [ ] Sair do console da AWS (menu do usuário → Sign out)
-- [ ] Escolher **End Lab** na página do lab e confirmar
-- [ ] Confirmar que os recursos temporários do lab (funções, barramento, APIs, servidor web) não estão mais disponíveis
-
----
-
 ## ☁️ Serviços Abordados
 
 ![API Gateway](https://img.shields.io/badge/API%20Gateway-FF4F8B?style=flat-square&logo=amazonapigateway&logoColor=white) ![Amazon EventBridge](https://img.shields.io/badge/Amazon%20EventBridge-E7157B?style=flat-square&logo=amazonaws&logoColor=white) ![AWS Lambda](https://img.shields.io/badge/AWS%20Lambda-FF9900?style=flat-square&logo=awslambda&logoColor=white) ![Amazon DynamoDB](https://img.shields.io/badge/Amazon%20DynamoDB-4053D6?style=flat-square&logo=amazondynamodb&logoColor=white)

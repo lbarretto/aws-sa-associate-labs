@@ -175,17 +175,6 @@ Logging configuration of the main bucket, pointing to the destination bucket.
 
 ---
 
-## 🧹 Resource Cleanup
-
-To avoid unnecessary charges, the resources created in the lab should be removed at the end:
-
-- [ ] Empty and delete the **main bucket** (`bucket-edn-<your-name>`), including all object versions
-- [ ] Empty and delete the **logs bucket** (`s3-access-logs-<your-name>`)
-
-> 💡 In versioned buckets, old object versions must also be removed before the bucket can be deleted.
-
----
-
 ## ☁️ AWS Services Covered
 
 ![Amazon S3](https://img.shields.io/badge/Amazon-S3-569A31?style=flat-square&logo=amazons3&logoColor=white) ![S3 Versioning](https://img.shields.io/badge/S3-Versioning-569A31?style=flat-square&logo=amazons3&logoColor=white) ![S3 Lifecycle](https://img.shields.io/badge/S3-Lifecycle-569A31?style=flat-square&logo=amazons3&logoColor=white) ![S3 Glacier](https://img.shields.io/badge/S3-Glacier%20Instant%20Retrieval-569A31?style=flat-square&logo=amazons3&logoColor=white) ![S3 Server Access Logging](https://img.shields.io/badge/S3-Server%20Access%20Logging-569A31?style=flat-square&logo=amazons3&logoColor=white)

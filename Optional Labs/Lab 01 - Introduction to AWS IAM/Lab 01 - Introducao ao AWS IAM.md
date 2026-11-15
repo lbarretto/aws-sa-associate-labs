@@ -149,15 +149,6 @@ Ao final do laboratório, cada usuário se comportou conforme as permissões her
 
 ---
 
-## 🧹 Encerramento do Laboratório
-
-O ambiente do laboratório é temporário e gerenciado pelo Skill Builder. Para finalizar:
-
-- 🚪 Sair do console da AWS
-- 🛑 Usar **End Lab** na página do laboratório e confirmar o encerramento
-
----
-
 ## ☁️ Serviços Abordados
 
 ![AWS IAM](https://img.shields.io/badge/AWS-IAM-DD344C?style=flat-square&logo=amazonaws&logoColor=white) ![Amazon EC2](https://img.shields.io/badge/Amazon-EC2-FF9900?style=flat-square&logo=amazonec2&logoColor=white) ![Amazon S3](https://img.shields.io/badge/Amazon-S3-569A31?style=flat-square&logo=amazons3&logoColor=white)

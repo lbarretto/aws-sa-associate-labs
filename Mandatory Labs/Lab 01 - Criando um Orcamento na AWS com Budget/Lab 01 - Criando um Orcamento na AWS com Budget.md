@@ -126,14 +126,6 @@ Validação dos parâmetros configurados no console:
 
 ---
 
-## 🧹 Limpeza e Observações de Custo
-
-- ✅ A criação do orçamento neste laboratório faz parte da configuração do curso, e **o orçamento é mantido** para monitorar recursos durante a capacitação.
-- 🔌 Ao receber um alerta, verifique se há **recursos ligados** para evitar cobranças desnecessárias.
-- 💲 Consulte sempre os preços atuais da AWS e as condições do nível gratuito da sua conta.
-
----
-
 ## ☁️ Serviços Abordados
 
 ![AWS Budgets](https://img.shields.io/badge/AWS-Budgets-FF9900?style=flat-square&logo=amazonaws&logoColor=white) ![Amazon SNS](https://img.shields.io/badge/Amazon-SNS-E7157B?style=flat-square&logo=amazonaws&logoColor=white) ![AWS Management Console](https://img.shields.io/badge/AWS-Management%20Console-232F3E?style=flat-square&logo=amazonaws&logoColor=white)

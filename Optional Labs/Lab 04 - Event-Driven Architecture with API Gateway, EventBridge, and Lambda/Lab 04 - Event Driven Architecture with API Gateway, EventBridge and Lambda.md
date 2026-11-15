@@ -148,15 +148,6 @@ After wiring everything together, the test web app received the HTTP API URL and
 - 🔌 **WebSocket for push:** a persistent connection lets the backend send events to the browser; the connection ID must be stored so it can be found later (here, in DynamoDB).
 - 🧠 **Relevance for the exam:** EventBridge rules and buses, API Gateway API types, serverless integration and loosely coupled, event-driven designs are frequent Solutions Architect Associate topics.
 
----
-
-## 🧹 Lab Wrap-Up
-
-The lab environment is closed through the Skill Builder lab page. Mark each item once done:
-
-- [ ] Sign out of the AWS console (user menu → Sign out)
-- [ ] Choose **End Lab** on the lab page and confirm
-- [ ] Confirm that the temporary lab resources (functions, bus, APIs, web server) are no longer available
 
 ---
 

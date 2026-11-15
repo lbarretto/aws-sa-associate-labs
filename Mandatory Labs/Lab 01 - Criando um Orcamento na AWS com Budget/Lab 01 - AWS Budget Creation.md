@@ -126,14 +126,6 @@ Validation of the parameters configured in the console:
 
 ---
 
-## 🧹 Cleanup and Cost Notes
-
-- ✅ Creating a budget in this lab is part of the course setup, and **the budget is kept** to monitor resources throughout the training.
-- 🔌 When an alert arrives, check for **resources left running** to avoid unnecessary charges.
-- 💲 Always review current AWS pricing and Free Tier terms for your account.
-
----
-
 ## ☁️ AWS Services Covered
 
 ![AWS Budgets](https://img.shields.io/badge/AWS-Budgets-FF9900?style=flat-square&logo=amazonaws&logoColor=white) ![Amazon SNS](https://img.shields.io/badge/Amazon-SNS-E7157B?style=flat-square&logo=amazonaws&logoColor=white) ![AWS Management Console](https://img.shields.io/badge/AWS-Management%20Console-232F3E?style=flat-square&logo=amazonaws&logoColor=white)

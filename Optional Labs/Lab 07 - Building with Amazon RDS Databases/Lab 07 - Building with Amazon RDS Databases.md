@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🗄️ Lab 08 – Building with Amazon RDS Databases
+# 🗄️ Building with Amazon RDS Databases
 
 **Multi-AZ RDS MySQL, Secrets Manager with automatic rotation, SSL/TLS connection and failover testing**
 

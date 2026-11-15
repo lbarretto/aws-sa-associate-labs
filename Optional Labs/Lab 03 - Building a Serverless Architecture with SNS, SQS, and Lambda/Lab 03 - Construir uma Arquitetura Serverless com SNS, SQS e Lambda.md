@@ -156,16 +156,6 @@ Este laboratório foi documentado sem prints, então os resultados estão resumi
 
 ---
 
-## 🧹 Encerramento do Laboratório
-
-O ambiente do laboratório é encerrado pela página do lab no Skill Builder. Marque cada item quando concluir:
-
-- [ ] Sair do console da AWS (menu do usuário → Sign out)
-- [ ] Escolher **End Lab** na página do laboratório e confirmar
-- [ ] Confirmar que os recursos temporários do lab (tópico, filas, funções, bucket) não estão mais disponíveis
-
----
-
 ## ☁️ Serviços Abordados
 
 ![Amazon SNS](https://img.shields.io/badge/Amazon%20SNS-E7157B?style=flat-square&logo=amazonaws&logoColor=white) ![Amazon SQS](https://img.shields.io/badge/Amazon%20SQS-FF4F8B?style=flat-square&logo=amazonaws&logoColor=white) ![AWS Lambda](https://img.shields.io/badge/AWS%20Lambda-FF9900?style=flat-square&logo=awslambda&logoColor=white) ![Amazon S3](https://img.shields.io/badge/Amazon%20S3-569A31?style=flat-square&logo=amazons3&logoColor=white) ![CloudWatch](https://img.shields.io/badge/CloudWatch%20Logs-232F3E?style=flat-square&logo=amazonaws&logoColor=white)

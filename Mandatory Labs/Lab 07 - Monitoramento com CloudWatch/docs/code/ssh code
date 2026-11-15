@@ -1,0 +1,66 @@
+sh-5.2$ sudo dnf update -y
+
+# Atualizar o sistema
+sudo dnf update -y
+
+# Instalar o stress-ng (versão mais completa do stress)
+sudo dnf install stress-ng -y
+
+# Executar o stress-ng (8 CPUs por 600 segundos com métricas detalhadas)
+stress-ng --cpu 8 --timeout 600s --metricsAmazon Linux 2023 Kernel Livepatch repository                                                                    [===                                                                                                 Amazon Linux 2023 Kernel Livepatch repository                                                                                                                                                                                   897 kB/s |  89 kB     00:00    
+Dependencies resolved.
+Nothing to do.
+Complete!
+sh-5.2$ sudo dnf install stress-ng -y
+Last metadata expiration check: 0:00:09 ago on Fri Nov  6 22:25:09 2026.
+Dependencies resolved.
+================================================================================================================================================================================================================================================================
+ Package                                                      Architecture                                           Version                                                                  Repository                                                   Size
+================================================================================================================================================================================================================================================================
+Installing:
+ stress-ng                                                    x86_64                                                 0.15.05-1.amzn2023                                                       amazonlinux                                                 2.3 M
+Installing dependencies:
+ Judy                                                         x86_64                                                 1.0.5-25.amzn2023.0.3                                                    amazonlinux                                                 153 k
+ libbsd                                                       x86_64                                                 0.10.0-7.amzn2023.0.2                                                    amazonlinux                                                 109 k
+ lksctp-tools                                                 x86_64                                                 1.0.18-9.amzn2023.0.3                                                    amazonlinux                                                  92 k
+
+Transaction Summary
+================================================================================================================================================================================================================================================================
+Install  4 Packages
+
+Total download size: 2.7 M
+Installed size: 9.7 M
+Downloading Packages:
+(1/4): Judy-1.0.5-25.amzn2023.0.3.x86_64.rpm                                                                                                                                                                                    6.1 MB/s | 153 kB     00:00    
+(2/4): lksctp-tools-1.0.18-9.amzn2023.0.3.x86_64.rpm                                                                                                                                                                            3.6 MB/s |  92 kB     00:00    
+(3/4): libbsd-0.10.0-7.amzn2023.0.2.x86_64.rpm                                                                                                                                                                                  3.9 MB/s | 109 kB     00:00    
+(4/4): stress-ng-0.15.05-1.amzn2023.x86_64.rpm                                                                                                                                                                                   22 MB/s | 2.3 MB     00:00    
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                                                                                            15 MB/s | 2.7 MB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                                                                                                                                                                        1/1 
+  Installing       : lksctp-tools-1.0.18-9.amzn2023.0.3.x86_64                                                                                                                                                                                              1/4 
+  Installing       : libbsd-0.10.0-7.amzn2023.0.2.x86_64                                                                                                                                                                                                    2/4 
+  Installing       : Judy-1.0.5-25.amzn2023.0.3.x86_64                                                                                                                                                                                                      3/4 
+  Installing       : stress-ng-0.15.05-1.amzn2023.x86_64                                                                                                                                                                                                    4/4 
+  Running scriptlet: stress-ng-0.15.05-1.amzn2023.x86_64                                                                                                                                                                                                    4/4 
+  Verifying        : Judy-1.0.5-25.amzn2023.0.3.x86_64                                                                                                                                                                                                      1/4 
+  Verifying        : libbsd-0.10.0-7.amzn2023.0.2.x86_64                                                                                                                                                                                                    2/4 
+  Verifying        : lksctp-tools-1.0.18-9.amzn2023.0.3.x86_64                                                                                                                                                                                              3/4 
+  Verifying        : stress-ng-0.15.05-1.amzn2023.x86_64                                                                                                                                                                                                    4/4 
+
+Installed:
+  Judy-1.0.5-25.amzn2023.0.3.x86_64                           libbsd-0.10.0-7.amzn2023.0.2.x86_64                           lksctp-tools-1.0.18-9.amzn2023.0.3.x86_64                           stress-ng-0.15.05-1.amzn2023.x86_64                          
+
+Complete!
+sh-5.2$ stress-ng --cpu 8 --timeout 600s --metrics
+aborting: temp-path '.' must be readable and writeable
+sh-5.2$ stress-ng --cpu 8 --timeout 600s --metrics
+aborting: temp-path '.' must be readable and writeable
+sh-5.2$ sudo stress-ng --cpu 8 --timeout 600s --metrics
+stress-ng: info:  [26325] setting to a 600 second (10 mins, 0.00 secs) run per stressor
+stress-ng: info:  [26325] dispatching hogs: 8 cpu

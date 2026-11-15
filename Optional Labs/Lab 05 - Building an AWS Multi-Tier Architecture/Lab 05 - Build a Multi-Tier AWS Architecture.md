@@ -194,19 +194,6 @@ No screenshots have been attached to this README yet. The table below lists the 
 - ❤️ **Health checks matter:** the ALB health check path, thresholds and the ASG grace period directly affect when an instance receives traffic or is replaced.
 - 🧠 **Relevance for the exam:** high availability with multiple AZs, public vs. private subnets and NAT, Aurora replicas, EFS vs. EBS, ALB with Auto Scaling and target tracking policies are recurring themes in the AWS Certified Solutions Architect – Associate exam.
 
----
-
-## 🧹 Resource Cleanup
-
-The resources created in this lab have not yet been confirmed as deleted. Checklist:
-
-- [ ] Delete the Auto Scaling group `WP-ASG`
-- [ ] Delete the load balancer `myWPAppALB` and the target group `myWPTargetGroup`
-- [ ] Delete the `WPLaunchConfigStack` stack
-- [ ] Delete the Aurora cluster `MyDBCluster` and the `AuroraSubnetGroup` subnet group
-- [ ] Delete the EFS file system `myWPEFS`
-- [ ] Delete the `VPCStack` stack
-- [ ] Sign out of the console and select **End Lab** in the lab page
 
 ---
 
